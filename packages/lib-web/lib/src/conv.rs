@@ -1,14 +1,13 @@
 use js_sys::Error;
 use js_sys::{Array, ArrayBuffer, Object, Reflect, Uint8Array};
+use serde::Serialize;
 use serde_json::Value;
-use wasm_bindgen::{prelude::*, JsCast};
+use tvm_types::{base64_decode, base64_encode};
+use wasm_bindgen::{JsCast, JsValue};
 use web_sys::Blob;
 
-extern crate base64;
-
-use crate::ser::Serializer;
+use crate::ser::ser::Serializer;
 use crate::RequestOptions;
-use serde::ser::Serialize;
 
 type Path = Vec<String>;
 type Blobs = Vec<(Path, Vec<u8>)>;
@@ -73,7 +72,7 @@ fn replace_strings_with_placeholders_recursive(
             }
         }
         Value::String(s) if is_field_binary(function_name, path) => {
-            let bytes = base64::decode(s).map_err(|err| Error::new(&err.to_string()[..]))?;
+            let bytes = base64_decode(s).map_err(|err| Error::new(&err.to_string()[..]))?;
             blobs.push((path.clone(), bytes));
             *value = Value::Null;
         }
@@ -180,7 +179,7 @@ fn replace_placeholder_with_string(
 ) -> Result<(), Error> {
     match path {
         [] => {
-            *root = base64::encode(bytes).into();
+            *root = base64_encode(bytes).into();
             Ok(())
         }
         [key, ..] => {

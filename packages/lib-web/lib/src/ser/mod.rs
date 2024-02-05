@@ -1,11 +1,11 @@
+use js_sys::wasm_bindgen::prelude::wasm_bindgen;
 use js_sys::JsString;
-use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
 
 mod error;
-mod ser;
+pub mod ser;
 
-pub use error::Error;
-pub use ser::Serializer;
+use self::error::Error;
 
 type Result<T> = std::result::Result<T, Error>;
 
@@ -51,7 +51,7 @@ fn static_str_to_js(s: &'static str) -> JsString {
     })
 }
 
-/// Custom bindings to avoid using fallible `Reflect` for plain objects.
+// Custom bindings to avoid using fallible `Reflect` for plain objects.
 #[wasm_bindgen]
 extern "C" {
     type ObjectExt;

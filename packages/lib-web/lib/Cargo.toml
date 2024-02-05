@@ -1,9 +1,10 @@
 [package]
-name = 'ever_sdk_wasm_module'
-version = '1.41.0'
-edition = '2018'
-description = 'TON Client WASM binding'
-license = 'Apache-2.0'
+resolver = "2"
+name = 'tvm_sdk_wasm_module'
+version = '1.46.0'
+rust-version = "1.75.0"
+edition = "2021"
+description = 'TVM Client WASM binding'
 
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = [ '-Os' ]
@@ -13,25 +14,26 @@ lto = true
 opt-level = 's'
 
 [lib]
-name = 'eversdk'
+name = 'tvmsdk'
 crate-type = [ 'staticlib', 'cdylib' ]
 
 [dependencies]
-js-sys = '0.3.57'
-wasm-bindgen = '=0.2.84'
-serde-wasm-bindgen = '0.4.3'
-serde = { features = [ 'derive' ], version = '1.0' }
-serde_json = '1.0.81'
-base64 = '0.13.0'
-lazy_static = '1.4.0'
+js-sys = "0.3.67"
+wasm-bindgen = "0.2.90"
+serde-wasm-bindgen = "0.6.3"
+serde = { features = [ 'derive' ], version = "1.0.196" }
+serde_json = "1.0.113"
+base64 = "0.21.7"
+lazy_static = "1.4.0"
 # We need to build getrandom with fature "js" even though we don't use it by ourselves,
 # just to fix building of rand for WASM:
-getrandom = { default-features = false, features = [ 'js' ], version = '0.2.2' }
+getrandom = { default-features = false, features = [ 'js' ], version = "0.2.12" }
 
-ton_client = { default-features = false, features = [ 'wasm' ], git = 'https://github.com/tonlabs/ever-sdk.git', tag = '1.45.0' }
+tvm_types = { git = 'https://github.com/tvmlabs/tvm-types', tag = "3.0.1" }
+tvm_client = { default-features = false, features = [ 'wasm' ], git = 'https://github.com/tvmlabs/tvm-sdk', branch = 'rc-1.46.0' }
 
 [dependencies.web-sys]
-version = '0.3.57'
+version = "0.3.67"
 features = [ 'Blob' ]
 
 # The recrypt Ed25519 library that we use (https://github.com/dalek-cryptography/ed25519-dalek) depends on this clear_on_drop
@@ -39,5 +41,5 @@ features = [ 'Blob' ]
 # work in WASM. However, they have a feature to turn off requiring C which we're enabling here. This allows our WASM bindings to enable
 # this feature without having to change the default for our recrypt-rust crate.
 [dependencies.clear_on_drop]
-version = '0.2'
+version = "0.2.5"
 features = [ 'no_cc' ]

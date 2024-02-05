@@ -3,7 +3,8 @@ use serde::ser::{self, Error as _, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
-use super::{static_str_to_js, Error, ObjectExt};
+use super::ObjectExt;
+use super::{static_str_to_js, Error};
 
 type Result<T = JsValue> = super::Result<T>;
 

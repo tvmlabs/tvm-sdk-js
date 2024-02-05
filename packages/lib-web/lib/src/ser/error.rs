@@ -1,3 +1,4 @@
+use js_sys::wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
 /// A newtype that represents Serde errors as JavaScript exceptions.
