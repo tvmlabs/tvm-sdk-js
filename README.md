@@ -303,5 +303,3 @@ WASM Module         | Browser          | 1     | [`eversdk.wasm`](https://binari
 
 _Downloaded archive is gzipped file_
 
----
-Copyright 2018-2020 TON Labs LTD.
