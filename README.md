@@ -2,7 +2,7 @@
 <p align="center">Client Library built for Everscale, Venom blockchain, TON, Acki Nacki</p>
 <p align="center">for Web, Node.js and React Native platforms</p>
 
-
+![image](https://github.com/tvmlabs/tvm-sdk-js/assets/39991771/da739b78-df30-420e-b7ca-ef00b4d11667)
 
 **Have a question? Get quick help in our channel:**
 
