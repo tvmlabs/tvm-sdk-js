@@ -1,0 +1,22 @@
+name: Prerelease
+
+on:
+  push:
+    branches:
+      - rc-1.46.0
+  workflow_dispatch:
+
+jobs:
+  wasm:
+    name: Build wasm
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      - working-directory: packages/lib-web
+        run: |
+          cd build && cargo run -r
+          ls -lA lib/pkg
