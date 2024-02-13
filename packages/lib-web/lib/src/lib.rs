@@ -21,9 +21,7 @@ mod conv;
 mod ser;
 
 use conv::{parse, stringify};
-
-#[macro_use]
-extern crate lazy_static;
+use lazy_static::lazy_static;
 
 lazy_static! {
     static ref REQUEST_OPTIONS: Mutex<HashMap<u32, RequestOptions>> = Mutex::new(HashMap::new()); // only active requests

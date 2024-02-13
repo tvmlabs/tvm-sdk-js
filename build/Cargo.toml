@@ -1,12 +1,12 @@
 [package]
-name = 'ton_client_build'
+resolver = "2"
+name = 'tvm_client_build'
 version = '1.2.0'
-description = 'TON Client Build Library'
-license = 'Apache-2.0'
-edition = '2018'
+description = 'TVM Client Build Library'
+edition = '2021'
 
 [lib]
-name = 'ton_client_build'
+name = 'tvm_client_build'
 
 [dependencies]
 regex = '1.3.9'
