@@ -6,6 +6,9 @@ on:
       - rc-1.46.0
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   wasm:
     name: Build wasm
@@ -16,7 +19,17 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
+      # TODO: install binary faster
+      # curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - working-directory: packages/lib-web
         run: |
           cd build && cargo run -r
-          ls -lA lib/pkg
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: true
+          files: |
+            packages/lib-web/publish/tvmsdk__wasm.gz
+            packages/lib-web/publish/tvmsdk__wasm_js.gz
+          tag_name: ${{ github.ref_name }}-${{ github.run_number }}
