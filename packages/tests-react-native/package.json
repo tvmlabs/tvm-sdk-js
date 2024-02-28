@@ -10,7 +10,7 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "@eversdk/core": "file:../core",
+    "@tvmsdk/core": "file:../core",
     "@eversdk/lib-react-native": "file:../lib-react-native",
     "@eversdk/tests": "file:../tests",
     "assert": "^2.0.0",

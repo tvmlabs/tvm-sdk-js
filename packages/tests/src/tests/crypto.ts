@@ -18,7 +18,7 @@ import {
     AppEncryptionBox,
     EncryptionBoxHandle,
     EncryptionBoxInfo,
-} from "@eversdk/core";
+} from "@tvmsdk/core";
 import { expect, test } from "../jest";
 
 import { runner } from "../runner";

@@ -2,12 +2,12 @@
  * Copyright 2018-2020 TON Labs LTD.
  */
 
-const { TONClient } = require('./dist/TONClient');
+const { TvmClient } = require('./dist/TvmClient');
 const {
     TONAddressStringVariant,
-    TONClientTransactionPhase,
-    TONClientComputeSkippedStatus,
-    TONClientStorageStatus,
+    TvmClientTransactionPhase,
+    TvmClientComputeSkippedStatus,
+    TvmClientStorageStatus,
     QInMsgType,
     QOutMsgType,
     QMessageType,
@@ -30,11 +30,11 @@ const {
 } = require('./dist/modules/TONCryptoModule');
 
 module.exports = {
-    TONClient,
+    TvmClient,
     TONAddressStringVariant,
-    TONClientTransactionPhase,
-    TONClientComputeSkippedStatus,
-    TONClientStorageStatus,
+    TvmClientTransactionPhase,
+    TvmClientComputeSkippedStatus,
+    TvmClientStorageStatus,
     QInMsgType,
     QOutMsgType,
     QMessageType,

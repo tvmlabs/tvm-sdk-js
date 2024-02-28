@@ -1,9 +1,9 @@
 [package]
-name = 'ever_sdk_node_build'
+resolver = "2"
+name = 'tvm_sdk_node_build'
 version = '1.2.0'
-description = 'TON Client Build Tool'
-license = 'Apache-2.0'
-edition = '2018'
+description = 'TVM Client Build Tool'
+edition = "2021"
 
 [dependencies]
-ton_client_build = { path = '../../../build' }
+tvm_client_build = { path = '../../../build' }

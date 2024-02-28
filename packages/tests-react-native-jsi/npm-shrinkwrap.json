@@ -1595,7 +1595,7 @@
         }
       }
     },
-    "@eversdk/core": {
+    "@tvmsdk/core": {
       "version": "file:../core",
       "dependencies": {
         "typescript": {
@@ -1613,7 +1613,7 @@
       "requires": {
         "@babel/core": "^7.15.0",
         "@babel/runtime": "^7.15.0",
-        "@eversdk/core": "file:../core",
+        "@tvmsdk/core": "file:../core",
         "big-integer": "^1.6.48",
         "expect": "26.6.2",
         "jest-circus": "22.1.4",
@@ -1926,7 +1926,7 @@
             }
           }
         },
-        "@eversdk/core": {
+        "@tvmsdk/core": {
           "version": "file:../core",
           "dependencies": {
             "typescript": {

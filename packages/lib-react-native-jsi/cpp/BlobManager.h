@@ -3,7 +3,7 @@
 #ifdef __ANDROID__
 
 #include <fbjni/fbjni.h>
-#include "TonClientJsiBlobManager.h"
+#include "TvmClientJsiBlobManager.h"
 
 #elif __APPLE__
 
@@ -31,14 +31,14 @@ namespace tonlabs
                                     // on Android this method must be called from a thread attached to JVM
 
 #ifdef __ANDROID__
-    BlobManager(jni::global_ref<TonClientJsiBlobManager> javaBlobManager) : javaBlobManager_(javaBlobManager){};
+    BlobManager(jni::global_ref<TvmClientJsiBlobManager> javaBlobManager) : javaBlobManager_(javaBlobManager){};
 #elif __APPLE__
     BlobManager(RCTBlobManager *reactBlobManager) : reactBlobManager_(reactBlobManager){};
 #endif
 
   private:
 #ifdef __ANDROID__
-    jni::global_ref<TonClientJsiBlobManager> javaBlobManager_;
+    jni::global_ref<TvmClientJsiBlobManager> javaBlobManager_;
 #elif __APPLE__
     RCTBlobManager *reactBlobManager_;
 #endif

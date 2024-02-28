@@ -1,6 +1,6 @@
-package tonlabs.tonclient;
+package tonlabs.TvmClient;
 
-public class TonClientJsonInterface {
+public class TvmClientJsonInterface {
     static {
         System.loadLibrary("eversdk");
     }

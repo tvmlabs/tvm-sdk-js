@@ -14,7 +14,7 @@
     "prepare tests": "node prepare-suite.js"
   },
   "dependencies": {
-    "@eversdk/core": "file:../core",
+    "@tvmsdk/core": "file:../core",
     "@eversdk/lib-react-native-jsi": "file:../lib-react-native-jsi",
     "@eversdk/tests": "file:../tests",
     "assert": "^2.0.0",

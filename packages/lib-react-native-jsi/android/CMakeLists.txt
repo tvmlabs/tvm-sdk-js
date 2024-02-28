@@ -4,7 +4,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-DFOLLY_NO_CONFIG=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -DFOLLY_HAVE_MEMRCHR=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_MOBILE=1")
 
-set(PACKAGE_NAME tonclientjsi)
+set(PACKAGE_NAME TvmClientjsi)
 set(BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
 set(LIBRN_DIR ${PREBUILT_DIR}/${ANDROID_ABI})
 
@@ -35,10 +35,10 @@ add_library(${PACKAGE_NAME}
   ../cpp/base64.h
   ../cpp/NativeModules.cpp
   ../cpp/NativeModules.h
-  ../cpp/TonClientJsiModule.h
+  ../cpp/TvmClientJsiModule.h
   ../cpp/request_data_t.h
-  ../cpp/tonclient.h
-  ../cpp/TonClientJsiModule.cpp
+  ../cpp/TvmClient.h
+  ../cpp/TvmClientJsiModule.cpp
   cpp-adapter.cpp
 )
 

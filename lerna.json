@@ -1,7 +1,7 @@
 {
   "tagVersionPrefix": "",
   "packages": [
-    "packages/*"
+    "packages/lib-web"
   ],
   "version": "1.45.0",
   "command": {

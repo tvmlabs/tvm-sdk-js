@@ -1,11 +1,11 @@
-import { TonClient, signerKeys } from "@eversdk/core"
+import { TvmClient, signerKeys } from "@tvmsdk/core"
 import { Account } from "@eversdk/appkit"
 import { Giver } from "./giver"
 import { getDefaultEndpoints } from "./utils"
 import * as Kamikadze from "./contracts/Kamikadze.js"
 
 export async function kamikadze(options: { value: number }) {
-    const sdk = new TonClient({
+    const sdk = new TvmClient({
         abi: {
             message_expiration_timeout: 120_000,
             message_expiration_timeout_grow_factor: 1,

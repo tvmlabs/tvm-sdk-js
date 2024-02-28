@@ -1,7 +1,7 @@
 import { NativeModules, NativeEventEmitter } from 'react-native'
 
 export function libReactNative() {
-    const lib = NativeModules.TonClientModule;
+    const lib = NativeModules.TvmClientModule;
     const libEmitter = new NativeEventEmitter(lib);
     let subscription = null;
     return Promise.resolve({

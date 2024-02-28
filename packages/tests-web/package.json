@@ -23,7 +23,7 @@
 	},
 	"homepage": "https://docs.ton.dev/",
 	"dependencies": {
-		"@eversdk/core": "file:../core",
+		"@tvmsdk/core": "file:../core",
 		"@eversdk/lib-web": "file:../lib-web",
 		"@eversdk/tests": "file:../tests",
 		"assert": "^2.0.0",

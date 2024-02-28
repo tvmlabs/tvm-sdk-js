@@ -6,7 +6,7 @@
 
 #include <folly/dynamic.h>
 
-#include "TonClientJsiModule.h"
+#include "TvmClientJsiModule.h"
 
 using namespace facebook;
 
@@ -14,7 +14,7 @@ namespace tonlabs
 {
   typedef struct request_data_t
   {
-    TonClientJsiModule *jsiModule; // to access runtime, jsCallInvoker and blobManager
+    TvmClientJsiModule *jsiModule; // to access runtime, jsCallInvoker and blobManager
     uint32_t requestId;
     bool returnBlob = false; // whether to replace strings with blobs in the request params or not
   } request_data_t;

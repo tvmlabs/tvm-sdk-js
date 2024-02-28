@@ -30,20 +30,20 @@ import {
     ResponseHandler,
     useLibrary,
 } from "./bin";
-import { TonClientError } from "./errors";
+import { TvmClientError } from "./errors";
 import { packageVersion } from "./version";
 
-export class TonClient {
+export class TvmClient {
     private static _defaultConfig: ClientConfig = {};
-    private static _default: TonClient | null = null;
+    private static _default: TvmClient | null = null;
 
-    static set default(client: TonClient) {
+    static set default(client: TvmClient) {
         this._default = client;
     }
 
-    static get default(): TonClient {
+    static get default(): TvmClient {
         if (this._default === null) {
-            this._default = new TonClient(this._defaultConfig);
+            this._default = new TvmClient(this._defaultConfig);
         }
         return this._default;
     }
@@ -122,8 +122,8 @@ export class TonClient {
     async resolveError(
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): Promise<TonClientError> {
+        err: TvmClientError,
+    ): Promise<TvmClientError> {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -133,8 +133,8 @@ export class TonClient {
     resolveErrorSync(
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): TonClientError {
+        err: TvmClientError,
+    ): TvmClientError {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -145,8 +145,8 @@ export class TonClient {
         api: any,
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): TonClientError {
+        err: TvmClientError,
+    ): TvmClientError {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -301,7 +301,7 @@ export class TonClient {
         try {
             return bridge.requestSync(context, functionName, functionParams);
         } catch (err) {
-            throw this.resolveErrorSync(functionName, functionParams, err as TonClientError);
+            throw this.resolveErrorSync(functionName, functionParams, err as TvmClientError);
         }
     }
 

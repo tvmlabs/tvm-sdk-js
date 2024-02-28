@@ -12,7 +12,7 @@
  *
  */
 
-use ton_client_build::{check_targets, exec, Build};
+use tvm_client_build::{check_targets, exec, Build};
 
 const TARGETS: &[&str] = &["x86_64-apple-ios", "aarch64-apple-ios"];
 const LIB: &str = "libeversdk.a";
@@ -44,6 +44,7 @@ fn main() {
     assert!(exec(
         "lipo",
         &args.iter().map(|x| x.as_str()).collect::<Vec<&str>>(),
-    ).success());
+    )
+    .success());
     builder.publish_package_file(LIB, "eversdk_{v}_react_native_ios");
 }

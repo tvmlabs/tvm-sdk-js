@@ -5,7 +5,7 @@
 #include <node_api.h>
 #include <stdio.h>
 #include <uv.h>
-#include "tonclient.h"
+#include "TvmClient.h"
 
 #define CHECK(status) assert((status) == napi_ok)
 

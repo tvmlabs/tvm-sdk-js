@@ -1,7 +1,7 @@
 import type { BinaryLibraryWithParams } from './index.d';
 
 export function libReactNativeJsi(): Promise<BinaryLibraryWithParams> {
-  const tonClientJsiModule = (global as any).tonClientJsiModule;
+  const TvmClientJsiModule = (global as any).TvmClientJsiModule;
   return Promise.resolve({
     getLibName(): Promise<string> {
       return Promise.resolve('react-native-jsi');
@@ -15,15 +15,15 @@ export function libReactNativeJsi(): Promise<BinaryLibraryWithParams> {
         finished: boolean
       ) => void
     ): void {
-      tonClientJsiModule.setResponseParamsHandler(handler);
+      TvmClientJsiModule.setResponseParamsHandler(handler);
     },
     createContext(configJson: string): Promise<string> {
       return new Promise((resolve) => {
-        tonClientJsiModule.createContext(configJson, resolve);
+        TvmClientJsiModule.createContext(configJson, resolve);
       });
     },
     destroyContext(context: number): void {
-      tonClientJsiModule.destroyContext(context);
+      TvmClientJsiModule.destroyContext(context);
     },
     sendRequestParams(
       context: number,
@@ -31,7 +31,7 @@ export function libReactNativeJsi(): Promise<BinaryLibraryWithParams> {
       functionName: string,
       functionParams: any
     ): void {
-      tonClientJsiModule.sendRequestParams(
+      TvmClientJsiModule.sendRequestParams(
         context,
         requestId,
         functionName,

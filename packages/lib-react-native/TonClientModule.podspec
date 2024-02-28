@@ -1,6 +1,6 @@
 
 Pod::Spec.new do |s|
-  s.name         = "TonClientModule"
+  s.name         = "TvmClientModule"
   s.version      = "0.9.0"
   s.summary      = "TON Client React Native Module"
   s.description  = <<-DESC

@@ -6,4 +6,4 @@ license = 'Apache-2.0'
 edition = '2018'
 
 [dependencies]
-ton_client_build = { path = '../../../../build' }
+tvm_client_build = { path = '../../../../build' }

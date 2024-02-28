@@ -1,5 +1,5 @@
 #import "BlobManager.h"
-#import "TonClientJsiModule.h"
+#import "TvmClientJsiModule.h"
 #import "TONJSIExecutorInitializer.h"
 
 namespace tonlabs
@@ -24,13 +24,13 @@ namespace tonlabs
       std::unique_ptr<tonlabs::BlobManager> blobManager =
           std::make_unique<tonlabs::BlobManager>(reactBlobManager);
 
-      std::unique_ptr<tonlabs::TonClientJsiModule> tonClientJsiModule =
-          std::make_unique<tonlabs::TonClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
+      std::unique_ptr<tonlabs::TvmClientJsiModule> TvmClientJsiModule =
+          std::make_unique<tonlabs::TvmClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
 
       runtime.global().setProperty(
           runtime,
-          jsi::PropNameID::forAscii(runtime, "tonClientJsiModule"),
-          jsi::Object::createFromHostObject(runtime, std::move(tonClientJsiModule)));
+          jsi::PropNameID::forAscii(runtime, "TvmClientJsiModule"),
+          jsi::Object::createFromHostObject(runtime, std::move(TvmClientJsiModule)));
 
       if (runtimeInstallerToWrap)
       {

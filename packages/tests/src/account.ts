@@ -1,11 +1,11 @@
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {
     Abi, accountForExecutorAccount,
     ParamsOfEncodeMessage,
     ResultOfProcessMessage,
     ResultOfRunExecutor,
     Signer,
-} from "@eversdk/core";
+} from "@tvmsdk/core";
 
 export const MAX_WAIT_TIME = 40_000; // 40 sec
 
@@ -19,7 +19,7 @@ export class AccountError extends Error {
 }
 
 export class Account {
-    readonly client: TonClient;
+    readonly client: TvmClient;
     readonly abi: Abi;
     readonly signer: Signer;
 
@@ -32,7 +32,7 @@ export class Account {
     // private cachedParsed: any | null;
 
     constructor(
-        client: TonClient,
+        client: TvmClient,
         abi: Abi,
         signer: Signer,
         addressOrDeploy: string | AccountDeployParams,

@@ -34,7 +34,7 @@ module.exports = {
                 include: [
                     path.resolve('index.js'),
                     path.resolve(__dirname, './node_modules/webpack-dev-server'),
-                    path.resolve(__dirname, './node_modules/@eversdk/core'),
+                    path.resolve(__dirname, './node_modules/@tvmsdk/core'),
                     path.resolve(__dirname, './node_modules/assert'),
                     path.resolve(__dirname, './node_modules/buffer'),
                     path.resolve(__dirname, './node_modules/@eversdk/tests'),

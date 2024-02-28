@@ -1,4 +1,4 @@
-import { TonClient, ResultOfProcessMessage } from "@eversdk/core"
+import { TvmClient, ResultOfProcessMessage } from "@tvmsdk/core"
 import { Account, AccountGiver } from "@eversdk/appkit"
 import { getDefaultEndpoints } from "./utils"
 
@@ -9,7 +9,7 @@ export class Giver implements AccountGiver {
     public account: Account
     private _giver: AccountGiver
 
-    static async create(sdk: TonClient): Promise<AccountGiver> {
+    static async create(sdk: TvmClient): Promise<AccountGiver> {
         const giver = await Account.getGiverForClient(sdk)
         const { acc_type, balance } = await giver.account.getAccount()
 
@@ -63,7 +63,7 @@ export class Giver implements AccountGiver {
 }
 
 export async function deploy() {
-    const sdk = new TonClient({
+    const sdk = new TvmClient({
         network: {
             endpoints: getDefaultEndpoints(),
         },

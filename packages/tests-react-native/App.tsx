@@ -1,11 +1,11 @@
-import { TonClient } from "@eversdk/core";
+import { TvmClient } from "@tvmsdk/core";
 import { TestsRunner } from "@eversdk/tests";
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 
 class App extends Component {
   async componentDidMount() {
-    const client = new TonClient({
+    const client = new TvmClient({
         network: {
             server_address: 'net.ton.dev'
         }

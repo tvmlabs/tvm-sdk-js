@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander"
-import { TonClient } from "@eversdk/core"
+import { TvmClient } from "@tvmsdk/core"
 import { libNode } from "@eversdk/lib-node"
 import { toString as qrcode } from "qrcode"
 import { promisify } from "util"
@@ -21,7 +21,7 @@ import { DEFAULT_TOPUP_BALANCE, deploy } from "./giver"
 
 dotenv.config()
 
-TonClient.useBinaryLibrary(libNode)
+TvmClient.useBinaryLibrary(libNode)
 
 program
     .name("evercloud")

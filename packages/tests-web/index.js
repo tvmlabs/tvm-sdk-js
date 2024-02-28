@@ -1,5 +1,5 @@
 import entry from './entry';
-import { TonClient } from '@eversdk/core';
+import { TvmClient } from '@tvmsdk/core';
 import { libWeb, libWebSetup } from "@eversdk/lib-web";
 import { TestsRunner } from "@eversdk/tests";
 
@@ -7,7 +7,7 @@ entry();
 libWebSetup({
     disableSeparateWorker: true
 })
-TonClient.useBinaryLibrary(libWeb);
+TvmClient.useBinaryLibrary(libWeb);
 
 window.addEventListener('load', () => {
     (async () => {

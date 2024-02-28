@@ -22,7 +22,7 @@ for (const name of [
 
 
 for (const name of [
-    "@eversdk/core",
+    "@tvmsdk/core",
     "@eversdk/lib-react-native",
     "@eversdk/tests",
     "react-native",

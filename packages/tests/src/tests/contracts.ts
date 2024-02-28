@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { 
+import {
     Abi,
     abiContract,
     AbiErrorCode,
@@ -22,9 +22,9 @@ import {
     ResultOfProcessMessage,
     ResultOfRunTvm,
     signerKeys,
-    TonClient,
+    TvmClient,
     TvmErrorCode,
-} from "@eversdk/core";
+} from "@tvmsdk/core";
 
 import { Account } from "../account";
 import { ContractPackage, contracts } from "../contracts";
@@ -140,7 +140,7 @@ test.each(ABIVersions)("External signing on ABI v%i", async (abiVersion) => {
         abi,
         crypto,
     } = runner.getClient();
-    
+
     const keys = await crypto.generate_random_sign_keys();
     const eventsAccount = await runner.getAccount(contracts.Events, abiVersion);
     const eventsAccountAddress = await eventsAccount.getAddress();
@@ -155,7 +155,7 @@ test.each(ABIVersions)("External signing on ABI v%i", async (abiVersion) => {
             }
         }
     }
-    
+
     const unsignedDeployMessage = await abi.encode_message({
         ...deployParams,
         signer: {
@@ -184,7 +184,7 @@ test.each(ABIVersions)("External signing on ABI v%i", async (abiVersion) => {
 
     expect(signedDeployMessage.message)
         .toEqual(signedDeployMessage2.message);
-    
+
     const runMessageParams = {
         address: eventsAccountAddress,
         abi: eventsAccount.abi,
@@ -256,12 +256,12 @@ test("Test CheckInitParams contract double deployment with different init data",
     await runner.deploy(checkInitParamsAccount2);
 
     expect(checkInitParamsAccount1Address)
-        .not.toEqual(checkInitParamsAccount2Address); 
+        .not.toEqual(checkInitParamsAccount2Address);
 
 
-    const addressResult1 = await run_tvm(checkInitParamsAccount1, "getAddressVariable");    
+    const addressResult1 = await run_tvm(checkInitParamsAccount1, "getAddressVariable");
     const addressResult2 = await run_tvm(checkInitParamsAccount2, "getAddressVariable");
-    
+
     expect(addressResult1.decoded?.output).toEqual({
         value0: initData1.addressVariable,
     });
@@ -272,18 +272,18 @@ test("Test CheckInitParams contract double deployment with different init data",
 
     const uintResult1 = await run_tvm(checkInitParamsAccount1, "getUintVariable");
     const uintResult2 = await run_tvm(checkInitParamsAccount2, "getUintVariable");
-    
+
     expect(uintResult1.decoded?.output).toEqual({
-        value0: "0x" + TonClient.toHex(initData1.uintVariable, 256),
+        value0: "0x" + TvmClient.toHex(initData1.uintVariable, 256),
     });
     expect(uintResult2.decoded?.output).toEqual({
-        value0: "0x" + TonClient.toHex(initData2.uintVariable, 256),
+        value0: "0x" + TvmClient.toHex(initData2.uintVariable, 256),
     });
-    
+
 
     const booleanResult1 = await run_tvm(checkInitParamsAccount1, "getBooleanVariable");
     const booleanResult2 = await run_tvm(checkInitParamsAccount2, "getBooleanVariable");
-    
+
     expect(booleanResult1.decoded?.output).toEqual({
         value0: initData1.booleanVariable,
     });
@@ -294,7 +294,7 @@ test("Test CheckInitParams contract double deployment with different init data",
 
     const bytesResult1 = await run_tvm(checkInitParamsAccount1, "getBytesVariable");
     const bytesResult2 = await run_tvm(checkInitParamsAccount2, "getBytesVariable");
-    
+
     expect(bytesResult1.decoded?.output).toEqual({
         value0: initData1.bytesVariable,
     });
@@ -421,7 +421,7 @@ test("Signing", async () => {
     const ownerKeys = await crypto.generate_random_sign_keys();
     const deployKeys = await crypto.generate_random_sign_keys();
     const time = Math.round((Date.now() + 10000) / 1000);
-    
+
     const sensorAccountAbi = abiContract(contracts.Sensor[2].abi);
     const sensorAccountTvc = contracts.Sensor[2].tvc;
     const paramsOfDeployMessage: ParamsOfEncodeMessage = {
@@ -454,7 +454,7 @@ test("Signing", async () => {
         send_events: false,
     });
     const helloAddress: string = deployResult.transaction.account_addr;
-    
+
     await processing.process_message({
         message_encode_params: {
             address: helloAddress,

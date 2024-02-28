@@ -23,7 +23,7 @@ import {
     ParamsOfEncodeMessage,
     Signer,
     signerSigningBox,
-} from "@eversdk/core";
+} from "@tvmsdk/core";
 
 test("abi: encode_message", async () => {
     // arrange
@@ -126,7 +126,7 @@ test.each(ABIVersions)("abi: encode_message -> decode_message (ABI v%i)", async 
     const abi = runner.getClient().abi;
     const walletAddress = "0:adb63a228837e478c7edf5fe3f0b5d12183e1f22246b67712b99ec538d6c5357";
     const subscriptionAccount = await runner.getAccount(contracts.Subscription, abiVersion, undefined, { wallet: walletAddress }, undefined);
-    
+
     const encodeResult = await abi.encode_message({
         abi: subscriptionAccount.abi,
         address: await subscriptionAccount.getAddress(),

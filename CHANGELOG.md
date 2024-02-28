@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Breaking
 
-- For contracts with ABI version => 2.4 initial public key should be explicitly supplied 
+- For contracts with ABI version => 2.4 initial public key should be explicitly supplied
 inside `initial_data` in `abi` module functions. Signer public key and `initial_pubkey` parameter
 are not used in contract initial data encoding since ABI version 2.4.
 
@@ -45,7 +45,7 @@ State init should be finalized and ready to be used in message as is.
 
 - functions with callbacks (e.g. `processing.process_messages`) can be called as sync.
 - `send_event` parameter is now optional with default value `false`.
-  
+
 ### Deprecated
 
 - Debot module is [DEPRECATED](https://github.com/tonlabs/ever-sdk/blob/master/docs/reference/types-and-methods/DEPRECATED.md)
@@ -57,7 +57,7 @@ State init should be finalized and ready to be used in message as is.
 - Ability to call async functions via `tc_request_sync`.
 - In rust API, the following functions become sync (slight breaking):
   `abi::encode_internal_message`, `abi::attach_signature_to_message_body`, `abi::attach_signature`,
-  `abi::decode_message`, `abi::decode_message_body`, `abi::decode_account_data`, 
+  `abi::decode_message`, `abi::decode_message_body`, `abi::decode_account_data`,
   `abi::update_initial_data`, `abi::encode_initial_data`, `abi::decode_initial_data`,
   `abi::decode_boc`, `abi::encode_boc`, `boc::decode_tvc`, `boc::parse_message`, `boc::parse_transaction`,
   `boc::parse_account`, `boc::parse_block`, `boc::parse_shardstate`, `boc::get_blockchain_config`,
@@ -72,7 +72,7 @@ State init should be finalized and ready to be used in message as is.
   The only binding that supports sync calls is the `lib-node`.
   Example:
   ```javascript
-  const sdk = new TonClient();
+  const sdk = new TvmClient();
   console.log(sdk.client.version_sync().version);
   console.log(sdk.net.query_sync("query{info{version}}"));
   ```
@@ -109,7 +109,7 @@ State init should be finalized and ready to be used in message as is.
 - Version of `ton_types` upped to 2.0.0
 - Fixed code for changed dependencies api
 - Removed logic related to client-server clock sync
-- `boc.encode_tvc` and `boc.decode_tvc` are renamed to `boc.encode_state_init` 
+- `boc.encode_tvc` and `boc.decode_tvc` are renamed to `boc.encode_state_init`
   and `boc.decode_state_init`.
 - `boc.decode_tvc` decodes TVC BOC according to the TVC spec.
 - `DeploySet.tvc` supports new TVC file format (according to new TVC spec).
@@ -124,25 +124,25 @@ State init should be finalized and ready to be used in message as is.
 
 ### Fixed
 
-- Client was notified about every REMP status timeout. Now it is notified only once when fallback 
+- Client was notified about every REMP status timeout. Now it is notified only once when fallback
 scenario is started
 
 ## [1.42.0] – 2023-03-22
 
 ### New
 
-- Added message monitoring functions to the `processing` module: `monitor_messages`, 
+- Added message monitoring functions to the `processing` module: `monitor_messages`,
     `fetch_next_monitor_results`, `get_monitor_info`, `cancel_monitor****`.
 - Added `processing.send_messages` function.
 - Improved error resolving for deleted accounts
-- `net.first_remp_status_timeout` config parameter default value set to 1 ms in order to start 
+- `net.first_remp_status_timeout` config parameter default value set to 1 ms in order to start
 fallback scenario together with REMP statuses processing while REMP is not properly tuned yet.
 - Network errors are returned on subscription creation if occured
 
 ### Fixed
 
 - `ParamsOfSubscribe` was not public.
-- `subscribe` did not trim subscription query text. It is required for some graphql servers 
+- `subscribe` did not trim subscription query text. It is required for some graphql servers
   expecting that query text starts from operation text.
 
 ## [1.41.1] – 2023-02-14
@@ -155,37 +155,37 @@ fallback scenario together with REMP statuses processing while REMP is not prope
 ### New
 
 - `CapSignatureWithId` capability is supported.
-  
+
     Network signature ID is used by VM in signature verifying instructions if capability
-    `CapSignatureWithId` is enabled in blockchain configuration parameters.     
-    
-    This parameter should be set to `global_id` field from any blockchain block if network can 
-    not be reached at the moment of message encoding and the message is aimed to be sent into 
-    network with `CapSignatureWithId` enabled. Otherwise signature ID is detected automatically 
-    inside message encoding functions.   
+    `CapSignatureWithId` is enabled in blockchain configuration parameters.
+
+    This parameter should be set to `global_id` field from any blockchain block if network can
+    not be reached at the moment of message encoding and the message is aimed to be sent into
+    network with `CapSignatureWithId` enabled. Otherwise signature ID is detected automatically
+    inside message encoding functions.
     ***Overwrite priority: ExecutionOptions.signature_id -> ClientConfig.network.signature_id -> last network block***
 
-    - `ClientConfig.network.signature_id` optional parameter is added. Specify it in case of offline work for all message signing operations to use. 
-    - `ExecutionOptions` is extended with `signature_id` optional parameter. Specify locally for a particular `run_tvm` or `run_executor` call. 
+    - `ClientConfig.network.signature_id` optional parameter is added. Specify it in case of offline work for all message signing operations to use.
+    - `ExecutionOptions` is extended with `signature_id` optional parameter. Specify locally for a particular `run_tvm` or `run_executor` call.
    - `net.get_signature_id` function returns `global_id` if `CapSignatureWithId` capability is enabled,
 
 - `message_id` and `message_dst` fields are added to all `ProcessingEvent` variants
-- Config parameter `binding: { library: string, version: string }`. Binding authors should define 
+- Config parameter `binding: { library: string, version: string }`. Binding authors should define
    this parameter at context initialization.
-- `tonclient-binding-library` and `tonclient-binding-version` GraphQL request headers.
-- `Error.data.binding_library` and `Error.data.binding_version` error data fields. 
+- `TvmClient-binding-library` and `TvmClient-binding-version` GraphQL request headers.
+- `Error.data.binding_library` and `Error.data.binding_version` error data fields.
 - specifying binding info in core initialization.
-  
+
 ### Client breaking changes
 - `abi.get_signature_data` function ouput parameter `hash` is renamed to `unsigned` for consistency with other crypto functions parameters
-  
+
 ### Possible breaking change on binding side
 - Changed type of the `dictionary` parameter or mnemonic crypto functions and crypto config.
-  Now it uses `MnemonicDictionary` enum type instead of `number`. `MnemonicDictionary` numeric 
-  constants are compatible with previous values. 
+  Now it uses `MnemonicDictionary` enum type instead of `number`. `MnemonicDictionary` numeric
+  constants are compatible with previous values.
 
 ### Deprecated
-- `debot` engine module is deprecated. Debot engine development has migrated to a separate repository (soon will be published). So, in order to reduce sdk binary size, we will remove `debot` engine module from sdk in the next releases. 
+- `debot` engine module is deprecated. Debot engine development has migrated to a separate repository (soon will be published). So, in order to reduce sdk binary size, we will remove `debot` engine module from sdk in the next releases.
 
 
 ## [1.40.0] – 2023-01-11
@@ -208,7 +208,7 @@ additional server request
 
 - Queries are retried in case of network errors when websocket connection is used
 
-- `WaitForTimeout` error code (607) is returned in case of `wait_for_transaction` function was 
+- `WaitForTimeout` error code (607) is returned in case of `wait_for_transaction` function was
 successfully executed but expected data did not appeared during the specified timeout
 
 - `timeout` parameter in `net.query_transaction_tree` behaviour changed. Now value 0 indicates that
@@ -219,7 +219,7 @@ no time limit should be used and function will wait for all transactions executi
 - `transaction_max_count` parameter in `net.query_transaction_tree` which controls the count of
 transaction to be awaited and returned
 
-- `data_layout` and `function_name` parameters in `abi.decode_message` and `abi.decode_message_body` 
+- `data_layout` and `function_name` parameters in `abi.decode_message` and `abi.decode_message_body`
 that can be used to decode responsible function output and optimize message decoding by strict layout check
 
 ### Fixed
@@ -256,15 +256,15 @@ connection
 
 ### New
 
-- **Debot module**:  
+- **Debot module**:
     - ABI specification v2.3 is supported in DEngine.
     - Supported flags `OVERRIDE_TS`, `OVERRIDE_EXPT`, `ASYNC_CALL` for external messages in DEngine.
-    
+
 ### Improvement
 
 - Support cookies in net module for std mode (not wasm)
 - Remove network aliases (main, dev, main.ton.dev, net.ton.dev)
-- No balancing logic in case of 1 endpoint + removed the check of REMP support on backend during client initialization. 
+- No balancing logic in case of 1 endpoint + removed the check of REMP support on backend during client initialization.
   These changes will make client initialization faster -> CLI tools that use SDK will work faster, web pages will load initial data faster.
 - Changed 401 error message to response message from API
 - Tests improvements: cryptobox tests made stable
@@ -291,17 +291,17 @@ connection
 ### Improvement
 
 - `create_crypto_box` optimisation.
-  When a user creates a crypto box, library encrypts provided secret information using provided 
+  When a user creates a crypto box, library encrypts provided secret information using provided
   password and salt.
-  When library encrypts the secret, it calculates encryption key from password and salt 
+  When library encrypts the secret, it calculates encryption key from password and salt
   using `scrypt` function which takes a lot of CPU time (about 1 second).
-  So when a user creates many crypto boxes using the same password and salt, 
+  So when a user creates many crypto boxes using the same password and salt,
   it takes a lot of time (about 12 seconds for 10 crypto boxes).
-  With the optimisations introduced in this version the library stores the 
+  With the optimisations introduced in this version the library stores the
   pair (password+salt => encryption key) in internal cache for approximately 2 seconds.
-  So when a user creates many crypto boxes at a time using the same password and salt, 
-  library uses cached information to skip heavy calculations. As a result now it takes only 
-  a second to create 10 crypto boxes.  
+  So when a user creates many crypto boxes at a time using the same password and salt,
+  library uses cached information to skip heavy calculations. As a result now it takes only
+  a second to create 10 crypto boxes.
 
 ### Fixed
 
@@ -311,19 +311,19 @@ connection
 
 ### Fixed
 
-- Pinned BOC cache now has reference counter for each pin in BOC. BOC can be pinned several times 
+- Pinned BOC cache now has reference counter for each pin in BOC. BOC can be pinned several times
 with the same pin. BOC is removed from cache after all references for all pins are unpinned with
 `cache_unpin` function calls.
-- Fixed error resolving in case when account state was modified after message expiration time. Now 
+- Fixed error resolving in case when account state was modified after message expiration time. Now
 appropriate error text is added to error message instead of executor internal error
 
 ## [1.37.0] – 2022-07-28
 
 ### New
 
-- client sends `config.network.access_key` as `Authorization: Basic ...` or `Authorization: Bearer ...` header. 
+- client sends `config.network.access_key` as `Authorization: Basic ...` or `Authorization: Bearer ...` header.
 - client accepts endpoints with `/graphql` suffixes specified in config.
-- `lib-web` option `disableSeparateWorker`. By default, lib web starts a separate worker that will utilize core (wasm). 
+- `lib-web` option `disableSeparateWorker`. By default, lib web starts a separate worker that will utilize core (wasm).
    So main thread never freezes – it is fine for UI. But in some cases (e.g. when worker already exists in application or extension)
    separate worker is a bad approach. In this case application can suppress this with `libWebSetup({disableSeparateWorker: true})`.
 
@@ -337,13 +337,13 @@ appropriate error text is added to error message instead of executor internal er
 
 ### Fixed
 
-- `responseType` has changed from `number` to `ResponseType` so it presents in doc with link to ResponseType description. 
+- `responseType` has changed from `number` to `ResponseType` so it presents in doc with link to ResponseType description.
 
 ## [1.36.1] – 2022-07-18
 
 ### Improvement
 
-- Time synchronization check between device and server improved:  calculation of timediff with server is  moved from batched query to send_message function and therefore now query execution time does not affect this time diff. 
+- Time synchronization check between device and server improved:  calculation of timediff with server is  moved from batched query to send_message function and therefore now query execution time does not affect this time diff.
 
 
 ## [1.36.0] – 2022-07-01
@@ -399,17 +399,17 @@ appropriate error text is added to error message instead of executor internal er
 ### New
 
 - `client.config` function that returns the current client config
-- `run_executor().fees` is extended with these fields:  
-  
-  - `ext_in_msg_fee` - fee for processing external inbound message  
-  - `total_fwd_fees` - total fees of action phase  
-  - `account_fees`  - total fees the account pays for the transaction  
+- `run_executor().fees` is extended with these fields:
 
-- `main` and `dev` endpoints aliases for Evernode Cloud Mainnet and Devnet endpoints  
+  - `ext_in_msg_fee` - fee for processing external inbound message
+  - `total_fwd_fees` - total fees of action phase
+  - `account_fees`  - total fees the account pays for the transaction
+
+- `main` and `dev` endpoints aliases for Evernode Cloud Mainnet and Devnet endpoints
 - binding-gen: enum of types produces its own type for each enum variant.
 - lib-web: large numbers in transaction fees are rounded now (previously they caused errors).
-- core: if an application calls first client core functions in parallel 
-  then core creates more than one internal context per single TonClient
+- core: if an application calls first client core functions in parallel
+  then core creates more than one internal context per single TvmClient
   instance.  As a side effect of this is that a Nodejs process didn't
   finish even when `client.close` was called.
 
@@ -423,7 +423,7 @@ appropriate error text is added to error message instead of executor internal er
 
 ## [1.33.0] – 2022-05-02
 
-### New 
+### New
 
 - `allow_partial` flag in all `abi.decode_*` functions. This flag controls decoder behaviour whether return error or not in case of incomplete BOC decoding
 - `REMP` supported. `ProcessingEvent` enum is extended with `REMP` statuses (enum of events posted into `processing.wait_for_transaction` function callback )
@@ -431,12 +431,12 @@ appropriate error text is added to error message instead of executor internal er
 
 ## [1.32.0] – 2022-03-22
 
-### New 
+### New
 
 - `network.queries_protocol` config parameter allows selecting protocol the SDK uses to communicaite with GraphQL endpoint:
   - `HTTP` – SDK performs single HTTP-request for each request.
   - `WS` – SDK uses single WebSocket connection to send all requests. This protocol is a preferable
-    way when the application sends many GraphQL requests in parallel. 
+    way when the application sends many GraphQL requests in parallel.
 
 ### Fixed
 - **Debot module**:
@@ -444,26 +444,26 @@ appropriate error text is added to error message instead of executor internal er
 
 ## [1.31.0] – 2022-03-09
 
-### New 
+### New
 **crypto module:**
-- `Cryptobox` introduced: root crypto object that stores encrypted secret and acts as a factory for all crypto primitives used in SDK. 
+- `Cryptobox` introduced: root crypto object that stores encrypted secret and acts as a factory for all crypto primitives used in SDK.
   Crypto box provides signing and encryption boxes.
 
-  Functions:  
-  [`create_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#create_crypto_box) - initializes cryptobox with secret   
-  [`remove_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#remove_crypto_box) - removes cryptobox and overwrites all secrets with zeroes  
-  [`get_crypto_box_seed_phrase`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_crypto_box_seed_phrase) - returns decrypted seed phrase  
-  [`get_crypto_box_info`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_crypto_box_info) - returns encrypted cryptobox secret for next cryptobox initializations  
-  [`get_signing_box_from_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_signing_box_from_crypto_box) - derives signing box from secret  
-  [`get_encryption_box_from_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_encryption_box_from_crypto_box) - derives encryption box from secret  
-  [`clear_crypto_box_secret_cache`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#clear_crypto_box_secret_cache) - forces secret cache (signing and encryption) clean up (overwrites all secrets with zeroes). 
+  Functions:
+  [`create_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#create_crypto_box) - initializes cryptobox with secret
+  [`remove_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#remove_crypto_box) - removes cryptobox and overwrites all secrets with zeroes
+  [`get_crypto_box_seed_phrase`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_crypto_box_seed_phrase) - returns decrypted seed phrase
+  [`get_crypto_box_info`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_crypto_box_info) - returns encrypted cryptobox secret for next cryptobox initializations
+  [`get_signing_box_from_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_signing_box_from_crypto_box) - derives signing box from secret
+  [`get_encryption_box_from_crypto_box`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#get_encryption_box_from_crypto_box) - derives encryption box from secret
+  [`clear_crypto_box_secret_cache`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_crypto.md#clear_crypto_box_secret_cache) - forces secret cache (signing and encryption) clean up (overwrites all secrets with zeroes).
 
 
 ### Fixed
 - Documentation generator for app object interface fills documentation from
   `ParamsOfXXXAppObject` enum.
-- Documentation generator for function with `obj` parameter add this parameter 
-  into parameters section with link to appropriate AppObject interface.  
+- Documentation generator for function with `obj` parameter add this parameter
+  into parameters section with link to appropriate AppObject interface.
 
 ## [1.30.2] – 2022-03-14
 
@@ -475,17 +475,17 @@ appropriate error text is added to error message instead of executor internal er
 ### Changed
 - **Rebranding**:
     - rename repository name from 'ton-client-js' to 'ever-sdk-js'
-    - rename binary binding filenames from 'tonclient_' to 'eversdk_'
-    - rename npm scope name from '@tonclient' to '@eversdk'
-        @tonclient/core             -> @eversdk/core
-        @tonclient/lib-node         -> @eversdk/lib-node
-        @tonclient/lib-web          -> @eversdk/lib-web
-        @tonclient/lib-react-native -> @eversdk/lib-react-native
+    - rename binary binding filenames from 'TvmClient_' to 'eversdk_'
+    - rename npm scope name from '@TvmClient' to '@eversdk'
+        @TvmClient/core             -> @tvmsdk/core
+        @TvmClient/lib-node         -> @eversdk/lib-node
+        @TvmClient/lib-web          -> @eversdk/lib-web
+        @TvmClient/lib-react-native -> @eversdk/lib-react-native
 
 ## [1.30.0] – 2022-02-04
 
 ### New
-- Added `boc.encode_external_in_message` function to encode message BOC based on 
+- Added `boc.encode_external_in_message` function to encode message BOC based on
   a low level message parts such as a body, state init etc.
 - Added `net.subscribe` function to start a low level GraphQL subscription.
 - Added support for new MYCODE TVM command in `tvm.run_tvm` and `tvm.run_get` functions.
@@ -524,11 +524,11 @@ appropriate error text is added to error message instead of executor internal er
 
 ### New
 - Function [`abi.encode_initial_data`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_abi.md#encode_initial_data) which
-  encodes initial account data with initial values for the contract's static variables and owner's public key. 
+  encodes initial account data with initial values for the contract's static variables and owner's public key.
   This function is analogue of `tvm.buildDataInit` function in Solidity.
 
 ### Fixed
-- Subscription for Counterparties failed with 'Unknown type "CounterpartieFilter"' error. 
+- Subscription for Counterparties failed with 'Unknown type "CounterpartieFilter"' error.
 
 ## [1.26.1] – 2021-12-01
 
@@ -539,29 +539,29 @@ appropriate error text is added to error message instead of executor internal er
 
 ### New
 - **Debot module**:
-    - Аdded `allow_no_signature` parameter to `decode_and_fix_ext_msg()` and 
+    - Аdded `allow_no_signature` parameter to `decode_and_fix_ext_msg()` and
       `onerror_id` return value to `prepare_ext_in_message()` inner functions used in TS4.
     - Added support for async external calls.
     - `Query` interface extended with `waitForCollection` and `query` methods. `waitForCollection` allows to wait
      for completion of async external calls.
     - Added support for DeBots with ABI 2.2.
-- Function [`proofs.proof_message_data`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_proofs.md#proof_message_data) which proves message data, retrieved 
+- Function [`proofs.proof_message_data`](https://github.com/tonlabs/TON-SDK/blob/master/docs/reference/types-and-methods/mod_proofs.md#proof_message_data) which proves message data, retrieved
   from Graphql API.
 
 ## [1.25.0] – 2021-11-08
 
 ### New
 - Added JS Blob support in lib-web
-- New module [`proofs`](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_proofs.md) is introduced!  
-- Functions [`proofs.proof_block_data`](./docs/mod_proofs.md#proof_block_data) and [`proofs.proof_transaction_data`](./docs/mod_proofs.md#proof_transaction_data) 
-  which prove block data, retrieved from Graphql API. 
-  
-  These are the first functions from proofs series :) Wait for others(`proof_account_data`, `proof_message_data`) in the next releases. 
+- New module [`proofs`](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_proofs.md) is introduced!
+- Functions [`proofs.proof_block_data`](./docs/mod_proofs.md#proof_block_data) and [`proofs.proof_transaction_data`](./docs/mod_proofs.md#proof_transaction_data)
+  which prove block data, retrieved from Graphql API.
 
-  Read about them more in the [documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_proofs.md#proof_block_data). 
+  These are the first functions from proofs series :) Wait for others(`proof_account_data`, `proof_message_data`) in the next releases.
+
+  Read about them more in the [documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_proofs.md#proof_block_data).
 
 - [`abi.decode_boc`](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#decode_boc) function to decode custom BOC data into JSON parameters.
-- `Ref(<ParamType>)` type was added to ABI.   
+- `Ref(<ParamType>)` type was added to ABI.
   Solidity functions use ABI types for builder encoding. The simplest way to decode such a BOC is to use ABI decoding. ABI has it own rules for fields layout in cells so manually encoded BOC can not be described in terms of ABI rules. To solve this problem we introduce a new ABI type `Ref(<ParamType>)` which allows to store `ParamType` ABI parameter in cell reference and, thus, decode manually encoded BOCs. This type is available only in `decode_boc` function and will not be available in ABI messages encoding until it is included into some ABI revision.
 
 ## [1.24.0] – 2021-10-18
@@ -586,7 +586,7 @@ appropriate error text is added to error message instead of executor internal er
 ### New
 - ABI v2.2 with fixed message body layout supported. [See the specification](https://github.com/tonlabs/ton-labs-abi/blob/master/docs/ABI_2.2_spec.md).
 
-  Now, for contracts with ABI version < 2.2  compact layout will still be used for compatibility, for contracts with ABI version 2.2 and more - fixed layout will be used.  
+  Now, for contracts with ABI version < 2.2  compact layout will still be used for compatibility, for contracts with ABI version 2.2 and more - fixed layout will be used.
 **Please, make sure that you updated the ABI if you recompiled your contract with 2.2 ABI, or you may get an inconsistent contract behaviour**.
 - **Debot module**:
     - added `getEncryptionBoxInfo`, `getSigningBoxInfo` functions to Sdk interface.
@@ -623,7 +623,7 @@ appropriate error text is added to error message instead of executor internal er
 ## [1.21.0] – 2021-08-18
 
 ### New
-- `crypto.create_encryption_box` function for creating SDK-defined encryption boxes. First supported 
+- `crypto.create_encryption_box` function for creating SDK-defined encryption boxes. First supported
 algorithm - AES with CBC mode.
 - **Debot module**:
     - Аdded public `prepare_ext_in_message` function.
@@ -642,7 +642,7 @@ is used as default.
 ### New
 - ABI version `2.1` supported.
 - Now all requests to GraphQL are limited with timeout to react on unexpected server unavailability.
-Existing timeouts in waiting functions keep the same behaviour. All other requests timeout now can 
+Existing timeouts in waiting functions keep the same behaviour. All other requests timeout now can
 be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 - **Debot module**:
     - added `encrypt`, `decrypt` functions to Sdk interface which accept encryption box handles.
@@ -656,7 +656,7 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 - `get_address_type` function in `utils` module, which validates address and returns its type. See the documentation.
 - `decode_account_data` function in `abi` module that converts account data BOC into JSON representation according to ABI 2.1. See the documentation.
 - Diagnostic fields `filter` and `timestamp` added to `wait_for_collection` error
-- `main.ton.dev` and `net.ton.dev` endpoints that will be deprecated on 12.07.21 are now replaced with [proper endpoints list](https://docs.ton.dev/86757ecb2/p/85c869-networks), if they were specified in network `endpoints` config 
+- `main.ton.dev` and `net.ton.dev` endpoints that will be deprecated on 12.07.21 are now replaced with [proper endpoints list](https://docs.ton.dev/86757ecb2/p/85c869-networks), if they were specified in network `endpoints` config
 
 ### Fixed
 - Search of the first master blocks during the network start period was fixed in blocks and transactions iterators
@@ -670,11 +670,11 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 ## [1.18.0] – 2021-06-26
 
 ### New
-- Iterators in `net` module: robust way to iterate blockchain items (blocks, transactions) 
-  in specified range. See documentation for `create_block_iterator` , `create_transaction_iterator`, 
-  `resume_block_iterator`, `resume_transaction_iterator`, `iterator_next`, `iterator_remove` 
+- Iterators in `net` module: robust way to iterate blockchain items (blocks, transactions)
+  in specified range. See documentation for `create_block_iterator` , `create_transaction_iterator`,
+  `resume_block_iterator`, `resume_transaction_iterator`, `iterator_next`, `iterator_remove`
   functions.
-- Library adds `http://` protocol to endpoints `localhost`, `127.0.0.1`, `0.0.0.0` if protocol 
+- Library adds `http://` protocol to endpoints `localhost`, `127.0.0.1`, `0.0.0.0` if protocol
   isn't specified in config.
 - **Debot module**:
     - added tests for Json interface.
@@ -688,12 +688,12 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 ## [1.16.1] – 2021-06-16
 
 ### New
-- `timeout` option to `query_transaction_tree` – timeout used to limit waiting time for the next 
+- `timeout` option to `query_transaction_tree` – timeout used to limit waiting time for the next
   message and transaction in the transaction tree.
-  
+
 ### Improved
 
-- Improved error messages regarding ABI and JSON interface. SDK now shows additional tips for the user in cases of 
+- Improved error messages regarding ABI and JSON interface. SDK now shows additional tips for the user in cases of
   errors.
 
 ### Fixed
@@ -705,9 +705,9 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 
 ### New
 
-- `query_transaction_tree` function that returns messages and transactions tree produced 
+- `query_transaction_tree` function that returns messages and transactions tree produced
   by the specified message was added to `net` module. [See the documentation](https://github.com/tonlabs/TON-SDK/blob/1.16.0/docs/mod_net.md#query_transaction_tree)
-- `libOptions.loadModule` – ability to specify alternative WASM module loader. 
+- `libOptions.loadModule` – ability to specify alternative WASM module loader.
 
 ### Fixed
 
@@ -718,11 +718,11 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 
 ### New
 
-- Sync latency detection increases connection reliability. Library will change the current endpoint 
+- Sync latency detection increases connection reliability. Library will change the current endpoint
   when it detects data sync latency on it.
-  
-- Configuration parameters: `latency_detection_interval`, 
-  `max_latency`. See client documentation for details. 
+
+- Configuration parameters: `latency_detection_interval`,
+  `max_latency`. See client documentation for details.
 
 - **Debot module**:
     - signing messages with signing box handles returned from debots.
@@ -759,26 +759,26 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 ## [1.13.0] – 2021-04-23
 
 ### New
-- Refined bridging model in `core` package. Library introduces new interface BinaryBridge. 
-  Bridge authors can implement this interface instead of BinaryLibrary to 
+- Refined bridging model in `core` package. Library introduces new interface BinaryBridge.
+  Bridge authors can implement this interface instead of BinaryLibrary to
   get more precise control over bridging.
-  For example it makes possible to use separated response handlers for different 
+  For example it makes possible to use separated response handlers for different
   requests.
-  
-- [`net.query_counterparties`](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#query_counterparties) - allows to query and paginate through the list of accounts that the specified account 
- has interacted with, sorted by the time of the last internal message between accounts.   
+
+- [`net.query_counterparties`](https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#query_counterparties) - allows to query and paginate through the list of accounts that the specified account
+ has interacted with, sorted by the time of the last internal message between accounts.
   Subscription to counterparties collection is available via `net.subscribe_collection` function.
 
-- Blockchain interaction reliability improvement (broadcast): library sends external inbound messages simultaneously 
-  to the N randomly chosen endpoints. If all N endpoints failed to responce then library repeats 
-  sending to another random N endpoints (except the failed one). 
+- Blockchain interaction reliability improvement (broadcast): library sends external inbound messages simultaneously
+  to the N randomly chosen endpoints. If all N endpoints failed to responce then library repeats
+  sending to another random N endpoints (except the failed one).
   If all the available endpoints fail to respond then library throws error.
   The N parameter is taken from `config.network.sending_endpoint_count` (default is 2).
 
-- Blockchain interaction reliability improvement (bad delivery list): library tracks endpoints 
-  with bad message delivery (expired messages). These endpoints have lower priority when library chooses endpoints 
+- Blockchain interaction reliability improvement (bad delivery list): library tracks endpoints
+  with bad message delivery (expired messages). These endpoints have lower priority when library chooses endpoints
   to send message.
-  
+
 - **Debot module**:
     - Implementation of `Json` DeBot interface in DEngine.
 
@@ -819,7 +819,7 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
 
 ### New
 - New high-level wrapper [Account.ts](packages/core/src/account.ts) that simplifies work with accounts:
-   
+
   `Account` class is introduced that supports these high-level methods:
     - (static) `giver` - allows to specify a giver to be used in all deploy operations
     - `deploy` - deploys a contract
@@ -828,7 +828,7 @@ be set with `net.query_timeout` config parameter. Its default value is 60000 ms
     - `getAddress` - returns account address
     - `getAccount`- returns all the data about the account in json format
     - `boc` - returns the account boc.
-   
+
    `GiverContract` object is introduced that is ititialized with [TON OS SE Giver](https://github.com/tonlabs/tonos-se/tree/master/contracts#giver-v2) address and keys.
 
 ## [1.10.0] – 2021-03-04
@@ -869,7 +869,7 @@ DApp Server endpoints. Otherwise [default configuration](https://github.com/tonl
 - `tuple_list_as_array` parameter in `tvm.run_get` function which controls lists representation.
 Default is stack-like based on nested tuples. If set to `true` then returned lists are encoded as plain arrays.  Use this option if you receive this error on Web: "Runtime error. Unreachable code should not be executed..."
 This reduces stack size requirements for long lists.
-- `function_name` field of `CallSet` structure can be the name or **id (as string in hex starting with 0x)** of the called function. 
+- `function_name` field of `CallSet` structure can be the name or **id (as string in hex starting with 0x)** of the called function.
 - Fields `config_servers`, `query_url`, `account_address`, `gas_used` added into specific errors' `ClientError.data` object.
 
 ### Fixed
@@ -883,7 +883,7 @@ This reduces stack size requirements for long lists.
 
 - **Debot Module**:
     - Added new built-in interface `Msg` which allows to send external message to blockchain and sign it with supplied keypair.
-    
+
 ### Fixed
 
 - `crypto.hdkey_public_from_xprv` used compressed 33-byte form instead of normal 32-byte.
@@ -891,11 +891,11 @@ This reduces stack size requirements for long lists.
 ## 1.7.0 Feb 9, 2021
 ### New
 - BOC cache management functions were introduced:
-  - `boc.cache_set`, 
-  - `boc.cache_get`  
-  - `boc.cache_unpin` 
-- Now functions that take boc as a parameter can also take a reference to boc cash instead so that it deсreases the number of boc serialization 
-and deserializations which drastically improves performance of `run_tvm` and `run_executor` expecially in case of numerous calls on the same data. 
+  - `boc.cache_set`,
+  - `boc.cache_get`
+  - `boc.cache_unpin`
+- Now functions that take boc as a parameter can also take a reference to boc cash instead so that it deсreases the number of boc serialization
+and deserializations which drastically improves performance of `run_tvm` and `run_executor` expecially in case of numerous calls on the same data.
 - `boc_cache` parameter in `tvm.run_tvm` and `tvm.run_executor` functions to save resulting messages and account BOCs into cache.
 - `return_updated_account` flag parameter introduced in `tvm.run_tvm` and `tvm.run_executor` functions to return updated account state. Important: by default this flag is `false` and account data is not returned.
 - `abi.encode_internal_message` function to encode an internal ABI-compatible message.
@@ -917,7 +917,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 - `aggregate_collection` function as a wrapper for GraphQL aggregation queries.
 - `batch_query` function performs multiple queries per single fetch.
 - Active endpoint invalidation in case of network error occuring.
-- `network.network_retries_count` config parameter is deprecated. `network.max_reconnect_timeout` is introduced that allows to specify maximum network resolving timeout. Default value is 2 mins. 
+- `network.network_retries_count` config parameter is deprecated. `network.max_reconnect_timeout` is introduced that allows to specify maximum network resolving timeout. Default value is 2 mins.
 - `initial_pubkey` field in `DeploySet` to specify public key instead of one from TVC file or provided by signer.
 - Support for debot interfaces:
   - `send` Browser Callback to send messages with interface calls to Browser.
@@ -962,7 +962,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 ## 1.3.3 - Dec 16, 2020
 
 ### Fix
-- `lib-react-native` native module package name was changed to `tonlabs.tonclient`.
+- `lib-react-native` native module package name was changed to `tonlabs.TvmClient`.
 
 ## 1.3.2 - Dec 11, 2020
 
@@ -972,7 +972,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 ## 1.3.1 - Dec 9, 2020
 
 ### Fix
-- AppObject wasn't working.  
+- AppObject wasn't working.
 
 ## 1.3.0 - Dec 8, 2020
 
@@ -982,7 +982,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 - Inline JSDoc comments.
 
 ### Fix
-- Failed downloads issues.  
+- Failed downloads issues.
 
 ## 1.2.1 - Dec 4, 2020
 
@@ -996,7 +996,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 - Mono repository: now all the platform packages are developed in the same repository, platform bridges were also moved here from core repository
 - Typescript: v1 JS binding is written in Typescript
 - Low level API: at the moment the library provides only low level API, **we plan to extend it with high level handy wrappers in the future releases.**
-- new API reference: [core api reference documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/modules.md) provides typescript samples of function signatures. 
+- new API reference: [core api reference documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/modules.md) provides typescript samples of function signatures.
 
 ## 0.26.2 - Sep 21, 2020
 ### Fixed
@@ -1008,27 +1008,27 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 
 ## 0.26.0 - August 20, 2020
 ### New
-- All message creation functions (`createDeployMessage`, `createRunMessage`, `run`, `deploy`) now are accept 
+- All message creation functions (`createDeployMessage`, `createRunMessage`, `run`, `deploy`) now are accept
   the optional `signingBox` as an alternative to the `keyPair`.
-- `getCryptoBox` method of the `contracts` module. It creates a default `TONCryptoBox` implementation 
+- `getCryptoBox` method of the `contracts` module. It creates a default `TONCryptoBox` implementation
    that uses the core crypto module.
-- More diagnostic fields `configServer`, `queryUrl` in error object. 
+- More diagnostic fields `configServer`, `queryUrl` in error object.
 
 ## 0.25.5 - August 5, 2020
 ### Fixed
-- `waitForTransaction` didn't use prev_alt_ref for block walking 
+- `waitForTransaction` didn't use prev_alt_ref for block walking
 
 ## 0.25.4 - July 31, 2020
 ### Fixed
-- Ability to use `crypto` module before `setup`. 
+- Ability to use `crypto` module before `setup`.
 
 ## 0.25.3 - July 29, 2020
 ### Fixed
-- Fix test. 
+- Fix test.
 
 ## 0.25.2 - July 26, 2020
 ### Fixed
-- Error reporting in test suite on react-native testApp. 
+- Error reporting in test suite on react-native testApp.
 
 ## 0.25.1 - July 26, 2020
 ### Bug fix
@@ -1041,55 +1041,55 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 - Support for core contexts.
 - Test suite have been refactored and can be easily adopted to run on several Js targets.
 - `networkTimeout` configuration parameter for retrying GraphQL requests in case of network errors. Default value is `0` which means infinite retries until network connection will be succeeded.
-- New message processing tracing. Client starts root processing span with `traceId` and `spanId` calculated from messageId. Other components can report child span without passing parent context through pipeline. 
-- `messageProcessingTimeoutGrowFactor` field removed from config since it's not used 
+- New message processing tracing. Client starts root processing span with `traceId` and `spanId` calculated from messageId. Other components can report child span without passing parent context through pipeline.
+- `messageProcessingTimeoutGrowFactor` field removed from config since it's not used
 - graphql queries can be forcible aborted on a timeout in case of a half-open TCP connection,
 
 ## 0.24.0 - June 3, 2020
 ### New
 - Detailed errors produced by core library.
-- Optional parameter `fullRun` for `runLocal` method allows to emulate an execution on a real node with all required checks and fees calculations. 
-- Optional parameter `account` for `runLocal` method allows to provide the specified account data instead of loading them from a blockchain. 
-- Optional result field `account` for `runLocal` and `runMessageLocal` methods returns state of an account after contract execution has finished. Presented only when the `fullRun` parameter has specified.  
-- Method `runMessageLocal` as a replacement for the `processRunMessageLocal` with `fullRun` and `account` parameters. 
+- Optional parameter `fullRun` for `runLocal` method allows to emulate an execution on a real node with all required checks and fees calculations.
+- Optional parameter `account` for `runLocal` method allows to provide the specified account data instead of loading them from a blockchain.
+- Optional result field `account` for `runLocal` and `runMessageLocal` methods returns state of an account after contract execution has finished. Presented only when the `fullRun` parameter has specified.
+- Method `runMessageLocal` as a replacement for the `processRunMessageLocal` with `fullRun` and `account` parameters.
 - `1003` error on contract run is replaced with more specific `1010`-`1012` errors
- 
+
 ## 0.23.2 - May 25, 2020
 ### New
 - Detailed errors instead of 1006.
 - Babel runtime dependency has returned.
- 
+
 ## 0.23.1 - May 21, 2020
 ### New
-- Methods `serverNow()` and `serverTimeDelta()` of `TONClient` returns current server time.
+- Methods `serverNow()` and `serverTimeDelta()` of `TvmClient` returns current server time.
 - Check for a clock is out of sync before sending the first message (fail if out of sync).
-- Method `waitForRunTransaction` of `contracts` module. 
-- Method `waitForDeployTransaction` of `contracts` module. 
-- Method `isDeployed` of `contracts` module. 
- 
+- Method `waitForRunTransaction` of `contracts` module.
+- Method `waitForDeployTransaction` of `contracts` module.
+- Method `isDeployed` of `contracts` module.
+
 ## 0.23.0 - May 15, 2020
 ### New
 - Method `runGet` of `contracts` module executes get method on a local tvm.
 - Method `arrayFromCONS` of `contracts` module converts CONS-list to JS arrays.
- 
+
 ## 0.22.2 - May 3, 2020
 ### New
 - keep-alive checking support for graphql subscriptions
- 
+
 ## 0.22.1 - Apr 29, 2020
 ### Fixed
 - GraphQL query will retry if network error has occurred
 
 ### New
-- `aggregate` method of `TONQueriesModuleCollection` 
- 
+- `aggregate` method of `TONQueriesModuleCollection`
+
 ## 0.22.0 - Apr 20, 2020
 ### Featured
 - Aggregation queries
 
 ### New
-- `aggregate` method of `TONQueriesModuleCollection` 
- 
+- `aggregate` method of `TONQueriesModuleCollection`
+
 ## 0.21.26 - Apr 7, 2020
 ### Fixed
 - `blocks_signatures` collection queries failed
@@ -1102,46 +1102,46 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 ## 0.21.24 - Mar 27, 2020
 ### Featured
 - Stability fixes
-- Operation ID in queries 
+- Operation ID in queries
 
 ### New
 - `operationId` parameter to waitFor and query
 
 ### Fixed
 - message expiration check was after sending request to node
-- operationId is used to reduce inactive server listeners 
+- operationId is used to reduce inactive server listeners
 
 
 ## 0.21.23 - Mar 24, 2020
 ### Featured
-- Stability fixes 
+- Stability fixes
 
 ### Fixed
-- guard client initialization from several simultaneous starts. 
+- guard client initialization from several simultaneous starts.
 
 ## 0.21.22 - Mar 23, 2020
 ### Featured
-- Ability to use web sockets for queries and mutations 
+- Ability to use web sockets for queries and mutations
 
 ### New
 - config parameter `useWebSocketForQueries`
 
 ### Fixed
-- WebSocket reconnect log record changed from `error` to `info` 
+- WebSocket reconnect log record changed from `error` to `info`
 
 ## 0.21.1 - Mar 19, 2020
 ### Featured
-- Stability improvements 
+- Stability improvements
 
 ### New
 - log to console WebSocket errors and reconnections
 - config parameters `retriesCount` and `transactionTimeout` have removed
 - config parameters `messageRetriesCount`, `messageExpirationTimeout`, `messageExpirationTimeoutGrowFactor`, `messageProcessingTimeout`, `messageProcessingTimeoutGrowFactor`, `waitForTimeout`
 - `run` method returns `transactions` with included fields `compute.gas_fees` and `compute.gas_used`
-- client will try to use all addresses from `servers` config if the first server fails 
+- client will try to use all addresses from `servers` config if the first server fails
 
 ### Fixed
-- enhanced reconnection procedure when WebSocket connection has failed 
+- enhanced reconnection procedure when WebSocket connection has failed
 - expiration retries didn't work
 
 ## 0.21.0 - Mar 12, 2020
@@ -1154,7 +1154,7 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 
 ## 0.20.100 - Feb 17, 2020
 ### New
-- `registerAccessKey` parameters passed as structure. 
+- `registerAccessKey` parameters passed as structure.
 - `restrictToAccounts` option for access keys.
 - `parseMessage` function for parsing message BOC into JSON.
 - `deploy` and `processDeployMessage` functions now check the account state before sending message and return `alreadyDeployed = true` if account is already active.
@@ -1179,8 +1179,8 @@ and deserializations which drastically improves performance of `run_tvm` and `ru
 
 ### New
 - Open Tracing (jaeger) integration:
-    1) Optional `tracer` config parameter was added. If specified, must point to opentracing.Tracer object. If not specified then opentracing `noop` tracer will be used. 
-    2) TONClient.trace method to encapsulate some user code into open trace span:
+    1) Optional `tracer` config parameter was added. If specified, must point to opentracing.Tracer object. If not specified then opentracing `noop` tracer will be used.
+    2) TvmClient.trace method to encapsulate some user code into open trace span:
         ```javascript
         async function foo(..., parentSpan) {
             return client.trace('Foo', async (fooSpan) => {

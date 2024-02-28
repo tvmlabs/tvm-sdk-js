@@ -14,7 +14,7 @@
 
 use std::env;
 use std::path::PathBuf;
-use ton_client_build::{check_targets, exec, path_str, Build};
+use tvm_client_build::{check_targets, exec, path_str, Build};
 
 struct Arch {
     target: &'static str,
@@ -50,7 +50,10 @@ const NDK_URL: &str = "http://dl.google.com/android/repository/android-ndk-r17c-
 
 fn main() {
     let target_arg = env::args().nth(1).unwrap_or("".to_string());
-    let the_archs: Vec<&Arch> = ARCHS.iter().filter(|arch| arch.target.starts_with(&target_arg)).collect();
+    let the_archs: Vec<&Arch> = ARCHS
+        .iter()
+        .filter(|arch| arch.target.starts_with(&target_arg))
+        .collect();
     let builder = Build::new();
     check_targets(&the_archs.iter().map(|x| x.target).collect::<Vec<_>>());
     check_ndk(&builder, &the_archs);
@@ -63,14 +66,28 @@ fn main() {
             &builder.lib_dir.join("NDK").join(arch.ndk).join("bin"),
         ));
         std::env::set_var("PATH", path);
-        assert!(exec("cargo", &["+1.67.0-x86_64-unknown-linux-gnu", "build", "--target", arch.target, "--release"]).success());
+        assert!(exec(
+            "cargo",
+            &[
+                "+1.67.0-x86_64-unknown-linux-gnu",
+                "build",
+                "--target",
+                arch.target,
+                "--release"
+            ]
+        )
+        .success());
     }
 
     let out_dir = builder.package_dir.join("src/main/jniLibs");
     for &arch in &the_archs {
         let arch_out_dir = out_dir.join(arch.jni);
         std::fs::create_dir_all(&arch_out_dir).unwrap();
-        let src = builder.target_dir.join(arch.target).join("release").join(LIB);
+        let src = builder
+            .target_dir
+            .join(arch.target)
+            .join("release")
+            .join(LIB);
         if src.exists() {
             let out_lib = arch_out_dir.join(LIB);
             std::fs::copy(&src, &out_lib).unwrap();
@@ -114,7 +131,8 @@ fn get_ndk(builder: &Build) -> PathBuf {
             path_str(&builder.lib_dir),
             path_str(&ndk_zip_file),
         ],
-    ).success());
+    )
+    .success());
     std::env::set_var("NDK_HOME", path_str(&ndk_dir));
     ndk_dir
 }
@@ -151,7 +169,8 @@ fn check_ndk(builder: &Build, the_archs: &[&Arch]) {
                 "--install-dir",
                 arch.ndk,
             ],
-        ).success());
+        )
+        .success());
     }
     std::env::set_current_dir(&builder.lib_dir).unwrap();
 }

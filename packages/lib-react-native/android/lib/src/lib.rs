@@ -16,7 +16,7 @@ extern crate ton_client;
 #[macro_use]
 extern crate lazy_static;
 
-use self::ton_client::{create_context, destroy_context, request, ContextHandle};
+use self::tvm_client::{create_context, destroy_context, request, ContextHandle};
 
 use jni::objects::{GlobalRef, JClass, JObject, JString, JValue};
 use jni::sys::{jlong, jstring};
@@ -34,7 +34,7 @@ lazy_static! {
 
 #[allow(non_snake_case)]
 #[no_mangle]
-pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_createContext(
+pub unsafe extern "C" fn Java_tonlabs_TvmClient_TvmClientJsonInterface_createContext(
     env: JNIEnv,
     _class: JClass,
     config_json: JString,
@@ -51,7 +51,7 @@ pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_createCon
 
 #[allow(non_snake_case)]
 #[no_mangle]
-pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_destroyContext(
+pub unsafe extern "C" fn Java_tonlabs_TvmClient_TvmClientJsonInterface_destroyContext(
     _env: JNIEnv,
     _class: JClass,
     context: jlong,
@@ -61,7 +61,7 @@ pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_destroyCo
 
 #[allow(non_snake_case)]
 #[no_mangle]
-pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_setResponseHandler(
+pub unsafe extern "C" fn Java_tonlabs_TvmClient_TvmClientJsonInterface_setResponseHandler(
     env: JNIEnv,
     _class: JClass,
     handler: JObject,
@@ -99,7 +99,7 @@ fn response_handler(request_id: u32, params_json: String, response_type: u32, fi
 
 #[allow(non_snake_case)]
 #[no_mangle]
-pub unsafe extern "C" fn Java_tonlabs_tonclient_TonClientJsonInterface_sendRequest(
+pub unsafe extern "C" fn Java_tonlabs_TvmClient_TvmClientJsonInterface_sendRequest(
     env: JNIEnv,
     _class: JClass,
     context: jlong,

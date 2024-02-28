@@ -15,7 +15,7 @@
 import { runner } from '../runner';
 import { test, expect } from '../jest';
 import { contracts } from '../contracts';
-import { signerKeys } from '@eversdk/core';
+import { signerKeys } from '@tvmsdk/core';
 
 test("Test versions compatibility", async () => {
     const client = runner.getClient().client;
@@ -46,7 +46,7 @@ test("client: walk api reference", async () => {
 
     const apiResult = await client.get_api_reference();
     const api = apiResult.api;
-    
+
     const allTypesArray = api.modules.reduce((accumulator: any, element: any) => accumulator.concat(element.types), []);
     const allTypesDict: { [name: string]: any } = {};
     allTypesArray.forEach((element: any) => allTypesDict[element.name] = element);
@@ -64,7 +64,7 @@ test("client: walk api reference", async () => {
                 throw Error("The API has changed, need to check helpers suggestions");
             }
     });
-    
+
     function walkSubtypes(typeInfo: any) {
         switch (typeInfo.type) {
             case "Array":
@@ -108,7 +108,7 @@ test("client: Should suggest helper functions if applicable", async () => {
         crypto
     } = runner.getClient();
 
-    const keys = await crypto.generate_random_sign_keys(); 
+    const keys = await crypto.generate_random_sign_keys();
     const c = await runner.getAccount(contracts.Hello, 2, signerKeys(keys));
 
     try {

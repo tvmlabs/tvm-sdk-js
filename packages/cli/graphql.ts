@@ -1,8 +1,8 @@
-import { TonClient } from "@eversdk/core"
+import { TvmClient } from "@tvmsdk/core"
 import { getDefaultEndpoints, sleep } from "./utils"
 
 const subscription = async (
-    sdk: TonClient,
+    sdk: TvmClient,
     subscription: string,
     options: { count: number },
 ) => {
@@ -23,13 +23,13 @@ const subscription = async (
     }
 }
 
-const query = async (sdk: TonClient, query: string) => {
+const query = async (sdk: TvmClient, query: string) => {
     const result = await sdk.net.query({ query })
     console.dir(result, { showHidden: false, depth: null })
 }
 
 export async function graphql(request: string, options: unknown) {
-    const sdk = new TonClient({ network: { endpoints: getDefaultEndpoints() } })
+    const sdk = new TvmClient({ network: { endpoints: getDefaultEndpoints() } })
     try {
         if (request.startsWith("query")) {
             await query(sdk, request)

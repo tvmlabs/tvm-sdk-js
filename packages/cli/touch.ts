@@ -2,7 +2,7 @@ import { Account } from "@eversdk/appkit"
 import { getDefaultEndpoints, sleep } from "./utils"
 import { Giver, DEFAULT_TOPUP_BALANCE } from "./giver"
 import { performance } from "node:perf_hooks"
-import { TonClient, Signer } from "@eversdk/core"
+import { TvmClient, Signer } from "@tvmsdk/core"
 import * as Touch from "./contracts/Touch.js"
 
 export const DEFAULT_TOUCH_MAX_BALANCE = 100 * 1e9
@@ -15,7 +15,7 @@ export async function touch(options: {
     trySleep: number
     signer: Signer
 }) {
-    const sdk = new TonClient({
+    const sdk = new TvmClient({
         abi: {
             message_expiration_timeout: 120_000,
             message_expiration_timeout_grow_factor: 1,

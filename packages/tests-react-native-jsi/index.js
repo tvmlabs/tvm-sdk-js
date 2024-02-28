@@ -12,12 +12,12 @@
  *
  */
 import entry from "./entry";
-import { TonClient } from "@eversdk/core";
+import { TvmClient } from "@tvmsdk/core";
 import { libReactNativeJsi } from "@eversdk/lib-react-native-jsi";
 import { AppRegistry } from "react-native";
 import App from "./App";
 
 entry();
 
-TonClient.useBinaryLibrary(libReactNativeJsi);
+TvmClient.useBinaryLibrary(libReactNativeJsi);
 AppRegistry.registerComponent("tests_runner", () => App);

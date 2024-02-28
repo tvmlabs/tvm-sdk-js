@@ -14,15 +14,15 @@
 #include <fbjni/fbjni.h>
 #endif
 
-#include "tonclient.h"
-#include "TonClientJsiModule.h"
+#include "TvmClient.h"
+#include "TvmClientJsiModule.h"
 #include "request_data_t.h"
 
 using namespace facebook;
 
 namespace tonlabs
 {
-  jsi::Value TonClientJsiModule::setResponseParamsHandler(
+  jsi::Value TvmClientJsiModule::setResponseParamsHandler(
       jsi::Runtime &rt,
       const jsi::Value &responseHandler)
   {
@@ -30,7 +30,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::createContext(
+  jsi::Value TvmClientJsiModule::createContext(
       jsi::Runtime &rt,
       const jsi::Value &configJson,
       const jsi::Value &onResult)
@@ -51,7 +51,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::destroyContext(
+  jsi::Value TvmClientJsiModule::destroyContext(
       jsi::Runtime &rt,
       const jsi::Value &context)
   {
@@ -59,7 +59,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::sendRequestParams(
+  jsi::Value TvmClientJsiModule::sendRequestParams(
       jsi::Runtime &rt,
       const jsi::Value &context,
       const jsi::Value &requestId,
@@ -200,7 +200,7 @@ namespace tonlabs
 #endif
                   request_data_t *request_data = reinterpret_cast<request_data_t *>(request_ptr);
 
-                  TonClientJsiModule *jsiModule = request_data->jsiModule;
+                  TvmClientJsiModule *jsiModule = request_data->jsiModule;
                   const uint32_t requestId = request_data->requestId;
                   const bool returnBlob = request_data->returnBlob;
 

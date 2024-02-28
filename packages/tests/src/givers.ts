@@ -17,8 +17,8 @@ import {
     abiContract,
     KeyPair,
     signerKeys,
-    TonClient,
-} from "@eversdk/core";
+    TvmClient,
+} from "@tvmsdk/core";
 import {ContractPackage} from "./contracts";
 
 export function getEnv(name: string): any {
@@ -40,7 +40,7 @@ export function getDefaultGiverContract(type: GiverVersions): ContractPackage {
     }
 }
 
-export async function getDefaultGiverKeys(client: TonClient): Promise<KeyPair> {
+export async function getDefaultGiverKeys(client: TvmClient): Promise<KeyPair> {
     const definedSecret = getEnv("TON_GIVER_SECRET");
     if (definedSecret) {
         const definedKeys = await client.crypto.nacl_sign_keypair_from_secret_key({
@@ -55,7 +55,7 @@ export async function getDefaultGiverKeys(client: TonClient): Promise<KeyPair> {
     };
 }
 
-export async function getDefaultGiverAddress(client: TonClient, keys: KeyPair, giver: ContractPackage): Promise<string> {
+export async function getDefaultGiverAddress(client: TvmClient, keys: KeyPair, giver: ContractPackage): Promise<string> {
     const definedAddress = getEnv("TON_GIVER_ADDRESS");
     if (definedAddress) {
         return definedAddress;

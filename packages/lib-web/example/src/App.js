@@ -4,9 +4,9 @@ import "./App.css";
 
 import * as React from "react";
 
-import { TonClient } from "@eversdk/core";
+import { TvmClient } from "@tvmsdk/core";
 
-const client = new TonClient();
+const client = new TvmClient();
 
 function App() {
   const [versionText, setVersionText] = React.useState(null);

@@ -151,11 +151,11 @@ buildscript {
 apply plugin: 'com.android.library'
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['TonClientJsi_' + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['TvmClientJsi_' + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['TonClientJsi_' + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['TvmClientJsi_' + name]).toInteger()
 }
 
 def reactNativeArchitectures() {

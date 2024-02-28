@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {libWeb} from "@eversdk/lib-web";
 
 ReactDOM.render(
@@ -18,4 +18,4 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-TonClient.useBinaryLibrary(libWeb); // eslint-disable-line react-hooks/rules-of-hooks
+TvmClient.useBinaryLibrary(libWeb); // eslint-disable-line react-hooks/rules-of-hooks

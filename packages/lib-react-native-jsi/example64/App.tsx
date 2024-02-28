@@ -12,12 +12,12 @@ import * as React from 'react';
 
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
 
-import {TonClient} from '@eversdk/core';
+import {TvmClient} from '@tvmsdk/core';
 import buffer from 'buffer';
 
 const Buffer = global.Buffer ?? buffer.Buffer;
 
-const client = new TonClient();
+const client = new TvmClient();
 
 export default function App() {
   const [versionText, setVersionText] = React.useState(null);

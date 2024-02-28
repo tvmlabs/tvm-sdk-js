@@ -1,5 +1,5 @@
 {
-	"name": "ever-sdk-js-monorepo",
+	"name": "tvm-sdk-js-monorepo",
 	"private": true,
 	"license": "Apache-2.0",
 	"licenses": [
@@ -10,7 +10,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tonlabs/ever-sdk-js.git"
+		"url": "https://github.com/tvmlabs/tvm-sdk-js"
 	},
 	"scripts": {
 		"clean": "git clean -dfqX -- ./node_modules **/{dist,node_modules}/ ./packages/*/tsconfig*tsbuildinfo",
@@ -34,6 +34,6 @@
 		"dotenv": "8.2.0",
 		"jest": "26.5.2",
 		"lerna": "3.22.1",
-		"typescript": "4.0.3"
+		"typescript": "^5.3.3"
 	}
 }

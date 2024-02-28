@@ -36,7 +36,7 @@ On iOS, the library is installed automatically. However, currently it is not pos
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['OTHER_CPLUSPLUSFLAGS'] = '-DDONT_AUTOINSTALL_REANIMATED -DDONT_AUTOINSTALL_TONCLIENTJSI'
+      config.build_settings['OTHER_CPLUSPLUSFLAGS'] = '-DDONT_AUTOINSTALL_REANIMATED -DDONT_AUTOINSTALL_TvmClientJSI'
     end
   end
 end
@@ -153,7 +153,7 @@ android {
 
 ```diff
 +import com.facebook.react.bridge.JSIModulePackage;
-+import com.tonlabs.tonclientjsi.TonClientJSIModulePackage;
++import com.tonlabs.TvmClientjsi.TvmClientJSIModulePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -168,7 +168,7 @@ public class MainApplication extends Application implements ReactApplication {
 
 +        @Override
 +        protected JSIModulePackage getJSIModulePackage() {
-+          return new TonClientJSIModulePackage();
++          return new TvmClientJSIModulePackage();
 +        }
       };
 ```
@@ -181,7 +181,7 @@ If you wish to use lib-react-native-jsi and [react-native-reanimated](https://gi
 +import com.facebook.react.bridge.JSIModulePackage;
 +import com.facebook.react.bridge.ReactApplicationContext;
 +import com.swmansion.reanimated.ReanimatedJSIModulePackage;
-+import com.tonlabs.tonclientjsi.TonClientJSIModulePackage;
++import com.tonlabs.TvmClientjsi.TvmClientJSIModulePackage;
 +import java.util.Arrays;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -201,7 +201,7 @@ public class MainApplication extends Application implements ReactApplication {
 +            @Override
 +            public List<JSIModuleSpec> getJSIModules(final ReactApplicationContext reactApplicationContext, final JavaScriptContextHolder jsContext) {
 +              new ReanimatedJSIModulePackage().getJSIModules(reactApplicationContext, jsContext);
-+              new TonClientJSIModulePackage().getJSIModules(reactApplicationContext, jsContext);
++              new TvmClientJSIModulePackage().getJSIModules(reactApplicationContext, jsContext);
 +              return Arrays.<JSIModuleSpec>asList();
 +            }
 +          };
@@ -237,18 +237,18 @@ public class MainApplication extends Application implements ReactApplication {
 `index.tsx`
 
 ```ts
-import { TonClient } from '@eversdk/core';
+import { TvmClient } from '@tvmsdk/core';
 import { libReactNativeJsi } from 'lib-react-native-jsi';
 
 // Application initialization
 
-TonClient.useBinaryLibrary(libReactNativeJsi);
+TvmClient.useBinaryLibrary(libReactNativeJsi);
 ```
 
 # Usage
 
 ```ts
-const client = new TonClient();
+const client = new TvmClient();
 const keys = await client.crypto.generate_random_sign_keys();
 ```
 

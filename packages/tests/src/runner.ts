@@ -18,8 +18,8 @@ import {
     ResultOfProcessMessage,
     Signer,
     signerKeys,
-    TonClient,
-} from "@eversdk/core";
+    TvmClient,
+} from "@tvmsdk/core";
 
 import {
     getDefaultGiverAddress,
@@ -62,7 +62,7 @@ export class TestsRunner {
     };
     config = resolveConfig();
 
-    private client: TonClient | null = null;
+    private client: TvmClient | null = null;
     private giver: Account | null = null;
     private deployedAccounts: Account[] = [];
 
@@ -146,9 +146,9 @@ export class TestsRunner {
         }
     }
 
-    getClient(): TonClient {
+    getClient(): TvmClient {
         if (!this.client) {
-            this.client = new TonClient(this.config);
+            this.client = new TvmClient(this.config);
         }
         return this.client;
     }
@@ -230,12 +230,12 @@ export class TestsRunner {
         }
     }
 
-    private async waitForMessageProcessed(client: TonClient, message: string) {
+    private async waitForMessageProcessed(client: TvmClient, message: string) {
         await this.waitFor(client, "transactions", "in_msg", message);
         await this.waitFor(client, "messages", "id", message);
     }
 
-    private async waitFor(client: TonClient, collection: string, field: string, value: string) {
+    private async waitFor(client: TvmClient, collection: string, field: string, value: string) {
         await client.net.wait_for_collection({
             collection,
             filter: {

@@ -14,7 +14,7 @@
 extern crate libc;
 extern crate ton_client;
 
-pub use ton_client::{
+pub use tvm_client::{
     tc_create_context, tc_destroy_context, tc_destroy_string, tc_read_string, tc_request,
     tc_request_sync, CResponseHandler, ContextHandle, ResponseType, StringData,
 };

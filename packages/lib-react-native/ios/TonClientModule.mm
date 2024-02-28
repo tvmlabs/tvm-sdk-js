@@ -1,8 +1,8 @@
 
-#import "TonClientModule.h"
-#import "tonclient.h"
+#import "TvmClientModule.h"
+#import "TvmClient.h"
 
-@implementation TonClientModule
+@implementation TvmClientModule
 {
   bool hasListeners;
 }
@@ -22,7 +22,7 @@
 RCT_EXPORT_MODULE()
 
 +(id)allocWithZone:(NSZone *)zone {
-    static TonClientModule *sharedInstance = nil;
+    static TvmClientModule *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [super allocWithZone:zone];
@@ -72,7 +72,7 @@ static void handleResponse(
     uint32_t responseType,
     bool finished
 ) {
-    TonClientModule* module = [[TonClientModule alloc] init];
+    TvmClientModule* module = [[TvmClientModule alloc] init];
     [module
         handleResponseForRequestId: requestId
         paramsJson: paramsJson

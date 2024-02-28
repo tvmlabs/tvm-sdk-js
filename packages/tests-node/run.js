@@ -1,5 +1,5 @@
 const { program } = require("commander");
-const { TonClient } = require("@eversdk/core");
+const { TvmClient } = require("@tvmsdk/core");
 const { libNode } = require("@eversdk/lib-node");
 const {
     TestsLogger,
@@ -11,7 +11,7 @@ TestsRunner.setTimeout = setTimeout;
 TestsRunner.log = console.log;
 TestsRunner.exit = process.exit;
 
-TonClient.useBinaryLibrary(libNode);
+TvmClient.useBinaryLibrary(libNode);
 
 async function run(testNames) {
     let state = zeroRunningState;

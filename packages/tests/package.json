@@ -1,8 +1,8 @@
 {
-  "name": "@eversdk/tests",
+  "name": "@tvmsdk/tests",
   "version": "1.45.0",
   "private": true,
-  "description": "TON Client Tests",
+  "description": "TVM Client Tests",
   "main": "dist/index.js",
   "files": [
     "dist/",
@@ -10,19 +10,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonlabs/ever-sdk-js.git"
+    "url": "https://github.com/tvmlabs/tvm-sdk-js"
   },
   "scripts": {
     "build": "tsc"
   },
   "keywords": [
-    "TON",
+    "TVM",
     "Client",
     "FreeTON",
     "TONOS",
     "SDK"
   ],
-  "author": "TON Labs LTD.",
+  "author": "TVM Labs LTD.",
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -30,14 +30,14 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "homepage": "https://docs.ton.dev/",
+  "homepage": "https://tvmlabs.io/",
   "engines": {
     "node": ">=6"
   },
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.15.0",
-    "@eversdk/core": "file:../core",
+    "@tvmsdk/core": "file:../core",
     "big-integer": "^1.6.48",
     "expect": "26.6.2",
     "jest-circus": "22.1.4",

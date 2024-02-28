@@ -13,7 +13,7 @@ using namespace facebook;
 
 namespace tonlabs
 {
-  class TonClientJsiModule : public facebook::react::SchemaCxxSpecJSI
+  class TvmClientJsiModule : public facebook::react::SchemaCxxSpecJSI
   {
   public:
     jsi::Value setResponseParamsHandler(
@@ -36,7 +36,7 @@ namespace tonlabs
         const jsi::Value &functionName,
         const jsi::Value &functionParams) override;
 
-    TonClientJsiModule(
+    TvmClientJsiModule(
         jsi::Runtime &runtime,
         std::shared_ptr<facebook::react::CallInvoker> jsCallInvoker,
         std::unique_ptr<tonlabs::BlobManager> blobManager)
@@ -45,7 +45,7 @@ namespace tonlabs
           jsCallInvoker_(jsCallInvoker),
           blobManager_(std::move(blobManager)){};
 
-    ~TonClientJsiModule()
+    ~TvmClientJsiModule()
     {
       // prevents JS runtime deallocation until all pending requests are complete
       std::unique_lock<std::mutex> lock(this->mutex_);

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8AFDC6CE21BA9B6500FFF0C4 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFDC6CD21BA9B6500FFF0C4 /* libresolv.tbd */; };
-		B3E7B58A1CC2AC0600A0062D /* TonClientModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* TonClientModule.m */; };
+		B3E7B58A1CC2AC0600A0062D /* TvmClientModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* TvmClientModule.m */; };
 		F1912B162295256000A3F96A /* libtonsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1912B152295256000A3F96A /* libtonsdk.a */; };
 /* End PBXBuildFile section */
 
@@ -150,8 +150,8 @@
 		134814201AA4EA6300B7C361 /* libTONSDKForReactNative.temp_caseinsensitive_rename.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTONSDKForReactNative.temp_caseinsensitive_rename.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4C758421BA84D6003FFE5E /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../../react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		8AFDC6CD21BA9B6500FFF0C4 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		B3E7B5881CC2AC0600A0062D /* TonClientModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TonClientModule.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* TonClientModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TonClientModule.m; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* TvmClientModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TvmClientModule.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* TvmClientModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TvmClientModule.m; sourceTree = "<group>"; };
 		F1912B152295256000A3F96A /* libtonsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtonsdk.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,8 +179,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				B3E7B5881CC2AC0600A0062D /* TonClientModule.h */,
-				B3E7B5891CC2AC0600A0062D /* TonClientModule.m */,
+				B3E7B5881CC2AC0600A0062D /* TvmClientModule.h */,
+				B3E7B5891CC2AC0600A0062D /* TvmClientModule.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				8A4C758421BA84D6003FFE5E /* React.xcodeproj */,
 				8AFDC6BD21BA9B6400FFF0C4 /* Frameworks */,
@@ -222,9 +222,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		58B511DA1A9E6C8500147676 /* TonClientModule */ = {
+		58B511DA1A9E6C8500147676 /* TvmClientModule */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "TonClientModule" */;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "TvmClientModule" */;
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
@@ -235,7 +235,7 @@
 			dependencies = (
 				8A4C75B821BA8505003FFE5E /* PBXTargetDependency */,
 			);
-			name = TonClientModule;
+			name = TvmClientModule;
 			productName = RCTDataManager;
 			productReference = 134814201AA4EA6300B7C361 /* libTONSDKForReactNative.temp_caseinsensitive_rename.a */;
 			productType = "com.apple.product-type.library.static";
@@ -254,7 +254,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "TonClientModule" */;
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "TvmClientModule" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -273,7 +273,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				58B511DA1A9E6C8500147676 /* TonClientModule */,
+				58B511DA1A9E6C8500147676 /* TvmClientModule */,
 			);
 		};
 /* End PBXProject section */
@@ -398,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E7B58A1CC2AC0600A0062D /* TonClientModule.m in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* TvmClientModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +539,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "TonClientModule" */ = {
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "TvmClientModule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511ED1A9E6C8500147676 /* Debug */,
@@ -548,7 +548,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "TonClientModule" */ = {
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "TvmClientModule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,

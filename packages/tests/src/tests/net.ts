@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { AggregationFn, SortDirection } from "@eversdk/core";
+import { AggregationFn, SortDirection } from "@tvmsdk/core";
 
 import { ABIVersions, runner } from "../runner";
 import { expect, jest, test } from "../jest";
@@ -81,7 +81,7 @@ test("net: query_collection - Transactions", async () => {
         result: "id",
         limit: 1,
     });
-    
+
     expect(transactionsQuery.result.length).toBeGreaterThan(0);
 });
 
@@ -94,7 +94,7 @@ test("net: query_collection - Blocks", async () => {
         result: "id",
         limit: 1,
     });
-    
+
     expect(blocksQuery.result.length).toBeGreaterThan(0);
 });
 

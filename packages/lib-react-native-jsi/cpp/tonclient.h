@@ -1,4 +1,4 @@
-// https://github.com/tonlabs/ever-sdk-js/blob/master/packages/lib-react-native/ios/tonclient.h
+// https://github.com/tonlabs/ever-sdk-js/blob/master/packages/lib-react-native/ios/TvmClient.h
 
 #pragma once
 

@@ -1,13 +1,13 @@
-package com.tonlabs.tonclientjsi;
+package com.tonlabs.TvmClientjsi;
 
 import com.facebook.react.modules.blob.BlobModule;
 
 import java.nio.ByteBuffer;
 
-class TonClientJsiBlobManager {
+class TvmClientJsiBlobManager {
   final private BlobModule reactNativeBlobModule;
 
-  public TonClientJsiBlobManager(BlobModule reactNativeBlobModule) {
+  public TvmClientJsiBlobManager(BlobModule reactNativeBlobModule) {
     this.reactNativeBlobModule = reactNativeBlobModule;
   }
 

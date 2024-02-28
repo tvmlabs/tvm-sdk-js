@@ -7,7 +7,7 @@
 #import <React/RCTEventEmitter.h>
 #endif
 
-@interface TonClientModule : RCTEventEmitter <RCTBridgeModule>
+@interface TvmClientModule : RCTEventEmitter <RCTBridgeModule>
 
 @end
 

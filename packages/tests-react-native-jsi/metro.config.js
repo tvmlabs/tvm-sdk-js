@@ -7,7 +7,7 @@
  const path = require("path");
  const extraNodeModules = {};
  const watchFolders = [];
- 
+
  for (const name of [
      "path",
      "fs",
@@ -18,10 +18,10 @@
  ]) {
      extraNodeModules[name] = path.resolve(__dirname, "node-mock", name);
  }
- 
- 
+
+
  for (const name of [
-     "@eversdk/core",
+     "@tvmsdk/core",
      "@eversdk/lib-react-native-jsi",
      "@eversdk/tests",
      "react-native",
@@ -33,8 +33,8 @@
      extraNodeModules[name] = resolvedPath;
      watchFolders.push(resolvedPath);
  }
- 
- 
+
+
  module.exports = {
      transformer: {
          getTransformOptions: async () => ({
@@ -56,4 +56,3 @@
      //     }
      // }
  };
- 

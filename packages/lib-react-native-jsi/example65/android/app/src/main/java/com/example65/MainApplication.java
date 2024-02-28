@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JSIModulePackage;
 import com.facebook.soloader.SoLoader;
-import com.tonlabs.tonclientjsi.TonClientJSIModulePackage;
+import com.tonlabs.TvmClientjsi.TvmClientJSIModulePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected JSIModulePackage getJSIModulePackage() {
-          return new TonClientJSIModulePackage();
+          return new TvmClientJSIModulePackage();
         }
       };
 

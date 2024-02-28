@@ -12,16 +12,16 @@
  *
  */
 
-use ton_client_build::{exec, Build};
+use tvm_client_build::{exec, Build};
 
 fn main() {
     let builder = Build::new();
     assert!(exec("cargo", &["build", "--release"]).success());
 
     #[cfg(target_os = "windows")]
-    let (lib, gyp, gyp_args) = ("eversdk.lib", "cmd", ["/c", "node-gyp", "rebuild"]);
+    let (lib, gyp, gyp_args) = ("tvmsdk.lib", "cmd", ["/c", "node-gyp", "rebuild"]);
     #[cfg(not(target_os = "windows"))]
-    let (lib, gyp, gyp_args) = ("libeversdk.a", "npm", ["run", "build"]);
+    let (lib, gyp, gyp_args) = ("libtvmsdk.a", "npm", ["run", "build"]);
 
     builder.add_package_file(
         &format!("lib/{}", lib),
@@ -31,8 +31,8 @@ fn main() {
     assert!(exec(gyp, &gyp_args).success());
 
     builder.add_package_file(
-        "eversdk.node",
-        builder.package_dir.join("lib/build/Release/eversdk.node"),
+        "tvmsdk.node",
+        builder.package_dir.join("lib/build/Release/tvmsdk.node"),
     );
-    builder.publish_package_file("eversdk.node", "eversdk_{v}_nodejs_addon_{p}");
+    builder.publish_package_file("tvmsdk.node", "tvmsdk_{v}_nodejs_addon_{p}");
 }

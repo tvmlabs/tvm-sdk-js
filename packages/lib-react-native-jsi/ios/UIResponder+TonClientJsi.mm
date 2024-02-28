@@ -14,11 +14,11 @@ typedef facebook::react::JSCExecutorFactory ExecutorFactory;
 #endif
 
 #import "TONJSIExecutorInitializer.h"
-#import "UIResponder+TonClientJsi.h"
+#import "UIResponder+TvmClientJsi.h"
 
-#ifndef DONT_AUTOINSTALL_TONCLIENTJSI
+#ifndef DONT_AUTOINSTALL_TvmClientJSI
 
-@implementation UIResponder (TonClientJsi)
+@implementation UIResponder (TvmClientJsi)
 
 - (std::unique_ptr<facebook::react::JSExecutorFactory>)jsExecutorFactoryForBridge:(RCTBridge *)bridge
 {
@@ -34,4 +34,4 @@ typedef facebook::react::JSCExecutorFactory ExecutorFactory;
 
 @end
 
-#endif // DONT_AUTOINSTALL_TONCLIENTJSI
+#endif // DONT_AUTOINSTALL_TvmClientJSI

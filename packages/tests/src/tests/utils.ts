@@ -16,11 +16,11 @@
 
 import { runner } from "../runner";
 import { test, expect } from "../jest";
-import { 
+import {
     addressStringFormatAccountId,
     addressStringFormatBase64,
     addressStringFormatHex
-} from "@eversdk/core";
+} from "@tvmsdk/core";
 
 test("utils: convert_address", async () => {
     const {
@@ -68,7 +68,7 @@ test("utils: compress_zstd zero", async () => {
     const {
         utils,
     } = runner.getClient();
-    
+
     const zero = '';
     const c = await utils.compress_zstd({uncompressed: zero});
     const d = await utils.decompress_zstd({...c});
@@ -80,7 +80,7 @@ test("utils: compress_zstd big length", async () => {
     const {
         utils,
     } = runner.getClient();
-    
+
     const length = 1024*1024; // 1Mb
     const randomBytesInBase64 = Buffer.from('foo bar 42'.repeat(length), "utf8").toString("base64");
 

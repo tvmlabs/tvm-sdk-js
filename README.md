@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/tonlabs/ever-sdk-js/"><img src="media/ton-sdk-blue.png" height="60"/></a></p> 
+<p align="center"><a href="https://github.com/tonlabs/ever-sdk-js/"><img src="media/ton-sdk-blue.png" height="60"/></a></p>
 <h1 align="center">JavaScript SDK for TVM compatible networks </h1>
 <p align="center">Client Library built for Everscale, Venom blockchain, TON, Gosh</p>
 <p align="center">for Web, Node.js and React Native platforms</p>
@@ -15,7 +15,7 @@
 
 **Have a question? Get quick help in our channel:**
 
-[![Chat on Telegram](https://img.shields.io/badge/chat-on%20telegram-9cf.svg)](https://t.me/ever_sdk) 
+[![Chat on Telegram](https://img.shields.io/badge/chat-on%20telegram-9cf.svg)](https://t.me/ever_sdk)
 
 # Table of Content
 - [Table of Content](#table-of-content)
@@ -43,42 +43,42 @@
 
 # Useful links
 - [Quick Start](https://tonlabs.gitbook.io/ton-sdk/quick_start)
-  
+
 - [Types and Methods (API Reference)](https://tonlabs.github.io/ever-sdk-js/)
-  
-- [AppKit](https://github.com/tonlabs/appkit-js) - JS package built on top of [@eversdk/core](https://www.npmjs.com/package/@eversdk/core) package which purpose is to simplify writing applications on EverScale. It helps to implement most common use-cases with less coding. 
-  
+
+- [AppKit](https://github.com/tonlabs/appkit-js) - JS package built on top of [@tvmsdk/core](https://www.npmjs.com/package/@tvmsdk/core) package which purpose is to simplify writing applications on EverScale. It helps to implement most common use-cases with less coding.
+
 - [SDK guides](https://tonlabs.gitbook.io/ton-sdk/guides/installation/add_sdk_to_your_app) - get a deeper understanding by diving into our guides where you can find extensive explanations of each step of DApp development on EverScale.
-  
+
 - [SDK Samples](https://github.com/tonlabs/sdk-samples) - a good place to get to practice with SDK examples asap:)
 
 # Library distribution
 This SDK is distributed via npm packages:
-- [@eversdk/core](https://www.npmjs.com/package/@eversdk/core) – common binding independent from JavaScript platform you use.
+- [@tvmsdk/core](https://www.npmjs.com/package/@tvmsdk/core) – common binding independent from JavaScript platform you use.
 - [@eversdk/lib-node](https://www.npmjs.com/package/@eversdk/lib-node) – bridge to NodeJs including NodeJs binary addon.
 - [@eversdk/lib-web](https://www.npmjs.com/package/@eversdk/lib-web) – bridge to browser including WASM module.
 - [@eversdk/lib-react-native](https://www.npmjs.com/package/@eversdk/lib-react-native) – bridge to mobile react-native platform including static libraries for iOS and Android.
 
 You can find their source code in this repository.
- 
+
 # Installation
 
 ## Prerequisites
 
-- Node.js 14 LTS  
-  
+- Node.js 14 LTS
+
 *Package probably works OK on other Node.js versions, but we use 14 version in our testing pipelines so we quarantee its stable work only on 14 version.*
 
 ## Install core package
 
 ```shell script
-npm i --save @eversdk/core
+npm i --save @tvmsdk/core
 ```
 
 ## Install bridge package (depends on target JS platform)
 
 The bridge package will download precompiled binaries from TON Labs cloud storage.
-If you want to rebuild binary from sources see [build binaries](#build binaries) section. 
+If you want to rebuild binary from sources see [build binaries](#build binaries) section.
 
 ### NodeJs
 ```shell script
@@ -99,36 +99,36 @@ npm i --save @eversdk/lib-react-native
 
 # Setup library
 
-You must initialize the library before the first use. The best place to do it is an 
+You must initialize the library before the first use. The best place to do it is an
 initialization code of your application.
 
-You need to attach the chosen binary module to the `TonClient` class.
+You need to attach the chosen binary module to the `TvmClient` class.
 
 NodeJs:
 ```ts
-const {TonClient} = require("@eversdk/core");
+const {TvmClient} = require("@tvmsdk/core");
 const {libNode} = require("@eversdk/lib-node");
 
 // Application initialization
 
-TonClient.useBinaryLibrary(libNode)
+TvmClient.useBinaryLibrary(libNode)
 ```
-  
+
 Web:
 ```ts
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {libWeb} from "@eversdk/lib-web";
 
 // Application initialization
 
-TonClient.useBinaryLibrary(libWeb);
+TvmClient.useBinaryLibrary(libWeb);
 ```
 
 By default the library loads wasm module from relative URL `/eversdk.wasm`.
 
 You can specify alternative URL if you want to place (or rename) wasm module.
 ```ts
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {libWeb, libWebSetup} from "@eversdk/lib-web";
 
 // Setup alternative URL for WASM module.
@@ -136,7 +136,7 @@ libWebSetup({
     binaryURL: "/assets/eversdk_1_30_1.wasm",
 });
 
-TonClient.useBinaryLibrary(libWeb);
+TvmClient.useBinaryLibrary(libWeb);
 ```
 
 By default, lib web starts a separate worker that will utilize core (wasm).
@@ -147,7 +147,7 @@ separate worker is a bad approach.
 In this case application can suppress separate worker with:
 
 ```ts
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {libWeb, libWebSetup} from "@eversdk/lib-web";
 
 // Disable separate worker
@@ -155,42 +155,42 @@ libWebSetup({
     disableSeparateWorker: true,
 });
 
-TonClient.useBinaryLibrary(libWeb);
+TvmClient.useBinaryLibrary(libWeb);
 ```
 
 React Native (iOS/Android):
 ```ts
-import {TonClient} from "@eversdk/core";
+import {TvmClient} from "@tvmsdk/core";
 import {libReactNative} from "@eversdk/lib-react-native";
 
 // Application initialization
 
-TonClient.useBinaryLibrary(libReactNative);
+TvmClient.useBinaryLibrary(libReactNative);
 ```
 
 React Native (Web):
 
-If you use React Native in Web, work the same way as described in Web section (see above). 
+If you use React Native in Web, work the same way as described in Web section (see above).
 
 
 
 # Use library
 
-All library functions are incorporated into `TonClient` class. Each client module is represented as a 
-property of the `TonClient` object.
+All library functions are incorporated into `TvmClient` class. Each client module is represented as a
+property of the `TvmClient` object.
 
-To start use library you must create an instance of the `TonClient` class:
+To start use library you must create an instance of the `TvmClient` class:
 ```ts
-const client = new TonClient();
+const client = new TvmClient();
 const keys = await client.crypto.generate_random_sign_keys();
 ```
 
-You can pass a configuration object in `TonClient` constructor:
+You can pass a configuration object in `TvmClient` constructor:
 ```ts
-const client = new TonClient({
-    network: { 
+const client = new TvmClient({
+    network: {
         endpoints: ['net.ton.dev']
-    } 
+    }
 });
 ```
 
@@ -199,7 +199,7 @@ In the end, close client to close all the sockets related to it:
  client.close();
 ```
 
-You can find reference guide to `TonClient` here: [TON-SDK API Documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/modules.md)
+You can find reference guide to `TvmClient` here: [TON-SDK API Documentation](https://github.com/tonlabs/TON-SDK/blob/master/docs/modules.md)
 
 # Build bridge binaries
 
@@ -285,7 +285,7 @@ TON_USE_SE=true TON_NETWORK_ADDRESS=http://localhost node run
 
 # Download precompiled binaries
 
-Instead of building library yourself, you can download the __latest__ precompiled binaries from 
+Instead of building library yourself, you can download the __latest__ precompiled binaries from
 TON Labs SDK Binaries Store.
 
 Binary              | Target           | Major | Download links

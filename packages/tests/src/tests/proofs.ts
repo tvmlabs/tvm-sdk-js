@@ -15,12 +15,12 @@
  */
 
 import { test } from "../jest";
-import { 
-    TonClient,
-} from "@eversdk/core";
+import {
+    TvmClient,
+} from "@tvmsdk/core";
 
 test("proofs: proof_block_data", async () => {
-    const client = new TonClient({
+    const client = new TvmClient({
         network: {
             endpoints: [`https://mainnet.evercloud.dev/${process.env.EVERCLOUD_AUTH_PROJECT}/graphql`],
         },
@@ -43,7 +43,7 @@ test("proofs: proof_block_data", async () => {
 });
 
 test("proofs: proof_transaction_data", async () => {
-    const client = new TonClient({
+    const client = new TvmClient({
         network: {
             endpoints: [`https://mainnet.evercloud.dev/${process.env.EVERCLOUD_AUTH_PROJECT}/graphql`],
         },
@@ -66,7 +66,7 @@ test("proofs: proof_transaction_data", async () => {
 });
 
 test("proofs: proof_message_data", async () => {
-    const client = new TonClient({
+    const client = new TvmClient({
         network: {
             endpoints: [`https://mainnet.evercloud.dev/${process.env.EVERCLOUD_AUTH_PROJECT}/graphql`],
         },
