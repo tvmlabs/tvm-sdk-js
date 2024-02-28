@@ -476,11 +476,11 @@ appropriate error text is added to error message instead of executor internal er
 - **Rebranding**:
     - rename repository name from 'ton-client-js' to 'ever-sdk-js'
     - rename binary binding filenames from 'TvmClient_' to 'eversdk_'
-    - rename npm scope name from '@TvmClient' to '@eversdk'
+    - rename npm scope name from '@TvmClient' to '@tvmsdk'
         @TvmClient/core             -> @tvmsdk/core
-        @TvmClient/lib-node         -> @eversdk/lib-node
-        @TvmClient/lib-web          -> @eversdk/lib-web
-        @TvmClient/lib-react-native -> @eversdk/lib-react-native
+        @TvmClient/lib-node         -> @tvmsdk/lib-node
+        @TvmClient/lib-web          -> @tvmsdk/lib-web
+        @TvmClient/lib-react-native -> @tvmsdk/lib-react-native
 
 ## [1.30.0] – 2022-02-04
 

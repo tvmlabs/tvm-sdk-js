@@ -45,7 +45,7 @@ test("abi: encode_message", async () => {
                 public_key: keys.public,
             };
         },
-        sign: async (params) => {
+        sign: async (params: { unsigned: any; }) => {
             return {
                 signature: (await crypto.sign({
                     keys,

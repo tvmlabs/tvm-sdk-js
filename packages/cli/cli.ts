@@ -2,7 +2,7 @@
 
 import { program } from "commander"
 import { TvmClient } from "@tvmsdk/core"
-import { libNode } from "@eversdk/lib-node"
+import { libNode } from "@tvmsdk/lib-node"
 import { toString as qrcode } from "qrcode"
 import { promisify } from "util"
 import dotenv from "dotenv"

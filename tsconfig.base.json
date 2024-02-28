@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "es2016",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": true,
@@ -16,7 +16,7 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2017", "esnext.asynciterable"],
+    "lib": ["es2017", "es2020", "esnext.asynciterable"],
     "types": [],
     "baseUrl": ".",
     "paths": {

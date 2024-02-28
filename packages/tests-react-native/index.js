@@ -1,6 +1,6 @@
 import entry from './entry';
 import { TvmClient } from '@tvmsdk/core';
-import { libReactNative } from '@eversdk/lib-react-native';
+import { libReactNative } from '@tvmsdk/lib-react-native';
 import { AppRegistry } from 'react-native';
 import App from './App';
 entry();

@@ -55,9 +55,9 @@
 # Library distribution
 This SDK is distributed via npm packages:
 - [@tvmsdk/core](https://www.npmjs.com/package/@tvmsdk/core) – common binding independent from JavaScript platform you use.
-- [@eversdk/lib-node](https://www.npmjs.com/package/@eversdk/lib-node) – bridge to NodeJs including NodeJs binary addon.
-- [@eversdk/lib-web](https://www.npmjs.com/package/@eversdk/lib-web) – bridge to browser including WASM module.
-- [@eversdk/lib-react-native](https://www.npmjs.com/package/@eversdk/lib-react-native) – bridge to mobile react-native platform including static libraries for iOS and Android.
+- [@tvmsdk/lib-node](https://www.npmjs.com/package/@tvmsdk/lib-node) – bridge to NodeJs including NodeJs binary addon.
+- [@tvmsdk/lib-web](https://www.npmjs.com/package/@tvmsdk/lib-web) – bridge to browser including WASM module.
+- [@tvmsdk/lib-react-native](https://www.npmjs.com/package/@tvmsdk/lib-react-native) – bridge to mobile react-native platform including static libraries for iOS and Android.
 
 You can find their source code in this repository.
 
@@ -82,18 +82,18 @@ If you want to rebuild binary from sources see [build binaries](#build binaries)
 
 ### NodeJs
 ```shell script
-npm i --save @eversdk/lib-node
+npm i --save @tvmsdk/lib-node
 ```
 
 ### Web
 ```shell script
-npm i --save @eversdk/lib-web
+npm i --save @tvmsdk/lib-web
 ```
 **Important!** Each time you run `npm install` the new version of the `eversdk.wasm` and `index.js` is downloaded. So you have to always update the `eversdk.wasm` inside your web package before publishing (starting local web server, creating web bundle etc.). If you use Webpack the best way is to use CopyPlugin.
 
 ### React Native
 ```shell script
-npm i --save @eversdk/lib-react-native
+npm i --save @tvmsdk/lib-react-native
 ```
 
 
@@ -107,7 +107,7 @@ You need to attach the chosen binary module to the `TvmClient` class.
 NodeJs:
 ```ts
 const {TvmClient} = require("@tvmsdk/core");
-const {libNode} = require("@eversdk/lib-node");
+const {libNode} = require("@tvmsdk/lib-node");
 
 // Application initialization
 
@@ -117,7 +117,7 @@ TvmClient.useBinaryLibrary(libNode)
 Web:
 ```ts
 import {TvmClient} from "@tvmsdk/core";
-import {libWeb} from "@eversdk/lib-web";
+import {libWeb} from "@tvmsdk/lib-web";
 
 // Application initialization
 
@@ -129,7 +129,7 @@ By default the library loads wasm module from relative URL `/eversdk.wasm`.
 You can specify alternative URL if you want to place (or rename) wasm module.
 ```ts
 import {TvmClient} from "@tvmsdk/core";
-import {libWeb, libWebSetup} from "@eversdk/lib-web";
+import {libWeb, libWebSetup} from "@tvmsdk/lib-web";
 
 // Setup alternative URL for WASM module.
 libWebSetup({
@@ -148,7 +148,7 @@ In this case application can suppress separate worker with:
 
 ```ts
 import {TvmClient} from "@tvmsdk/core";
-import {libWeb, libWebSetup} from "@eversdk/lib-web";
+import {libWeb, libWebSetup} from "@tvmsdk/lib-web";
 
 // Disable separate worker
 libWebSetup({
@@ -161,7 +161,7 @@ TvmClient.useBinaryLibrary(libWeb);
 React Native (iOS/Android):
 ```ts
 import {TvmClient} from "@tvmsdk/core";
-import {libReactNative} from "@eversdk/lib-react-native";
+import {libReactNative} from "@tvmsdk/lib-react-native";
 
 // Application initialization
 
@@ -207,7 +207,7 @@ You can build binaries from sources.
 
 If you install a bridge package from the `npmjs` you can build it with the following commands (e.g. for nodejs):
 ```shell script
-cd node_modules/@eversdk/lib-node/build
+cd node_modules/@tvmsdk/lib-node/build
 cargo run
 ```
 

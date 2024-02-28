@@ -200,7 +200,7 @@ test.each(ABIVersions)("net: Subscribe (subscribe_collection) for transactions w
             },
             result: "id",
         },
-        (d) => {
+        (d: { result: any; }) => {
             transactions.push(d.result);
         })).handle;
 
@@ -227,7 +227,7 @@ test.each(ABIVersions)("net: Subscribe (subscribe_collection) for messages (ABI 
             },
             result: "id",
         },
-        (evt) => {
+        (evt: { result: any; }) => {
             docs.push(evt.result);
         },
     )).handle;
@@ -314,7 +314,7 @@ test.skip("Long time subscription", async () => {
         collection: Collection.accounts,
         filter: {},
         result: "id code_hash data_hash",
-    }, (doc) => {
+    }, (doc: { id: any; }) => {
         console.log(doc.id);
     });
     await new Promise(resolve => setTimeout(resolve, 1_000_000));

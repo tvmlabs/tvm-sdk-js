@@ -1,5 +1,5 @@
 import { TvmClient, signerKeys } from "@tvmsdk/core"
-import { Account } from "@eversdk/appkit"
+import { Account } from "@tvmsdk/appkit"
 import { Giver } from "./giver"
 import { getDefaultEndpoints } from "./utils"
 import * as Kamikadze from "./contracts/Kamikadze.js"

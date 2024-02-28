@@ -1,5 +1,5 @@
 {
-	"name": "@eversdk/tests-node",
+	"name": "@tvmsdk/tests-node",
 	"version": "1.45.0",
 	"private": true,
 	"description": "TON Client Tests runner on NodeJs",
@@ -22,8 +22,8 @@
 	},
 	"dependencies": {
 		"@tvmsdk/core": "file:../core",
-		"@eversdk/lib-node": "file:../lib-node",
-		"@eversdk/tests": "file:../tests",
+		"@tvmsdk/lib-node": "file:../lib-node",
+		"@tvmsdk/tests": "file:../tests",
 		"commander": "^10.0.0"
 	},
 	"devDependencies": {

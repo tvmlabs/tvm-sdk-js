@@ -1,5 +1,5 @@
 import { TvmClient } from "@tvmsdk/core";
-import { TestsRunner } from "@eversdk/tests";
+import { TestsRunner } from "@tvmsdk/tests";
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 

@@ -4,5 +4,8 @@
 	},
 	"include": [],
 	"references": [
+		{
+			"path": "./packages/tests/src/tests/"
+		}
 	]
 }

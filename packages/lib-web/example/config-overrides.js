@@ -4,7 +4,7 @@ module.exports = {
     webpack: function (config, env) {
         config.plugins.push(
             new CopyWebpackPlugin({
-                patterns: [{ from: "./node_modules/@eversdk/lib-web/eversdk.wasm" }],
+                patterns: [{ from: "./node_modules/@tvmsdk/lib-web/eversdk.wasm" }],
             })
         );
         return config;

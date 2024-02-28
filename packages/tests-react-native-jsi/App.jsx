@@ -4,7 +4,7 @@ import {
     View,
     Text, Button,
 } from 'react-native';
-import { TestsRunner } from "@eversdk/tests";
+import { TestsRunner } from "@tvmsdk/tests";
 
 class App extends Component {
     async componentDidMount() {

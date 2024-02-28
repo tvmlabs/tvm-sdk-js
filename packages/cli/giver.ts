@@ -1,5 +1,5 @@
 import { TvmClient, ResultOfProcessMessage } from "@tvmsdk/core"
-import { Account, AccountGiver } from "@eversdk/appkit"
+import { Account, AccountGiver } from "@tvmsdk/appkit"
 import { getDefaultEndpoints } from "./utils"
 
 export const DEFAULT_TOPUP_BALANCE = 20_000_000 // 0.02 tokens should be enouth for deploy + selfdestruct operation tested on evernode-se

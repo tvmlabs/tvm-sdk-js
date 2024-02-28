@@ -19,7 +19,7 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin({
             patterns: [
-                { from: './node_modules/@eversdk/lib-web/eversdk.wasm' },
+                { from: './node_modules/@tvmsdk/lib-web/eversdk.wasm' },
             ],
         }),
         new webpack.LoaderOptionsPlugin({
@@ -37,8 +37,8 @@ module.exports = {
                     path.resolve(__dirname, './node_modules/@tvmsdk/core'),
                     path.resolve(__dirname, './node_modules/assert'),
                     path.resolve(__dirname, './node_modules/buffer'),
-                    path.resolve(__dirname, './node_modules/@eversdk/tests'),
-                    path.resolve(__dirname, './node_modules/@eversdk/lib-web'),
+                    path.resolve(__dirname, './node_modules/@tvmsdk/tests'),
+                    path.resolve(__dirname, './node_modules/@tvmsdk/lib-web'),
                 ],
             },
             {

@@ -1,7 +1,7 @@
 import entry from './entry';
 import { TvmClient } from '@tvmsdk/core';
-import { libWeb, libWebSetup } from "@eversdk/lib-web";
-import { TestsRunner } from "@eversdk/tests";
+import { libWeb, libWebSetup } from "@tvmsdk/lib-web";
+import { TestsRunner } from "@tvmsdk/tests";
 
 entry();
 libWebSetup({

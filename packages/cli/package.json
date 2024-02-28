@@ -1,5 +1,5 @@
 {
-  "name": "@eversdk/cli",
+  "name": "@tvmsdk/cli",
   "version": "1.45.0",
   "description": "Evercloud CLI",
   "homepage": "https://everx.dev/",
@@ -52,9 +52,9 @@
     }
   ],
   "dependencies": {
-    "@eversdk/appkit": "^0.3.8",
+    "@tvmsdk/appkit": "^0.3.8",
     "@tvmsdk/core": "^1.45.0",
-    "@eversdk/lib-node": "^1.45.0",
+    "@tvmsdk/lib-node": "^1.45.0",
     "commander": "^10.0.0",
     "dotenv": "^16.0.3",
     "everdev": "^1.7.0",

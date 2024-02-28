@@ -1,5 +1,5 @@
 const {spawn} = require('child_process');
-const {TestsLogger, TestsRunner} = require('@eversdk/tests');
+const {TestsLogger, TestsRunner} = require('@tvmsdk/tests');
 const findProcess = require('find-process');
 
 function run(name, args, logger) {

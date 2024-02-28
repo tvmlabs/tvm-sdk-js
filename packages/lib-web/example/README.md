@@ -1,7 +1,7 @@
 # Sample React App
 
 This sample app based on [Create React App](https://github.com/facebook/create-react-app),
-it runs the "@eversdk/lib-web" library in the browser to work with the everscale blockchain.
+it runs the "@tvmsdk/lib-web" library in the browser to work with the everscale blockchain.
 
 ## Prerequisites
 

@@ -1,5 +1,5 @@
 {
-	"name": "@eversdk/tests-web",
+	"name": "@tvmsdk/tests-web",
 	"version": "1.45.0",
 	"private": true,
 	"description": "TON Client WASM module tests runner",
@@ -24,8 +24,8 @@
 	"homepage": "https://docs.ton.dev/",
 	"dependencies": {
 		"@tvmsdk/core": "file:../core",
-		"@eversdk/lib-web": "file:../lib-web",
-		"@eversdk/tests": "file:../tests",
+		"@tvmsdk/lib-web": "file:../lib-web",
+		"@tvmsdk/tests": "file:../tests",
 		"assert": "^2.0.0",
 		"buffer": "^6.0.2",
 		"opentracing": "^0.14.4"

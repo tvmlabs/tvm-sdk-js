@@ -23,8 +23,8 @@ for (const name of [
 
 for (const name of [
     "@tvmsdk/core",
-    "@eversdk/lib-react-native",
-    "@eversdk/tests",
+    "@tvmsdk/lib-react-native",
+    "@tvmsdk/tests",
     "react-native",
     "@babel/runtime",
     "buffer",

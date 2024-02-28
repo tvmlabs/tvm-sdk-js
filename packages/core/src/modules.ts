@@ -1,5 +1,3 @@
-
-
 import {ResponseHandler} from "./bin";
 
 interface IClient {

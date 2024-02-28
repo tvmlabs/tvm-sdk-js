@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {TvmClient} from "@tvmsdk/core";
-import {libWeb} from "@eversdk/lib-web";
+import {libWeb} from "@tvmsdk/lib-web";
 
 ReactDOM.render(
   <React.StrictMode>

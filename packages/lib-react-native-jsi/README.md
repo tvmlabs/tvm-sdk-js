@@ -17,7 +17,7 @@ JSI-based implementation of a bridge to mobile React Native platform including s
 # Installation
 
 ```sh
-yarn add @eversdk/lib-react-native-jsi
+yarn add @tvmsdk/lib-react-native-jsi
 ```
 
 ## iOS

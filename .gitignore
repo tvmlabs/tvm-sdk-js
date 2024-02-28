@@ -37,3 +37,6 @@ Jenkinsfile
 **/target/**
 **/*.tgz
 **/BUCK
+
+bun.lockb
+pnpm-lock.yaml

@@ -22,8 +22,8 @@
 
  for (const name of [
      "@tvmsdk/core",
-     "@eversdk/lib-react-native-jsi",
-     "@eversdk/tests",
+     "@tvmsdk/lib-react-native-jsi",
+     "@tvmsdk/tests",
      "react-native",
      "@babel/runtime",
      "buffer",

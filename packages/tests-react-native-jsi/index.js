@@ -13,7 +13,7 @@
  */
 import entry from "./entry";
 import { TvmClient } from "@tvmsdk/core";
-import { libReactNativeJsi } from "@eversdk/lib-react-native-jsi";
+import { libReactNativeJsi } from "@tvmsdk/lib-react-native-jsi";
 import { AppRegistry } from "react-native";
 import App from "./App";
 

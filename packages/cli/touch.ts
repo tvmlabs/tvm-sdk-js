@@ -1,4 +1,4 @@
-import { Account } from "@eversdk/appkit"
+import { Account } from "@tvmsdk/appkit"
 import { getDefaultEndpoints, sleep } from "./utils"
 import { Giver, DEFAULT_TOPUP_BALANCE } from "./giver"
 import { performance } from "node:perf_hooks"

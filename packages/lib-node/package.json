@@ -1,5 +1,5 @@
 {
-	"name": "@eversdk/lib-node",
+	"name": "@tvmsdk/lib-node",
 	"version": "1.45.0",
 	"description": "TON Client NodeJs AddOn",
 	"repository": {

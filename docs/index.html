@@ -71,9 +71,9 @@
 <p>This SDK is distributed via npm packages:</p>
 <ul>
 <li><a href="https://www.npmjs.com/package/@tvmsdk/core">@tvmsdk/core</a> – common binding independent from JavaScript platform you use.</li>
-<li><a href="https://www.npmjs.com/package/@eversdk/lib-node">@eversdk/lib-node</a> – bridge to NodeJs including NodeJs binary addon.</li>
-<li><a href="https://www.npmjs.com/package/@eversdk/lib-web">@eversdk/lib-web</a> – bridge to browser including WASM module.</li>
-<li><a href="https://www.npmjs.com/package/@eversdk/lib-react-native">@eversdk/lib-react-native</a> – bridge to mobile react-native platform including static libraries for iOS and Android.</li>
+<li><a href="https://www.npmjs.com/package/@tvmsdk/lib-node">@tvmsdk/lib-node</a> – bridge to NodeJs including NodeJs binary addon.</li>
+<li><a href="https://www.npmjs.com/package/@tvmsdk/lib-web">@tvmsdk/lib-web</a> – bridge to browser including WASM module.</li>
+<li><a href="https://www.npmjs.com/package/@tvmsdk/lib-react-native">@tvmsdk/lib-react-native</a> – bridge to mobile react-native platform including static libraries for iOS and Android.</li>
 </ul>
 <p>You can find their source code in this repository.</p>
 
@@ -104,20 +104,20 @@ If you want to rebuild binary from sources see [build binaries](#build binaries)
 <a href="#nodejs" id="nodejs" style="color: inherit; text-decoration: none;">
   <h3>NodeJs</h3>
 </a>
-<pre><code class="language-shell"><span class="hl-0">npm i --save @eversdk/lib-node</span>
+<pre><code class="language-shell"><span class="hl-0">npm i --save @tvmsdk/lib-node</span>
 </code></pre>
 
 <a href="#web" id="web" style="color: inherit; text-decoration: none;">
   <h3>Web</h3>
 </a>
-<pre><code class="language-shell"><span class="hl-0">npm i --save @eversdk/lib-web</span>
+<pre><code class="language-shell"><span class="hl-0">npm i --save @tvmsdk/lib-web</span>
 </code></pre>
 <p><strong>Important!</strong> Each time you run <code>npm install</code> the new version of the <code>eversdk.wasm</code> and <code>index.js</code> is downloaded. So you have to always update the <code>eversdk.wasm</code> inside your web package before publishing (starting local web server, creating web bundle etc.). If you use Webpack the best way is to use CopyPlugin.</p>
 
 <a href="#react-native" id="react-native" style="color: inherit; text-decoration: none;">
   <h3>React Native</h3>
 </a>
-<pre><code class="language-shell"><span class="hl-0">npm i --save @eversdk/lib-react-native</span>
+<pre><code class="language-shell"><span class="hl-0">npm i --save @tvmsdk/lib-react-native</span>
 </code></pre>
 
 <a href="#setup-library" id="setup-library" style="color: inherit; text-decoration: none;">
@@ -127,23 +127,23 @@ If you want to rebuild binary from sources see [build binaries](#build binaries)
 initialization code of your application.</p>
 <p>You need to attach the chosen binary module to the <code>TvmClient</code> class.</p>
 <p>NodeJs:</p>
-<pre><code class="language-ts"><span class="hl-1">const</span><span class="hl-0"> {</span><span class="hl-2">TvmClient</span><span class="hl-0">} = </span><span class="hl-3">require</span><span class="hl-0">(</span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">);</span><br/><span class="hl-1">const</span><span class="hl-0"> {</span><span class="hl-2">libNode</span><span class="hl-0">} = </span><span class="hl-3">require</span><span class="hl-0">(</span><span class="hl-4">&quot;@eversdk/lib-node&quot;</span><span class="hl-0">);</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libNode</span><span class="hl-0">)</span>
+<pre><code class="language-ts"><span class="hl-1">const</span><span class="hl-0"> {</span><span class="hl-2">TvmClient</span><span class="hl-0">} = </span><span class="hl-3">require</span><span class="hl-0">(</span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">);</span><br/><span class="hl-1">const</span><span class="hl-0"> {</span><span class="hl-2">libNode</span><span class="hl-0">} = </span><span class="hl-3">require</span><span class="hl-0">(</span><span class="hl-4">&quot;@tvmsdk/lib-node&quot;</span><span class="hl-0">);</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libNode</span><span class="hl-0">)</span>
 </code></pre>
 <p>Web:</p>
-<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@eversdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
+<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
 </code></pre>
 <p>By default the library loads wasm module from relative URL <code>/eversdk.wasm</code>.</p>
 <p>You can specify alternative URL if you want to place (or rename) wasm module.</p>
-<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">, </span><span class="hl-6">libWebSetup</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@eversdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Setup alternative URL for WASM module.</span><br/><span class="hl-3">libWebSetup</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-6">binaryURL:</span><span class="hl-0"> </span><span class="hl-4">&quot;/assets/eversdk_1_30_1.wasm&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
+<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">, </span><span class="hl-6">libWebSetup</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Setup alternative URL for WASM module.</span><br/><span class="hl-3">libWebSetup</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-6">binaryURL:</span><span class="hl-0"> </span><span class="hl-4">&quot;/assets/eversdk_1_30_1.wasm&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
 </code></pre>
 <p>By default, lib web starts a separate worker that will utilize core (wasm).</p>
 <p>So main thread never freezes – it is fine for UI. But in some cases (e.g. when worker already exists in application or extension)
 separate worker is a bad approach.</p>
 <p>In this case application can suppress separate worker with:</p>
-<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">, </span><span class="hl-6">libWebSetup</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@eversdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Disable separate worker</span><br/><span class="hl-3">libWebSetup</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-6">disableSeparateWorker:</span><span class="hl-0"> </span><span class="hl-1">true</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
+<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libWeb</span><span class="hl-0">, </span><span class="hl-6">libWebSetup</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/lib-web&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Disable separate worker</span><br/><span class="hl-3">libWebSetup</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-6">disableSeparateWorker:</span><span class="hl-0"> </span><span class="hl-1">true</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libWeb</span><span class="hl-0">);</span>
 </code></pre>
 <p>React Native (iOS/Android):</p>
-<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libReactNative</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@eversdk/lib-react-native&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libReactNative</span><span class="hl-0">);</span>
+<pre><code class="language-ts"><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">TvmClient</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/core&quot;</span><span class="hl-0">;</span><br/><span class="hl-7">import</span><span class="hl-0"> {</span><span class="hl-6">libReactNative</span><span class="hl-0">} </span><span class="hl-7">from</span><span class="hl-0"> </span><span class="hl-4">&quot;@tvmsdk/lib-react-native&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">// Application initialization</span><br/><br/><span class="hl-6">TvmClient</span><span class="hl-0">.</span><span class="hl-3">useBinaryLibrary</span><span class="hl-0">(</span><span class="hl-6">libReactNative</span><span class="hl-0">);</span>
 </code></pre>
 <p>React Native (Web):</p>
 <p>If you use React Native in Web, work the same way as described in Web section (see above). </p>
@@ -169,7 +169,7 @@ property of the <code>TvmClient</code> object.</p>
 </a>
 <p>You can build binaries from sources.</p>
 <p>If you install a bridge package from the <code>npmjs</code> you can build it with the following commands (e.g. for nodejs):</p>
-<pre><code class="language-shell"><span class="hl-3">cd</span><span class="hl-0"> node_modules/@eversdk/lib-node/build</span><br/><span class="hl-0">cargo run</span>
+<pre><code class="language-shell"><span class="hl-3">cd</span><span class="hl-0"> node_modules/@tvmsdk/lib-node/build</span><br/><span class="hl-0">cargo run</span>
 </code></pre>
 
 <a href="#build-binaries" id="build-binaries" style="color: inherit; text-decoration: none;">

@@ -7,12 +7,12 @@ Evercloud CLI is a command-line tool that provides various functionalities to in
 ## Installation
 You can install Evercloud CLI globally using npm by running the following command:
 ```
-npm install -g @eversdk/cli
+npm install -g @tvmsdk/cli
 ```
 
 Alternatively, you can use npx to run Evercloud CLI without installing it:
 ```
-npx @eversdk/cli --help
+npx @tvmsdk/cli --help
 ```
 
 ## Usage

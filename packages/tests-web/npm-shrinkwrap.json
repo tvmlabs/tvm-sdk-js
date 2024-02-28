@@ -1,5 +1,5 @@
 {
-	"name": "@eversdk/tests-web",
+	"name": "@tvmsdk/tests-web",
 	"version": "1.36.1",
 	"lockfileVersion": 1,
 	"requires": true,
@@ -14,10 +14,10 @@
 				}
 			}
 		},
-		"@eversdk/lib-web": {
+		"@tvmsdk/lib-web": {
 			"version": "file:../lib-web"
 		},
-		"@eversdk/tests": {
+		"@tvmsdk/tests": {
 			"version": "file:../tests",
 			"requires": {
 				"@tvmsdk/core": "file:../core",

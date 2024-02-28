@@ -1,11 +1,11 @@
 const { program } = require("commander");
 const { TvmClient } = require("@tvmsdk/core");
-const { libNode } = require("@eversdk/lib-node");
+const { libNode } = require("@tvmsdk/lib-node");
 const {
     TestsLogger,
     TestsRunner,
     zeroRunningState,
-} = require("@eversdk/tests");
+} = require("@tvmsdk/tests");
 
 TestsRunner.setTimeout = setTimeout;
 TestsRunner.log = console.log;
