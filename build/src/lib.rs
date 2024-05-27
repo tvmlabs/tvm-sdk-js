@@ -62,7 +62,7 @@ impl Build {
             .map(|x| PathBuf::from(x))
             .unwrap_or(lib_dir.join("target"));
         for dep in meta["packages"].as_array().unwrap().iter() {
-            if dep["name"].as_str().unwrap() == "ton_client" {
+            if dep["name"].as_str().unwrap() == "tvm_client" {
                 version = dep["version"]
                     .as_str()
                     .unwrap()
@@ -75,7 +75,13 @@ impl Build {
 
         Self {
             version,
-            #[cfg(all(target_os = "linux", not(target_arch = "aarch64"), not(target_arch = "armv7"), not(target_arch = "powerpc64le"), not(target_arch = "s390x")))]
+            #[cfg(all(
+                target_os = "linux",
+                not(target_arch = "aarch64"),
+                not(target_arch = "armv7"),
+                not(target_arch = "powerpc64le"),
+                not(target_arch = "s390x")
+            ))]
             platform: "x64-linux".into(),
             #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
             platform: "arm64-linux".into(),

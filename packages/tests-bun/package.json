@@ -1,0 +1,22 @@
+{
+  "name": "tests-bun",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@eversdk/core": "file:../core",
+    "@eversdk/lib-web": "file:../lib-web"
+  },
+  "trustedDependencies": [
+    "@eversdk/lib-web",
+    "fsevents"
+  ]
+}

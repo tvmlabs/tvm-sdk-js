@@ -37,3 +37,8 @@ Jenkinsfile
 **/target/**
 **/*.tgz
 **/BUCK
+
+
+# Added by cargo
+
+/target

@@ -2,6 +2,8 @@
 //---WRAPPER
 //****************************************************************** WRAPPER END
 
+let init = __wbg_init;
+
 function replaceUndefinedWithNulls(value) {
     if (value === undefined) {
         return null;
