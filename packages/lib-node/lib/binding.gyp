@@ -11,7 +11,7 @@
   },
   'targets': [
     {
-      'target_name': 'eversdk',
+      'target_name': 'tvmsdk',
       'sources': ['binding.cc'],
       'conditions': [
         ['OS == "win"', {
@@ -28,7 +28,7 @@
           ],
         }, {
           'libraries': [
-            '../libeversdk.a',
+            '../libtvmsdk.a',
             '-Wl,-rpath,./addon/'
           ],
         }],
