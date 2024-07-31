@@ -13,8 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Display ref and tag
         run: |
-          echo "The reference is: ${{ github.ref }}"
-          echo "The tag is: ${{ github.ref#refs/tags/ }}"
+          echo "The tag is: ${{ github.ref }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '16.x'
