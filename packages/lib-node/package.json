@@ -1,14 +1,12 @@
 {
 	"name": "@tvmsdk/lib-node",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "TVM Client NodeJs AddOn",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tvmlabs/tvm-sdk-js.git"
 	},
-	"scripts": {
-		"postinstall": "node install.js"
-	},
+
 	"publishConfig": {
 		"access": "public"
 	},
