@@ -1,5 +1,5 @@
 {
-	"name": "@tvmsdk/core",
+	"name": "@tvmsdk/coretest",
 	"version": "2.0.0",
 	"description": "TVM Client for Java Script",
 	"main": "dist/index.js",

@@ -1,4 +1,4 @@
-name: node publish
+name: acki nacki node js publish
 
 on:
   release:

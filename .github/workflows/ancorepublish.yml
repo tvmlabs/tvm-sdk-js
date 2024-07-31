@@ -1,4 +1,4 @@
-name: node publish
+name: acki nacki core publish
 
 on:
   release:
@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Display ref and tag
+        run: |
+          echo "The reference is: ${{ github.ref }}"
+          echo "The tag is: ${{ github.ref#refs/tags/ }}"
       - uses: actions/setup-node@v4
         with:
           node-version: '16.x'
