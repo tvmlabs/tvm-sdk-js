@@ -3,6 +3,7 @@ name: node publish
 on:
   release:
     types: [published]
+    tags: *an.core*
 
 jobs:
   publish-npm:
@@ -14,9 +15,9 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      - name: NodeJs
+      - name: Core
         run: npm publish --access public
-        working-directory: ./packages/lib-node
+        working-directory: ./packages/core
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
