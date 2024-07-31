@@ -3,7 +3,8 @@ name: node publish
 on:
   release:
     types: [published]
-    tags: *an.core*
+    tags: 
+      - '*an.core'
 
 jobs:
   publish-npm:
