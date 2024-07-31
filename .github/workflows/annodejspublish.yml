@@ -3,12 +3,11 @@ name: acki nacki node js publish
 on:
   release:
     types: [published]
-    tags: 
-      - *an.node
 
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    if: endsWith(github.ref, 'an.nodejs')
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
