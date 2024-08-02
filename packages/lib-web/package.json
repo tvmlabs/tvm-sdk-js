@@ -1,26 +1,23 @@
 {
-	"name": "@eversdk/lib-web",
-	"version": "1.45.0",
-	"description": "TON Client WASM module for browsers",
+	"name": "@tvmsdk/lib-web",
+	"version": "2.0.0",
+	"description": "TVM Client WASM module for browsers",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tonlabs/ever-sdk-js.git"
-	},
-	"scripts": {
-		"postinstall": "node install.js"
+		"url": "https://github.com/tvmlabs/tvm-sdk-js.git"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"keywords": [
-		"TON",
+		"ackinacki",
 		"Client",
-		"FreeTON",
-		"TONOS",
+		"acki",
+		"nacki",
 		"SDK"
 	],
-	"author": "TON Labs LTD.",
+	"author": "TVM Labs LTD.",
 	"license": "Apache-2.0",
 	"licenses": [
 		{
@@ -28,7 +25,7 @@
 			"url": "http://www.apache.org/licenses/LICENSE-2.0"
 		}
 	],
-	"homepage": "https://docs.ton.dev/",
+	"homepage": "https://docs.ackinacki.com/",
 	"engines": {
 		"node": ">=6"
 	}
