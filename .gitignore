@@ -22,7 +22,6 @@ Jenkinsfile
 **/*.map
 **/*.tsbuildinfo
 /packages/lib-web/publish
-/packages/lib-web/index.js
 /packages/lib-node/publish
 /packages/lib-node/lib/build
 /packages/lib-react-native/ios/publish
