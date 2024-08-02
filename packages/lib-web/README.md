@@ -114,7 +114,7 @@ If your clang and clang++ compiler paths look like this the build command should
 
 
 
-# Building ever-sdk-js WASM inside docker
+# (DEPRECATED) Building ever-sdk-js WASM inside docker
 To build WASM you need `clang v8`. Use this workaround if you encounter a problem when building wasm binaries on your platform (MacOSX or Windows). 
 
 ## Pulling build image
