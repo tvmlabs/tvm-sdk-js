@@ -35,32 +35,32 @@ done
 
 By default the result will look like this:
 ```
-***/usr/bin/cc***
+*/usr/bin/cc*
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/usr/bin/c++***
+/usr/bin/c++
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/usr/bin/gcc***
+/usr/bin/gcc
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/usr/bin/g++***
+/usr/bin/g++
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/usr/bin/clang***
+/usr/bin/clang
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/usr/bin/clang++***
+/usr/bin/clang++
 Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
@@ -93,12 +93,12 @@ Apple clang version 14.0.3 (clang-1403.0.22.14.1)
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-***/opt/homebrew/opt/llvm/bin/clang***
+/opt/homebrew/opt/llvm/bin/clang
 Homebrew clang version 18.1.8
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
 InstalledDir: /opt/homebrew/opt/llvm/bin
-***/opt/homebrew/opt/llvm/bin/clang++***
+/opt/homebrew/opt/llvm/bin/clang++
 Homebrew clang version 18.1.8
 Target: arm64-apple-darwin23.5.0
 Thread model: posix
