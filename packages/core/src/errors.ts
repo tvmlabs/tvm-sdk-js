@@ -1,4 +1,4 @@
-export class TonClientError extends Error {
+export class TvmClientError extends Error {
     code: number;
     data?: any;
     

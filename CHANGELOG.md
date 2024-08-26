@@ -1,5 +1,10 @@
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] – core (Acki-Nacki)
+
+### Fixed
+- `TonClient` renamed to `TvmClient` 
+
 ## [2.0.2] – lib-node (Acki-Nacki)
 
 ### Fixed
