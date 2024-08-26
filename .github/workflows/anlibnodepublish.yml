@@ -15,7 +15,7 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
-      - name: NodeJs
+      - name: Lib-node
         run: npm publish --access public
         working-directory: ./packages/lib-node
         env:
