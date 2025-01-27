@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = [
+    "./build",
+    "./packages/lib-node/build",
+    "./packages/lib-node/lib",
+    "./packages/lib-react-native/android/build",
+    "./packages/lib-react-native/android/lib",
+    "./packages/lib-react-native/ios/build",
+    "./packages/lib-react-native/ios/lib",
+    "./packages/lib-web/build",
+    "./packages/lib-web/lib",
+]
+
+[package]
+name = "tvm-sdk-js"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]

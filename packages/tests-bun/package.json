@@ -1,0 +1,23 @@
+{
+  "name": "tests-bun",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "local-install": "export TON_CLIENT_BIN_SRC=file:/$(pwd)/../lib-web/publish && bun install",
+    "wasm-build": "cd ../lib-web/build && cargo run -r",
+    "test": "bun run local-install && bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@eversdk/core": "file:../core",
+    "@eversdk/lib-web": "file:../lib-web"
+  },
+  "trustedDependencies": [
+    "fsevents"
+  ]
+}
