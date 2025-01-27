@@ -1,16 +1,16 @@
 [package]
-name = 'ever_sdk_node_addon'
-version = '1.44.0'
-authors = [ 'TON Labs' ]
+name = 'tvm_sdk_node_addon'
+version = '2.0.2'
+authors = [ 'TVM Labs' ]
 license = 'Apache-2.0'
 
 [lib]
-name = 'eversdk'
+name = 'tvmsdk'
 crate-type = [ 'staticlib' ]
 
 [dependencies]
 libc = '0.2'
-ton_client = { git = 'https://github.com/tonlabs/ever-sdk.git', tag = '1.45.0', default-features = false, features = [ 'std', 'rustls-tls-webpki-roots' ] }
+tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag='v2.3.3.an', default-features = false, features = [ 'std', 'rustls-tls-webpki-roots' ] }
 
 [profile.release]
 lto = true

@@ -1,12 +1,12 @@
 {
-	"name": "@eversdk/core",
-	"version": "1.45.0",
-	"description": "TON Client for Java Script",
+	"name": "@tvmsdk/core",
+	"version": "2.0.2",
+	"description": "TVM Client for Java Script",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tonlabs/ever-sdk-js.git"
+		"url": "https://github.com/tvmlabs/tvm-sdk-js.git"
 	},
 	"scripts": {
 		"prepublishOnly": "npm i && node before-compile.js && tsc",
@@ -16,13 +16,13 @@
 		"access": "public"
 	},
 	"keywords": [
-		"TON",
+		"ackinacki",
 		"Client",
-		"FreeTON",
-		"TONOS",
+		"acki",
+		"nacki",
 		"SDK"
 	],
-	"author": "TON Labs LTD.",
+	"author": "TVM Labs LTD.",
 	"license": "Apache-2.0",
 	"licenses": [
 		{
@@ -30,7 +30,7 @@
 			"url": "http://www.apache.org/licenses/LICENSE-2.0"
 		}
 	],
-	"homepage": "https://docs.ton.dev/",
+	"homepage": "https://docs.ackinacki.com/",
 	"engines": {
 		"node": ">=6"
 	},

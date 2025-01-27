@@ -82,7 +82,7 @@ export type ClientConfig = {
     proofs?: ProofsConfig,
 
     /**
-     * For file based storage is a folder name where SDK will store its data. For browser based is a browser async storage key prefix. Default (recommended) value is "~/.tonclient" for native environments and ".tonclient" for web-browser.
+     * For file based storage is a folder name where SDK will store its data. For browser based is a browser async storage key prefix. Default (recommended) value is "~/.tvmclient" for native environments and ".tvmclient" for web-browser.
      */
     local_storage_path?: string
 }

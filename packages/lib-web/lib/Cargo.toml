@@ -1,6 +1,6 @@
 [package]
-name = 'ever_sdk_wasm_module'
-version = '1.47.0'
+name = 'tvm_sdk_wasm_module'
+version = '2.0.0'
 edition = '2021'
 description = 'TON Client WASM binding'
 license = 'Apache-2.0'
@@ -13,25 +13,25 @@ lto = true
 opt-level = 's'
 
 [lib]
-name = 'eversdk'
+name = 'tvmsdk'
 crate-type = [ 'staticlib', 'cdylib' ]
 
 [dependencies]
-js-sys = '0.3'
-wasm-bindgen = '0.2.84'
-serde-wasm-bindgen = '0'
+js-sys = '0.3.57'
+wasm-bindgen = '=0.2.92'
+serde-wasm-bindgen = '0.6.5'
 serde = { features = [ 'derive' ], version = '1.0' }
 serde_json = '1.0.81'
-base64 = '0.13.0'
+base64 = '0.22.1'
 lazy_static = '1.4.0'
-# We need to build getrandom with fature "js" even though we don't use it by ourselves,
+# We need to build getrandom with feature "js" even though we don't use it by ourselves,
 # just to fix building of rand for WASM:
 getrandom = { default-features = false, features = [ 'js' ], version = '0.2.2' }
 
 # upstream issue: https://github.com/gyscos/zstd-rs/issues/269
 zstd-sys = { version = "=2.0.9", optional = true, default-features = false }
 tokio = { version = "1", default-features = false, features = ["rt"] }
-tvm_client = { default-features = false, features = [ 'wasm' ], git = 'https://github.com/tvmlabs/tvm-sdk.git', branch = 'feature/parallel_send' }
+tvm_client = { default-features = false, features = [ 'wasm' ], git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.0.2.an'}
 
 [dependencies.web-sys]
 version = '0.3.57'

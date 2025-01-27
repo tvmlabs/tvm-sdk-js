@@ -20,19 +20,19 @@ const os = require("os");
 
 function getHomeAddonPath() {
     const binVersion = process.env.TON_CLIENT_BIN_VERSION || (require("./package.json").version).split('.').slice(0, 2).join('_');
-    const binariesHomePath = path.resolve(os.homedir(), ".tonlabs", "binaries", binVersion);
+    const binariesHomePath = path.resolve(os.homedir(), "TODO: define alternative binaries local path", "binaries", binVersion);
     return path.resolve(binariesHomePath, "eversdk.node");
 }
 
 function loadAddon() {
     try {
-        return require("./eversdk.node");
+        return require("./tvmsdk.node");
     } catch (error) {
-        if (fs.existsSync(path.resolve(__dirname, "eversdk.node"))) {
+        if (fs.existsSync(path.resolve(__dirname, "tvmsdk.node"))) {
             throw error;
         }
     }
-    return require(getHomeAddonPath());
+  //  return require(getHomeAddonPath());
 }
 
 module.exports = {

@@ -1,5 +1,21 @@
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] – core (Acki-Nacki)
+
+### Fixed
+- `TonClient` renamed to `TvmClient` 
+
+## [2.0.2] – lib-node (Acki-Nacki)
+
+### Fixed
+- `tvmsdk` binary is used instead of `eversdk` binary
+
+## [2.0.1] – lib-node (Acki-Nacki)
+
+### Fixed
+- installation script removed for security. Now `tvmsdk.node` binary need to be built or copied to lib-node/build folder manually
+
+
 ## [1.45.0] – 2023-11-10
 
 ### New

@@ -58,15 +58,14 @@ fn main() {
     let builder = Build::new();
     let lib_dir = builder.package_dir.join("lib");
     std::env::set_current_dir(&lib_dir).unwrap();
-    exec("cargo", &["install", "wasm-pack"]);
-    // exec("cargo", &["install", "wasm-opt", "--version", "0.9.1"]);
     let target = "web";
     // let target = "bundler";
     // let target = "no-modules";
-    assert!(exec("wasm-pack", &["build", "--target", target]).success());
+    exec("cargo", &["install", "wasm-pack"]);
+    assert!(exec("wasm-pack", &["build", "--release", "--target", target]).success());
     let pkg = lib_dir.join("pkg");
-    builder.add_package_file("eversdk.wasm", pkg.join("eversdk_bg.wasm"));
-    let fixed_wrapper_script = fix_wrapper_script(builder.read_lib_file("pkg/eversdk.js"));
+    builder.add_package_file("tvmsdk.wasm", pkg.join("tvmsdk_bg.wasm"));
+    let fixed_wrapper_script = fix_wrapper_script(builder.read_lib_file("pkg/tvmsdk.js"));
     let worker = template_replace(
         &builder.read_lib_file("worker-template.js"),
         "WRAPPER",
@@ -81,6 +80,6 @@ fn main() {
     let index = template_replace(&index, "WRAPPER", &fixed_wrapper_script);
 
     builder.write_package_file("index.js", &index);
-    builder.publish_package_file("eversdk.wasm", "eversdk_{v}_wasm");
-    builder.publish_package_file("index.js", "eversdk_{v}_wasm_js");
+    builder.publish_package_file("tvmsdk.wasm", "tvmsdk_{v}_wasm");
+    builder.publish_package_file("index.js", "tvmsdk_{v}_wasm_js");
 }

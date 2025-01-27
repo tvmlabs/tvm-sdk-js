@@ -108,6 +108,8 @@ impl Build {
     }
 
     pub fn add_package_file(&self, name: &str, src: PathBuf) {
+        println!("Copy from: {}", src.to_string_lossy().into_owned());
+        println!("Copy to file: {}", name);
         fs::copy(src, self.package_dir.join(name)).unwrap();
         println!("Add package file: {}", name);
     }
