@@ -79,7 +79,7 @@ impl Build {
                 target_os = "linux",
                 not(target_arch = "aarch64"),
                 not(target_arch = "armv7"),
-                not(target_arch = "powerpc64le"),
+                not(target_arch = "powerpc64"),
                 not(target_arch = "s390x")
             ))]
             platform: "x64-linux".into(),
@@ -87,7 +87,7 @@ impl Build {
             platform: "arm64-linux".into(),
             #[cfg(all(target_os = "linux", target_arch = "armv7"))]
             platform: "arm-linux".into(),
-            #[cfg(all(target_os = "linux", target_arch = "powerpc64le"))]
+            #[cfg(all(target_os = "linux", target_arch = "powerpc64", target_endian = "little"))]
             platform: "ppc64-linux".into(),
             #[cfg(all(target_os = "linux", target_arch = "s390x"))]
             platform: "s390x-linux".into(),

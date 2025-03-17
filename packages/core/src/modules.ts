@@ -82,7 +82,7 @@ export type ClientConfig = {
     proofs?: ProofsConfig,
 
     /**
-     * For file based storage is a folder name where SDK will store its data. For browser based is a browser async storage key prefix. Default (recommended) value is "~/.tvmclient" for native environments and ".tvmclient" for web-browser.
+     * For file based storage is a folder name where SDK will store its data. For browser based is a browser async storage key prefix. Default (recommended) value is "~/.tonclient" for native environments and ".tonclient" for web-browser.
      */
     local_storage_path?: string
 }
@@ -98,8 +98,8 @@ export type NetworkConfig = {
      * List of Evernode endpoints.
      * 
      * @remarks
-     * Any correct URL format can be specified, including IP addresses. This parameter is prevailing over `server_address`.
-     * Check the full list of [supported network endpoints](https://docs.evercloud.dev/products/evercloud/networks-endpoints).
+     * Any correct URL format can be specified, including IP addresses. This parameter is prevailing over
+     * `server_address`. Check the full list of [supported network endpoints](https://docs.evercloud.dev/products/evercloud/networks-endpoints).
      */
     endpoints?: string[],
 
@@ -174,9 +174,13 @@ export type NetworkConfig = {
     latency_detection_interval?: number,
 
     /**
-     * Maximum value for the endpoint's blockchain data synchronization latency (time-lag). Library periodically checks the current endpoint for blockchain data synchronization latency. If the latency (time-lag) is less then `NetworkConfig.max_latency` then library selects another endpoint.
+     * Maximum value for the endpoint's blockchain data synchronization latency (time-lag).
      * 
      * @remarks
+     * Library periodically checks the current endpoint for blockchain data synchronization latency.
+     * If the latency (time-lag) is less then `NetworkConfig.max_latency`
+     * then library selects another endpoint.
+     * 
      * Must be specified in milliseconds. Default is 60000 (1 min).
      */
     max_latency?: number,
@@ -185,8 +189,8 @@ export type NetworkConfig = {
      * Default timeout for http requests.
      * 
      * @remarks
-     * Is is used when no timeout specified for the request to limit the answer waiting time. If no answer received during the timeout requests ends with
-     * error.
+     * Is is used when no timeout specified for the request to limit the answer waiting time. If no answer
+     * received during the timeout requests ends with error.
      * 
      * Must be specified in milliseconds. Default is 60000 (1 min).
      */
@@ -207,8 +211,9 @@ export type NetworkConfig = {
      * @remarks
      * First REMP status awaiting timeout. If no status received during the timeout than fallback transaction scenario is activated.
      * 
-     * Must be specified in milliseconds. Default is 1 (1 ms) in order to start fallback scenario
-     * together with REMP statuses processing while REMP is not properly tuned yet.
+     * Must be specified in milliseconds. Default is 1 (1 ms) in order to start
+     * fallback scenario together with REMP statuses processing while REMP
+     * is not properly tuned yet.
      */
     first_remp_status_timeout?: number,
 
@@ -226,10 +231,11 @@ export type NetworkConfig = {
      * Network signature ID which is used by VM in signature verifying instructions if capability `CapSignatureWithId` is enabled in blockchain configuration parameters.
      * 
      * @remarks
-     * This parameter should be set to `global_id` field from any blockchain block if network can
-     * not be reachable at the moment of message encoding and the message is aimed to be sent into
-     * network with `CapSignatureWithId` enabled. Otherwise signature ID is detected automatically
-     * inside message encoding functions
+     * This parameter should be set to `global_id` field from any blockchain
+     * block if network can not be reachable at the moment of message
+     * encoding and the message is aimed to be sent into network with
+     * `CapSignatureWithId` enabled. Otherwise signature ID is detected
+     * automatically inside message encoding functions
      */
     signature_id?: number,
 
@@ -316,9 +322,10 @@ export type ProofsConfig = {
      * Cache proofs in the local storage.
      * 
      * @remarks
-     * Default is `true`. If this value is set to `true`, downloaded proofs and master-chain BOCs are saved into the
-     * persistent local storage (e.g. file system for native environments or browser's IndexedDB
-     * for the web); otherwise all the data is cached only in memory in current client's context
+     * Default is `true`. If this value is set to `true`, downloaded proofs and master-chain BOCs
+     * are saved into the persistent local storage (e.g. file system for
+     * native environments or browser's IndexedDB for the web); otherwise
+     * all the data is cached only in memory in current client's context
      * and will be lost after destruction of the client.
      */
     cache_in_local_storage?: boolean
@@ -795,10 +802,11 @@ export type NaclSecretBoxParamsEB = {
  * Creates Crypto Box from a random seed phrase. This option can be used if a developer doesn't want the seed phrase to leave the core library's memory, where it is stored encrypted.
  * 
  * @remarks
- * This type should be used upon the first wallet initialization, all further initializations
- * should use `EncryptedSecret` type instead.
+ * This type should be used upon the first wallet initialization, all
+ * further initializations should use `EncryptedSecret` type instead.
  * 
- * Get `encrypted_secret` with `get_crypto_box_info` function and store it on your side.
+ * Get `encrypted_secret` with `get_crypto_box_info` function and store it
+ * on your side.
  */
 export type CryptoBoxSecretRandomSeedPhraseVariant = {
 
@@ -811,10 +819,11 @@ export type CryptoBoxSecretRandomSeedPhraseVariant = {
  * Restores crypto box instance from an existing seed phrase. This type should be used when Crypto Box is initialized from a seed phrase, entered by a user.
  * 
  * @remarks
- * This type should be used only upon the first wallet initialization, all further
- * initializations should use `EncryptedSecret` type instead.
+ * This type should be used only upon the first wallet initialization, all
+ * further initializations should use `EncryptedSecret` type instead.
  * 
- * Get `encrypted_secret` with `get_crypto_box_info` function and store it on your side.
+ * Get `encrypted_secret` with `get_crypto_box_info` function and store it
+ * on your side.
  */
 export type CryptoBoxSecretPredefinedSeedPhraseVariant = {
 
@@ -826,15 +835,19 @@ export type CryptoBoxSecretPredefinedSeedPhraseVariant = {
 }
 
 /**
- * Use this type for wallet reinitializations, when you already have `encrypted_secret` on hands. To get `encrypted_secret`, use `get_crypto_box_info` function after you initialized your crypto box for the first time.
+ * Use this type for wallet reinitializations, when you already have `encrypted_secret` on hands.
  * 
  * @remarks
+ * To get `encrypted_secret`, use `get_crypto_box_info` function after you initialized your crypto box
+ * for the first time.
+ * 
  * It is an object, containing seed phrase or private key, encrypted with
  * `secret_encryption_salt` and password from `password_provider`.
  * 
- * Note that if you want to change salt or password provider, then you need to reinitialize
- * the wallet with `PredefinedSeedPhrase`, then get `EncryptedSecret` via `get_crypto_box_info`,
- * store it somewhere, and only after that initialize the wallet with `EncryptedSecret` type.
+ * Note that if you want to change salt or password provider, then you need
+ * to reinitialize the wallet with `PredefinedSeedPhrase`, then get
+ * `EncryptedSecret` via `get_crypto_box_info`, store it somewhere, and
+ * only after that initialize the wallet with `EncryptedSecret` type.
  */
 export type CryptoBoxSecretEncryptedSecretVariant = {
 
@@ -860,7 +873,7 @@ export type CryptoBoxSecretEncryptedSecretVariant = {
  * 
  * ### `EncryptedSecret`
  * 
- * Use this type for wallet reinitializations, when you already have `encrypted_secret` on hands. To get `encrypted_secret`, use `get_crypto_box_info` function after you initialized your crypto box for the first time.
+ * Use this type for wallet reinitializations, when you already have `encrypted_secret` on hands.
  */
 export type CryptoBoxSecret = ({
     type: 'RandomSeedPhrase'
@@ -1081,6 +1094,9 @@ export type ResultOfGenerateRandomBytes = {
     bytes: string
 }
 
+/**
+ * ParamsOfConvertPublicKeyToTonSafeFormat
+ */
 export type ParamsOfConvertPublicKeyToTonSafeFormat = {
 
     /**
@@ -1094,9 +1110,12 @@ export type ResultOfConvertPublicKeyToTonSafeFormat = {
     /**
      * Public key represented in TON safe format.
      */
-    ton_public_key: string
+    tvm_public_key: string
 }
 
+/**
+ * KeyPair
+ */
 export type KeyPair = {
 
     /**
@@ -1110,6 +1129,9 @@ export type KeyPair = {
     secret: string
 }
 
+/**
+ * ParamsOfSign
+ */
 export type ParamsOfSign = {
 
     /**
@@ -1136,6 +1158,9 @@ export type ResultOfSign = {
     signature: string
 }
 
+/**
+ * ParamsOfVerifySignature
+ */
 export type ParamsOfVerifySignature = {
 
     /**
@@ -1187,7 +1212,10 @@ export type ParamsOfScrypt = {
     password: string,
 
     /**
-     * Salt bytes that modify the hash to protect against Rainbow table attacks. Must be encoded with `base64`.
+     * Salt bytes that modify the hash to protect against Rainbow table attacks.
+     * 
+     * @remarks
+     * Must be encoded with `base64`.
      */
     salt: string,
 
@@ -1223,6 +1251,9 @@ export type ResultOfScrypt = {
     key: string
 }
 
+/**
+ * ParamsOfNaclSignKeyPairFromSecret
+ */
 export type ParamsOfNaclSignKeyPairFromSecret = {
 
     /**
@@ -1231,6 +1262,9 @@ export type ParamsOfNaclSignKeyPairFromSecret = {
     secret: string
 }
 
+/**
+ * ParamsOfNaclSign
+ */
 export type ParamsOfNaclSign = {
 
     /**
@@ -1252,6 +1286,9 @@ export type ResultOfNaclSign = {
     signed: string
 }
 
+/**
+ * ParamsOfNaclSignOpen
+ */
 export type ParamsOfNaclSignOpen = {
 
     /**
@@ -1284,6 +1321,9 @@ export type ResultOfNaclSignDetached = {
     signature: string
 }
 
+/**
+ * ParamsOfNaclSignDetachedVerify
+ */
 export type ParamsOfNaclSignDetachedVerify = {
 
     /**
@@ -1316,6 +1356,9 @@ export type ResultOfNaclSignDetachedVerify = {
     succeeded: boolean
 }
 
+/**
+ * ParamsOfNaclBoxKeyPairFromSecret
+ */
 export type ParamsOfNaclBoxKeyPairFromSecret = {
 
     /**
@@ -1324,6 +1367,9 @@ export type ParamsOfNaclBoxKeyPairFromSecret = {
     secret: string
 }
 
+/**
+ * ParamsOfNaclBox
+ */
 export type ParamsOfNaclBox = {
 
     /**
@@ -1355,6 +1401,9 @@ export type ResultOfNaclBox = {
     encrypted: string
 }
 
+/**
+ * ParamsOfNaclBoxOpen
+ */
 export type ParamsOfNaclBoxOpen = {
 
     /**
@@ -1389,6 +1438,9 @@ export type ResultOfNaclBoxOpen = {
     decrypted: string
 }
 
+/**
+ * ParamsOfNaclSecretBox
+ */
 export type ParamsOfNaclSecretBox = {
 
     /**
@@ -1410,6 +1462,9 @@ export type ParamsOfNaclSecretBox = {
     key: string
 }
 
+/**
+ * ParamsOfNaclSecretBoxOpen
+ */
 export type ParamsOfNaclSecretBoxOpen = {
 
     /**
@@ -1710,7 +1765,10 @@ export type RegisteredCryptoBox = {
 export type ParamsOfAppPasswordProviderGetPasswordVariant = {
 
     /**
-     * Temporary library pubkey, that is used on application side for password encryption, along with application temporary private key and nonce. Used for password decryption on library side.
+     * Temporary library pubkey, that is used on application side for password encryption, along with application temporary private key and nonce.
+     * 
+     * @remarks
+     * Used for password decryption on library side.
      */
     encryption_public_key: string
 }
@@ -1726,7 +1784,8 @@ export type ParamsOfAppPasswordProviderGetPasswordVariant = {
  * 
  * Application should generate a temporary nacl_box_keypair
  * and encrypt the password with naclbox function using nacl_box_keypair.secret
- * and encryption_public_key keys + nonce = 24-byte prefix of encryption_public_key.
+ * and encryption_public_key keys + nonce = 24-byte prefix of
+ * encryption_public_key.
  * 
  * Depends on `type` field.
  * 
@@ -1809,7 +1868,7 @@ export type ParamsOfGetSigningBoxFromCryptoBox = {
      * HD key derivation path.
      * 
      * @remarks
-     * By default, Everscale HD path is used.
+     * By default, Acki Nacki HD path is used.
      */
     hdpath?: string,
 
@@ -1838,7 +1897,7 @@ export type ParamsOfGetEncryptionBoxFromCryptoBox = {
      * HD key derivation path.
      * 
      * @remarks
-     * By default, Everscale HD path is used.
+     * By default, Acki Nacki HD path is used.
      */
     hdpath?: string,
 
@@ -2341,8 +2400,8 @@ export class CryptoModule {
      * Modular exponentiation
      * 
      * @remarks
-     * Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`).
-     * See [https://en.wikipedia.org/wiki/Modular_exponentiation]
+     * Performs modular exponentiation for big integers (`base`^`exponent` mod
+     * `modulus`). See [https://en.wikipedia.org/wiki/Modular_exponentiation]
      * 
      * @param {ParamsOfModularPower} params
      * @returns ResultOfModularPower
@@ -2355,8 +2414,8 @@ export class CryptoModule {
      * Modular exponentiation
      * 
      * @remarks
-     * Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`).
-     * See [https://en.wikipedia.org/wiki/Modular_exponentiation]
+     * Performs modular exponentiation for big integers (`base`^`exponent` mod
+     * `modulus`). See [https://en.wikipedia.org/wiki/Modular_exponentiation]
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -2375,8 +2434,8 @@ export class CryptoModule {
      * @param {ParamsOfTonCrc16} params
      * @returns ResultOfTonCrc16
      */
-    ton_crc16(params: ParamsOfTonCrc16): Promise<ResultOfTonCrc16> {
-        return this.client.request('crypto.ton_crc16', params);
+    tvm_crc16(params: ParamsOfTonCrc16): Promise<ResultOfTonCrc16> {
+        return this.client.request('crypto.tvm_crc16', params);
     }
 
     /**
@@ -2389,8 +2448,8 @@ export class CryptoModule {
      * @param {ParamsOfTonCrc16} params
      * @returns ResultOfTonCrc16
      */
-    ton_crc16_sync(params: ParamsOfTonCrc16): ResultOfTonCrc16 {
-        return this.client.requestSync('crypto.ton_crc16', params);
+    tvm_crc16_sync(params: ParamsOfTonCrc16): ResultOfTonCrc16 {
+        return this.client.requestSync('crypto.tvm_crc16', params);
     }
 
     /**
@@ -2423,8 +2482,8 @@ export class CryptoModule {
      * @param {ParamsOfConvertPublicKeyToTonSafeFormat} params
      * @returns ResultOfConvertPublicKeyToTonSafeFormat
      */
-    convert_public_key_to_ton_safe_format(params: ParamsOfConvertPublicKeyToTonSafeFormat): Promise<ResultOfConvertPublicKeyToTonSafeFormat> {
-        return this.client.request('crypto.convert_public_key_to_ton_safe_format', params);
+    convert_public_key_to_tvm_safe_format(params: ParamsOfConvertPublicKeyToTonSafeFormat): Promise<ResultOfConvertPublicKeyToTonSafeFormat> {
+        return this.client.request('crypto.convert_public_key_to_tvm_safe_format', params);
     }
 
     /**
@@ -2437,8 +2496,8 @@ export class CryptoModule {
      * @param {ParamsOfConvertPublicKeyToTonSafeFormat} params
      * @returns ResultOfConvertPublicKeyToTonSafeFormat
      */
-    convert_public_key_to_ton_safe_format_sync(params: ParamsOfConvertPublicKeyToTonSafeFormat): ResultOfConvertPublicKeyToTonSafeFormat {
-        return this.client.requestSync('crypto.convert_public_key_to_ton_safe_format', params);
+    convert_public_key_to_tvm_safe_format_sync(params: ParamsOfConvertPublicKeyToTonSafeFormat): ResultOfConvertPublicKeyToTonSafeFormat {
+        return this.client.requestSync('crypto.convert_public_key_to_tvm_safe_format', params);
     }
 
     /**
@@ -2813,8 +2872,8 @@ export class CryptoModule {
      * Public key authenticated encryption
      * 
      * @remarks
-     * Encrypt and authenticate a message using the senders secret key, the receivers public
-     * key, and a nonce.
+     * Encrypt and authenticate a message using the senders secret key, the
+     * receivers public key, and a nonce.
      * 
      * @param {ParamsOfNaclBox} params
      * @returns ResultOfNaclBox
@@ -2827,8 +2886,8 @@ export class CryptoModule {
      * Public key authenticated encryption
      * 
      * @remarks
-     * Encrypt and authenticate a message using the senders secret key, the receivers public
-     * key, and a nonce.
+     * Encrypt and authenticate a message using the senders secret key, the
+     * receivers public key, and a nonce.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -2995,8 +3054,8 @@ export class CryptoModule {
      * Validates a mnemonic phrase
      * 
      * @remarks
-     * The phrase supplied will be checked for word length and validated according to the checksum
-     * specified in BIP0039.
+     * The phrase supplied will be checked for word length and validated according
+     * to the checksum specified in BIP0039.
      * 
      * @param {ParamsOfMnemonicVerify} params
      * @returns ResultOfMnemonicVerify
@@ -3009,8 +3068,8 @@ export class CryptoModule {
      * Validates a mnemonic phrase
      * 
      * @remarks
-     * The phrase supplied will be checked for word length and validated according to the checksum
-     * specified in BIP0039.
+     * The phrase supplied will be checked for word length and validated according
+     * to the checksum specified in BIP0039.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3203,15 +3262,17 @@ export class CryptoModule {
      * Creates a Crypto Box instance.
      * 
      * @remarks
-     * Crypto Box is a root crypto object, that encapsulates some secret (seed phrase usually)
-     * in encrypted form and acts as a factory for all crypto primitives used in SDK:
-     * keys for signing and encryption, derived from this secret.
+     * Crypto Box is a root crypto object, that encapsulates some secret (seed
+     * phrase usually) in encrypted form and acts as a factory for all crypto
+     * primitives used in SDK: keys for signing and encryption, derived from this
+     * secret.
      * 
-     * Crypto Box encrypts original Seed Phrase with salt and password that is retrieved
-     * from `password_provider` callback, implemented on Application side.
+     * Crypto Box encrypts original Seed Phrase with salt and password that is
+     * retrieved from `password_provider` callback, implemented on Application
+     * side.
      * 
-     * When used, decrypted secret shows up in core library's memory for a very short period
-     * of time and then is immediately overwritten with zeroes.
+     * When used, decrypted secret shows up in core library's memory for a very
+     * short period of time and then is immediately overwritten with zeroes.
      * 
      * @param {ParamsOfCreateCryptoBox} params
      * @returns RegisteredCryptoBox
@@ -3230,15 +3291,17 @@ export class CryptoModule {
      * Creates a Crypto Box instance.
      * 
      * @remarks
-     * Crypto Box is a root crypto object, that encapsulates some secret (seed phrase usually)
-     * in encrypted form and acts as a factory for all crypto primitives used in SDK:
-     * keys for signing and encryption, derived from this secret.
+     * Crypto Box is a root crypto object, that encapsulates some secret (seed
+     * phrase usually) in encrypted form and acts as a factory for all crypto
+     * primitives used in SDK: keys for signing and encryption, derived from this
+     * secret.
      * 
-     * Crypto Box encrypts original Seed Phrase with salt and password that is retrieved
-     * from `password_provider` callback, implemented on Application side.
+     * Crypto Box encrypts original Seed Phrase with salt and password that is
+     * retrieved from `password_provider` callback, implemented on Application
+     * side.
      * 
-     * When used, decrypted secret shows up in core library's memory for a very short period
-     * of time and then is immediately overwritten with zeroes.
+     * When used, decrypted secret shows up in core library's memory for a very
+     * short period of time and then is immediately overwritten with zeroes.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3303,7 +3366,8 @@ export class CryptoModule {
      * Get Crypto Box Seed Phrase.
      * 
      * @remarks
-     * Attention! Store this data in your application for a very short period of time and overwrite it with zeroes ASAP.
+     * Attention! Store this data in your application for a very short period of
+     * time and overwrite it with zeroes ASAP.
      * 
      * @param {RegisteredCryptoBox} params
      * @returns ResultOfGetCryptoBoxSeedPhrase
@@ -3316,7 +3380,8 @@ export class CryptoModule {
      * Get Crypto Box Seed Phrase.
      * 
      * @remarks
-     * Attention! Store this data in your application for a very short period of time and overwrite it with zeroes ASAP.
+     * Attention! Store this data in your application for a very short period of
+     * time and overwrite it with zeroes ASAP.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3360,8 +3425,8 @@ export class CryptoModule {
      * Derives encryption keypair from cryptobox secret and hdpath and
      * stores it in cache for `secret_lifetime`
      * or until explicitly cleared by `clear_crypto_box_secret_cache` method.
-     * If `secret_lifetime` is not specified - overwrites encryption secret with zeroes immediately after
-     * encryption operation.
+     * If `secret_lifetime` is not specified - overwrites encryption secret with
+     * zeroes immediately after encryption operation.
      * 
      * @param {ParamsOfGetEncryptionBoxFromCryptoBox} params
      * @returns RegisteredEncryptionBox
@@ -3377,8 +3442,8 @@ export class CryptoModule {
      * Derives encryption keypair from cryptobox secret and hdpath and
      * stores it in cache for `secret_lifetime`
      * or until explicitly cleared by `clear_crypto_box_secret_cache` method.
-     * If `secret_lifetime` is not specified - overwrites encryption secret with zeroes immediately after
-     * encryption operation.
+     * If `secret_lifetime` is not specified - overwrites encryption secret with
+     * zeroes immediately after encryption operation.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3615,8 +3680,9 @@ export class CryptoModule {
      * Encrypts data using given encryption box Note.
      * 
      * @remarks
-     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
-     * decryption to retrieve the original data from decrypted data.
+     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data
+     * size after encryption and use it after decryption to retrieve the original
+     * data from decrypted data.
      * 
      * @param {ParamsOfEncryptionBoxEncrypt} params
      * @returns ResultOfEncryptionBoxEncrypt
@@ -3629,8 +3695,9 @@ export class CryptoModule {
      * Encrypts data using given encryption box Note.
      * 
      * @remarks
-     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
-     * decryption to retrieve the original data from decrypted data.
+     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data
+     * size after encryption and use it after decryption to retrieve the original
+     * data from decrypted data.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3647,8 +3714,9 @@ export class CryptoModule {
      * Decrypts data using given encryption box Note.
      * 
      * @remarks
-     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
-     * decryption to retrieve the original data from decrypted data.
+     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data
+     * size after encryption and use it after decryption to retrieve the original
+     * data from decrypted data.
      * 
      * @param {ParamsOfEncryptionBoxDecrypt} params
      * @returns ResultOfEncryptionBoxDecrypt
@@ -3661,8 +3729,9 @@ export class CryptoModule {
      * Decrypts data using given encryption box Note.
      * 
      * @remarks
-     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
-     * decryption to retrieve the original data from decrypted data.
+     * Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data
+     * size after encryption and use it after decryption to retrieve the original
+     * data from decrypted data.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -3804,7 +3873,8 @@ export type AbiHandle = number
  * 
  * @remarks
  * Includes several hidden function parameters that contract
- * uses for security, message delivery monitoring and replay protection reasons.
+ * uses for security, message delivery monitoring and replay protection
+ * reasons.
  * 
  * The actual set of header fields depends on the contract's ABI.
  * If a contract's ABI does not include some headers, then they are not filled.
@@ -3815,8 +3885,10 @@ export type FunctionHeader = {
      * Message expiration timestamp (UNIX time) in seconds.
      * 
      * @remarks
-     * If not specified - calculated automatically from message_expiration_timeout(),
-     * try_index and message_expiration_timeout_grow_factor() (if ABI includes `expire` header).
+     * If not specified - calculated automatically from
+     * message_expiration_timeout(), try_index and
+     * message_expiration_timeout_grow_factor() (if ABI includes `expire`
+     * header).
      */
     expire?: number,
 
@@ -3832,7 +3904,8 @@ export type FunctionHeader = {
      * Public key is used by the contract to check the signature.
      * 
      * @remarks
-     * Encoded in `hex`. If not specified, method fails with exception (if ABI includes `pubkey` header)..
+     * Encoded in `hex`. If not specified, method fails with exception (if ABI
+     * includes `pubkey` header)..
      */
     pubkey?: string
 }
@@ -3899,8 +3972,9 @@ export type DeploySet = {
      * 2. Public key, specified in TVM file.
      * 3. Public key, provided by Signer.
      * 
-     * Applicable only for contracts with ABI version < 2.4. Contract initial public key should be
-     * explicitly provided inside `initial_data` since ABI 2.4
+     * Applicable only for contracts with ABI version < 2.4. Contract initial
+     * public key should be explicitly provided inside `initial_data` since
+     * ABI 2.4
      */
     initial_pubkey?: string
 }
@@ -4116,9 +4190,10 @@ export type ParamsOfEncodeMessageBody = {
      * Destination address of the message
      * 
      * @remarks
-     * Since ABI version 2.3 destination address of external inbound message is used in message
-     * body signature calculation. Should be provided when signed external inbound message body is
-     * created. Otherwise can be omitted.
+     * Since ABI version 2.3 destination address of external inbound message is
+     * used in message body signature calculation. Should be provided when
+     * signed external inbound message body is created. Otherwise can be
+     * omitted.
      */
     address?: string,
 
@@ -4227,7 +4302,8 @@ export type ParamsOfEncodeMessage = {
      * Processing try index.
      * 
      * @remarks
-     * Used in message processing with retries (if contract's ABI includes "expire" header).
+     * Used in message processing with retries (if contract's ABI includes
+     * "expire" header).
      * 
      * Encoder uses the provided try index to calculate message
      * expiration time. The 1st message expiration time is specified in
@@ -4259,8 +4335,9 @@ export type ResultOfEncodeMessage = {
      * 
      * @remarks
      * Returned in case of `Signer::External`. Can be used for external
-     * message signing. Is this case you need to use this data to create signature and
-     * then produce signed message using `abi.attach_signature`.
+     * message signing. Is this case you need to use this data to create
+     * signature and then produce signed message using
+     * `abi.attach_signature`.
      */
     data_to_sign?: string,
 
@@ -4406,7 +4483,12 @@ export type ParamsOfDecodeMessage = {
     message: string,
 
     /**
-     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC.
+     * 
+     * @remarks
+     * Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC:
+     * `true` - return decoded values
+     * `false` - return error of incomplete BOC deserialization (default)
      */
     allow_partial?: boolean,
 
@@ -4459,7 +4541,12 @@ export type ParamsOfDecodeMessageBody = {
     is_internal: boolean,
 
     /**
-     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC.
+     * 
+     * @remarks
+     * Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC:
+     * `true` - return decoded values
+     * `false` - return error of incomplete BOC deserialization (default)
      */
     allow_partial?: boolean,
 
@@ -4528,7 +4615,12 @@ export type ParamsOfDecodeAccountData = {
     data: string,
 
     /**
-     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC.
+     * 
+     * @remarks
+     * Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC:
+     * `true` - return decoded values
+     * `false` - return error of incomplete BOC deserialization (default)
      */
     allow_partial?: boolean
 }
@@ -4630,7 +4722,12 @@ export type ParamsOfDecodeInitialData = {
     data: string,
 
     /**
-     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+     * Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC.
+     * 
+     * @remarks
+     * Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC:
+     * `true` - return decoded values
+     * `false` - return error of incomplete BOC deserialization (default)
      */
     allow_partial?: boolean
 }
@@ -4716,7 +4813,10 @@ export type ParamsOfCalcFunctionId = {
     function_name: string,
 
     /**
-     * If set to `true` output function ID will be returned which is used in contract response. Default is `false`
+     * If set to `true` output function ID will be returned which is used in contract response.
+     * 
+     * @remarks
+     * Default is `false`
      */
     output?: boolean
 }
@@ -4795,6 +4895,7 @@ export class AbiModule {
     }
 
     /**
+     * Attach signature
      * 
      * @param {ParamsOfAttachSignatureToMessageBody} params
      * @returns ResultOfAttachSignatureToMessageBody
@@ -4804,6 +4905,7 @@ export class AbiModule {
     }
 
     /**
+     * Attach signature
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -4824,27 +4926,29 @@ export class AbiModule {
      * both signed and unsigned.
      * 
      * Use cases include messages of any possible type:
-     * - deploy with initial function call (i.e. `constructor` or any other function that is used for some kind
+     * - deploy with initial function call (i.e. `constructor` or any other
+     *   function that is used for some kind
      * of initialization);
      * - deploy without initial function call;
      * - signed/unsigned + data for signing.
      * 
      * `Signer` defines how the message should or shouldn't be signed:
      * 
-     * `Signer::None` creates an unsigned message. This may be needed in case of some public methods,
-     * that do not require authorization by pubkey.
+     * `Signer::None` creates an unsigned message. This may be needed in case of
+     * some public methods, that do not require authorization by pubkey.
      * 
-     * `Signer::External` takes public key and returns `data_to_sign` for later signing.
-     * Use `attach_signature` method with the result signature to get the signed message.
+     * `Signer::External` takes public key and returns `data_to_sign` for later
+     * signing. Use `attach_signature` method with the result signature to get the
+     * signed message.
      * 
      * `Signer::Keys` creates a signed message with provided key pair.
      * 
-     * [SOON] `Signer::SigningBox` Allows using a special interface to implement signing
-     * without private key disclosure to SDK. For instance, in case of using a cold wallet or HSM,
-     * when application calls some API to sign data.
+     * [SOON] `Signer::SigningBox` Allows using a special interface to implement
+     * signing without private key disclosure to SDK. For instance, in case of
+     * using a cold wallet or HSM, when application calls some API to sign data.
      * 
-     * There is an optional public key can be provided in deploy set in order to substitute one
-     * in TVM file.
+     * There is an optional public key can be provided in deploy set in order to
+     * substitute one in TVM file.
      * 
      * Public key resolving priority:
      * 1. Public key from deploy set.
@@ -4866,27 +4970,29 @@ export class AbiModule {
      * both signed and unsigned.
      * 
      * Use cases include messages of any possible type:
-     * - deploy with initial function call (i.e. `constructor` or any other function that is used for some kind
+     * - deploy with initial function call (i.e. `constructor` or any other
+     *   function that is used for some kind
      * of initialization);
      * - deploy without initial function call;
      * - signed/unsigned + data for signing.
      * 
      * `Signer` defines how the message should or shouldn't be signed:
      * 
-     * `Signer::None` creates an unsigned message. This may be needed in case of some public methods,
-     * that do not require authorization by pubkey.
+     * `Signer::None` creates an unsigned message. This may be needed in case of
+     * some public methods, that do not require authorization by pubkey.
      * 
-     * `Signer::External` takes public key and returns `data_to_sign` for later signing.
-     * Use `attach_signature` method with the result signature to get the signed message.
+     * `Signer::External` takes public key and returns `data_to_sign` for later
+     * signing. Use `attach_signature` method with the result signature to get the
+     * signed message.
      * 
      * `Signer::Keys` creates a signed message with provided key pair.
      * 
-     * [SOON] `Signer::SigningBox` Allows using a special interface to implement signing
-     * without private key disclosure to SDK. For instance, in case of using a cold wallet or HSM,
-     * when application calls some API to sign data.
+     * [SOON] `Signer::SigningBox` Allows using a special interface to implement
+     * signing without private key disclosure to SDK. For instance, in case of
+     * using a cold wallet or HSM, when application calls some API to sign data.
      * 
-     * There is an optional public key can be provided in deploy set in order to substitute one
-     * in TVM file.
+     * There is an optional public key can be provided in deploy set in order to
+     * substitute one in TVM file.
      * 
      * Public key resolving priority:
      * 1. Public key from deploy set.
@@ -4911,13 +5017,14 @@ export class AbiModule {
      * Allows to encode deploy and function call messages.
      * 
      * Use cases include messages of any possible type:
-     * - deploy with initial function call (i.e. `constructor` or any other function that is used for some kind
+     * - deploy with initial function call (i.e. `constructor` or any other
+     *   function that is used for some kind
      * of initialization);
      * - deploy without initial function call;
      * - simple function call
      * 
-     * There is an optional public key can be provided in deploy set in order to substitute one
-     * in TVM file.
+     * There is an optional public key can be provided in deploy set in order to
+     * substitute one in TVM file.
      * 
      * Public key resolving priority:
      * 1. Public key from deploy set.
@@ -4937,13 +5044,14 @@ export class AbiModule {
      * Allows to encode deploy and function call messages.
      * 
      * Use cases include messages of any possible type:
-     * - deploy with initial function call (i.e. `constructor` or any other function that is used for some kind
+     * - deploy with initial function call (i.e. `constructor` or any other
+     *   function that is used for some kind
      * of initialization);
      * - deploy without initial function call;
      * - simple function call
      * 
-     * There is an optional public key can be provided in deploy set in order to substitute one
-     * in TVM file.
+     * There is an optional public key can be provided in deploy set in order to
+     * substitute one in TVM file.
      * 
      * Public key resolving priority:
      * 1. Public key from deploy set.
@@ -5087,9 +5195,12 @@ export class AbiModule {
     }
 
     /**
-     * Updates initial account data with initial values for the contract's static variables and owner's public key. This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+     * Updates initial account data with initial values for the contract's static variables and owner's public key.
      * 
      * @remarks
+     * This operation is applicable only for initial account data (before deploy). If the contract is already deployed,
+     * its data doesn't contain this data section any more.
+     * 
      * Doesn't support ABI version >= 2.4. Use `encode_initial_data` instead
      * 
      * @param {ParamsOfUpdateInitialData} params
@@ -5100,9 +5211,12 @@ export class AbiModule {
     }
 
     /**
-     * Updates initial account data with initial values for the contract's static variables and owner's public key. This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+     * Updates initial account data with initial values for the contract's static variables and owner's public key.
      * 
      * @remarks
+     * This operation is applicable only for initial account data (before deploy). If the contract is already deployed,
+     * its data doesn't contain this data section any more.
+     * 
      * Doesn't support ABI version >= 2.4. Use `encode_initial_data` instead
      * 
      * NOTE: Available only for `lib-node` binding.
@@ -5147,9 +5261,11 @@ export class AbiModule {
     }
 
     /**
-     * Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+     * Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy).
      * 
      * @remarks
+     * If the contract is already deployed, its data doesn't contain this data section any more.
+     * 
      * Doesn't support ABI version >= 2.4. Use `decode_account_data` instead
      * 
      * @param {ParamsOfDecodeInitialData} params
@@ -5160,9 +5276,11 @@ export class AbiModule {
     }
 
     /**
-     * Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+     * Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy).
      * 
      * @remarks
+     * If the contract is already deployed, its data doesn't contain this data section any more.
+     * 
      * Doesn't support ABI version >= 2.4. Use `decode_account_data` instead
      * 
      * NOTE: Available only for `lib-node` binding.
@@ -5187,14 +5305,16 @@ export class AbiModule {
      * 
      * To solve this problem we introduce a new ABI type `Ref(<ParamType>)`
      * which allows to store `ParamType` ABI parameter in cell reference and, thus,
-     * decode manually encoded BOCs. This type is available only in `decode_boc` function
-     * and will not be available in ABI messages encoding until it is included into some ABI revision.
+     * decode manually encoded BOCs. This type is available only in `decode_boc`
+     * function and will not be available in ABI messages encoding until it is
+     * included into some ABI revision.
      * 
-     * Such BOC descriptions covers most users needs. If someone wants to decode some BOC which
-     * can not be described by these rules (i.e. BOC with TLB containing constructors of flags
-     * defining some parsing conditions) then they can decode the fields up to fork condition,
-     * check the parsed data manually, expand the parsing schema and then decode the whole BOC
-     * with the full schema.
+     * Such BOC descriptions covers most users needs. If someone wants to decode
+     * some BOC which can not be described by these rules (i.e. BOC with TLB
+     * containing constructors of flags defining some parsing conditions) then they
+     * can decode the fields up to fork condition, check the parsed data manually,
+     * expand the parsing schema and then decode the whole BOC with the full
+     * schema.
      * 
      * @param {ParamsOfDecodeBoc} params
      * @returns ResultOfDecodeBoc
@@ -5214,14 +5334,16 @@ export class AbiModule {
      * 
      * To solve this problem we introduce a new ABI type `Ref(<ParamType>)`
      * which allows to store `ParamType` ABI parameter in cell reference and, thus,
-     * decode manually encoded BOCs. This type is available only in `decode_boc` function
-     * and will not be available in ABI messages encoding until it is included into some ABI revision.
+     * decode manually encoded BOCs. This type is available only in `decode_boc`
+     * function and will not be available in ABI messages encoding until it is
+     * included into some ABI revision.
      * 
-     * Such BOC descriptions covers most users needs. If someone wants to decode some BOC which
-     * can not be described by these rules (i.e. BOC with TLB containing constructors of flags
-     * defining some parsing conditions) then they can decode the fields up to fork condition,
-     * check the parsed data manually, expand the parsing schema and then decode the whole BOC
-     * with the full schema.
+     * Such BOC descriptions covers most users needs. If someone wants to decode
+     * some BOC which can not be described by these rules (i.e. BOC with TLB
+     * containing constructors of flags defining some parsing conditions) then they
+     * can decode the fields up to fork condition, check the parsed data manually,
+     * expand the parsing schema and then decode the whole BOC with the full
+     * schema.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -5314,8 +5436,9 @@ export class AbiModule {
  * Pin the BOC with `pin` name.
  * 
  * @remarks
- * Such BOC will not be removed from cache until it is unpinned BOCs can have several pins and each of the pins has reference counter indicating how many
- * times the BOC was pinned with the pin. BOC is removed from cache after all references for all
+ * Such BOC will not be removed from cache until it is unpinned BOCs can have several pins and each of the pins
+ * has reference counter indicating how many times the BOC was pinned
+ * with the pin. BOC is removed from cache after all references for all
  * pins are unpinned with `cache_unpin` function calls.
  */
 export type BocCacheTypePinnedVariant = {
@@ -5380,8 +5503,7 @@ export type BuilderOpIntegerVariant = {
      * 
      * @remarks
      * e.g. `123`, `-123`. - Decimal string. e.g. `"123"`, `"-123"`.
-     * - `0x` prefixed hexadecimal string.
-     *   e.g `0x123`, `0X123`, `-0x123`.
+     * - `0x` prefixed hexadecimal string. e.g `0x123`, `0X123`, `-0x123`.
      */
     value: any
 }
@@ -6321,7 +6443,10 @@ export class BocModule {
     }
 
     /**
-     * Unpin BOCs with specified pin defined in the `cache_set`. Decrease pin reference counter for BOCs with specified pin defined in the `cache_set`. BOCs which have only 1 pin and its reference counter become 0 will be removed from cache
+     * Unpin BOCs with specified pin defined in the `cache_set`. Decrease pin reference counter for BOCs with specified pin defined in the `cache_set`.
+     * 
+     * @remarks
+     * BOCs which have only 1 pin and its reference counter become 0 will be removed from cache
      * 
      * @param {ParamsOfBocCacheUnpin} params
      * @returns 
@@ -6331,7 +6456,10 @@ export class BocModule {
     }
 
     /**
-     * Unpin BOCs with specified pin defined in the `cache_set`. Decrease pin reference counter for BOCs with specified pin defined in the `cache_set`. BOCs which have only 1 pin and its reference counter become 0 will be removed from cache
+     * Unpin BOCs with specified pin defined in the `cache_set`. Decrease pin reference counter for BOCs with specified pin defined in the `cache_set`.
+     * 
+     * @remarks
+     * BOCs which have only 1 pin and its reference counter become 0 will be removed from cache
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -6544,7 +6672,8 @@ export enum ProcessingErrorCode {
     ExternalSignerMustNotBeUsed = 513,
     MessageRejected = 514,
     InvalidRempStatus = 515,
-    NextRempStatusTimeout = 516
+    NextRempStatusTimeout = 516,
+    InvalidThread = 517
 }
 
 /**
@@ -6565,8 +6694,8 @@ export type ProcessingEventWillFetchFirstBlockVariant = {
  * 
  * @remarks
  * This may happen due to the network issues. Receiving this event means that message processing will not proceed -
- * message was not sent, and Developer can try to run `process_message` again,
- * in the hope that the connection is restored.
+ * message was not sent, and Developer can try to run `process_message`
+ * again, in the hope that the connection is restored.
  */
 export type ProcessingEventFetchFirstBlockFailedVariant = {
 
@@ -6595,7 +6724,8 @@ export type ProcessingEventWillSendVariant = {
  * Notifies the app that the message was sent to the network, i.e `processing.send_message` was successfully executed. Now, the message is in the blockchain. If Application exits at this phase, Developer needs to proceed with processing after the application is restored with `wait_for_transaction` function, passing shard_block_id and message from this event.
  * 
  * @remarks
- * Do not forget to specify abi of your contract as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
+ * Do not forget to specify abi of your contract as well, it is crucial for processing. See
+ * `processing.wait_for_transaction` documentation.
  */
 export type ProcessingEventDidSendVariant = {
 
@@ -6615,10 +6745,12 @@ export type ProcessingEventDidSendVariant = {
  * Nevertheless the processing will be continued at the waiting
  * phase because the message possibly has been delivered to the
  * node.
- * If Application exits at this phase, Developer needs to proceed with processing
- * after the application is restored with `wait_for_transaction` function, passing
- * shard_block_id and message from this event. Do not forget to specify abi of your contract
- * as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
+ * If Application exits at this phase, Developer needs to proceed with
+ * processing after the application is restored with
+ * `wait_for_transaction` function, passing shard_block_id and message
+ * from this event. Do not forget to specify abi of your contract
+ * as well, it is crucial for processing. See
+ * `processing.wait_for_transaction` documentation.
  */
 export type ProcessingEventSendFailedVariant = {
 
@@ -6639,10 +6771,12 @@ export type ProcessingEventSendFailedVariant = {
  * @remarks
  * Event can occurs more than one time due to block walking
  * procedure.
- * If Application exits at this phase, Developer needs to proceed with processing
- * after the application is restored with `wait_for_transaction` function, passing
- * shard_block_id and message from this event. Do not forget to specify abi of your contract
- * as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
+ * If Application exits at this phase, Developer needs to proceed with
+ * processing after the application is restored with
+ * `wait_for_transaction` function, passing shard_block_id and message
+ * from this event. Do not forget to specify abi of your contract
+ * as well, it is crucial for processing. See
+ * `processing.wait_for_transaction` documentation.
  */
 export type ProcessingEventWillFetchNextBlockVariant = {
 
@@ -6659,12 +6793,15 @@ export type ProcessingEventWillFetchNextBlockVariant = {
  * Notifies the app that the next block can't be fetched.
  * 
  * @remarks
- * If no block was fetched within `NetworkConfig.wait_for_timeout` then processing stops.
- * This may happen when the shard stops, or there are other network issues.
- * In this case Developer should resume message processing with `wait_for_transaction`, passing shard_block_id,
- * message and contract abi to it. Note that passing ABI is crucial, because it will influence the processing strategy.
+ * If no block was fetched within `NetworkConfig.wait_for_timeout` then
+ * processing stops. This may happen when the shard stops, or there are
+ * other network issues. In this case Developer should resume message
+ * processing with `wait_for_transaction`, passing shard_block_id,
+ * message and contract abi to it. Note that passing ABI is crucial,
+ * because it will influence the processing strategy.
  * 
- * Another way to tune this is to specify long timeout in `NetworkConfig.wait_for_timeout`
+ * Another way to tune this is to specify long timeout in
+ * `NetworkConfig.wait_for_timeout`
  */
 export type ProcessingEventFetchNextBlockFailedVariant = {
 
@@ -6683,11 +6820,13 @@ export type ProcessingEventFetchNextBlockFailedVariant = {
  * Notifies the app that the message was not executed within expire timeout on-chain and will never be because it is already expired. The expiration timeout can be configured with `AbiConfig` parameters.
  * 
  * @remarks
- * This event occurs only for the contracts which ABI includes "expire" header.
+ * This event occurs only for the contracts which ABI includes "expire"
+ * header.
  * 
- * If Application specifies `NetworkConfig.message_retries_count` > 0, then `process_message`
- * will perform retries: will create a new message and send it again and repeat it until it reaches
- * the maximum retries count or receives a successful result.  All the processing
+ * If Application specifies `NetworkConfig.message_retries_count` > 0, then
+ * `process_message` will perform retries: will create a new message
+ * and send it again and repeat it until it reaches the maximum retries
+ * count or receives a successful result.  All the processing
  * events will be repeated.
  */
 export type ProcessingEventMessageExpiredVariant = {
@@ -6758,7 +6897,7 @@ export type ProcessingEventRempOtherVariant = {
 }
 
 /**
- * Notifies the app about any problem that has occurred in REMP processing - in this case library switches to the fallback transaction awaiting scenario (sequential block reading).
+ * Notifies the app about any problem that has occurred in REMP processing - in this case library switches to the fallback transaction awaiting   scenario (sequential block reading).
  */
 export type ProcessingEventRempErrorVariant = {
 
@@ -6824,7 +6963,7 @@ export type ProcessingEventRempErrorVariant = {
  * 
  * ### `RempError`
  * 
- * Notifies the app about any problem that has occurred in REMP processing - in this case library switches to the fallback transaction awaiting scenario (sequential block reading).
+ * Notifies the app about any problem that has occurred in REMP processing - in this case library switches to the fallback transaction awaiting   scenario (sequential block reading).
  */
 export type ProcessingEvent = ({
     type: 'WillFetchFirstBlock'
@@ -7290,7 +7429,8 @@ export type ParamsOfSendMessage = {
      * @remarks
      * If this parameter is specified and the message has the
      * `expire` header then expiration time will be checked against
-     * the current time to prevent unnecessary sending of already expired message.
+     * the current time to prevent unnecessary sending of already expired
+     * message.
      * 
      * The `message already expired` error will be returned in this
      * case.
@@ -7301,6 +7441,8 @@ export type ParamsOfSendMessage = {
      */
     abi?: Abi,
 
+    thread_id?: string,
+
     /**
      * Flag for requesting events sending. Default is `false`.
      */
@@ -7310,22 +7452,44 @@ export type ParamsOfSendMessage = {
 export type ResultOfSendMessage = {
 
     /**
-     * The last generated shard block of the message destination account before the message was sent.
-     * 
-     * @remarks
-     * This block id must be used as a parameter of the
-     * `wait_for_transaction`.
+     * The hash of the processed message.
      */
-    shard_block_id: string,
+    message_hash?: string,
 
     /**
-     * The list of endpoints to which the message was sent.
-     * 
-     * @remarks
-     * This list id must be used as a parameter of the
-     * `wait_for_transaction`.
+     * The hash of the block in which the message was included.
      */
-    sending_endpoints: string[]
+    block_hash?: string,
+
+    /**
+     * The hash of the transaction generated by the message.
+     */
+    tx_hash?: string,
+
+    /**
+     * The flag is set either if there is no action phase or if the action phase was unsuccessful.
+     */
+    aborted?: boolean,
+
+    /**
+     * The exit code of the computing phase
+     */
+    exit_code?: number,
+
+    /**
+     * The identifier of the thread in which the message was processed.
+     */
+    thread_id?: string,
+
+    /**
+     * The list (IP addresses) of block producers processing the thread.
+     */
+    producers: string[],
+
+    /**
+     * The timestamp of generating this response.
+     */
+    current_time?: string
 }
 
 export type ParamsOfWaitForTransaction = {
@@ -7368,7 +7532,8 @@ export type ParamsOfWaitForTransaction = {
      * @remarks
      * Use this field to get more informative errors.
      * Provide the same value as the `send_message` has returned.
-     * If the message was not delivered (expired), SDK will log the endpoint URLs, used for its sending.
+     * If the message was not delivered (expired), SDK will log the endpoint
+     * URLs, used for its sending.
      */
     sending_endpoints?: string[]
 }
@@ -7404,34 +7569,36 @@ export class ProcessingModule {
      * Starts monitoring for the processing results of the specified messages.
      * 
      * @remarks
-     * Message monitor performs background monitoring for a message processing results
-     * for the specified set of messages.
+     * Message monitor performs background monitoring for a message processing
+     * results for the specified set of messages.
      * 
      * Message monitor can serve several isolated monitoring queues.
-     * Each monitor queue has a unique application defined identifier (or name) used
-     * to separate several queue's.
+     * Each monitor queue has a unique application defined identifier (or name)
+     * used to separate several queue's.
      * 
      * There are two important lists inside of the monitoring queue:
      * 
-     * - unresolved messages: contains messages requested by the application for monitoring
-     *   and not yet resolved;
+     * - unresolved messages: contains messages requested by the application for
+     *   monitoring and not yet resolved;
      * 
-     * - resolved results: contains resolved processing results for monitored messages.
+     * - resolved results: contains resolved processing results for monitored
+     *   messages.
      * 
      * Each monitoring queue tracks own unresolved and resolved lists.
      * Application can add more messages to the monitoring queue at any time.
      * 
      * Message monitor accumulates resolved results.
-     * Application should fetch this results with `fetchNextMonitorResults` function.
+     * Application should fetch this results with `fetchNextMonitorResults`
+     * function.
      * 
-     * When both unresolved and resolved lists becomes empty, monitor stops any background activity
-     * and frees all allocated internal memory.
+     * When both unresolved and resolved lists becomes empty, monitor stops any
+     * background activity and frees all allocated internal memory.
      * 
-     * If monitoring queue with specified name already exists then messages will be added
-     * to the unresolved list.
+     * If monitoring queue with specified name already exists then messages will be
+     * added to the unresolved list.
      * 
-     * If monitoring queue with specified name does not exist then monitoring queue will be created
-     * with specified unresolved messages.
+     * If monitoring queue with specified name does not exist then monitoring queue
+     * will be created with specified unresolved messages.
      * 
      * @param {ParamsOfMonitorMessages} params
      * @returns 
@@ -7444,34 +7611,36 @@ export class ProcessingModule {
      * Starts monitoring for the processing results of the specified messages.
      * 
      * @remarks
-     * Message monitor performs background monitoring for a message processing results
-     * for the specified set of messages.
+     * Message monitor performs background monitoring for a message processing
+     * results for the specified set of messages.
      * 
      * Message monitor can serve several isolated monitoring queues.
-     * Each monitor queue has a unique application defined identifier (or name) used
-     * to separate several queue's.
+     * Each monitor queue has a unique application defined identifier (or name)
+     * used to separate several queue's.
      * 
      * There are two important lists inside of the monitoring queue:
      * 
-     * - unresolved messages: contains messages requested by the application for monitoring
-     *   and not yet resolved;
+     * - unresolved messages: contains messages requested by the application for
+     *   monitoring and not yet resolved;
      * 
-     * - resolved results: contains resolved processing results for monitored messages.
+     * - resolved results: contains resolved processing results for monitored
+     *   messages.
      * 
      * Each monitoring queue tracks own unresolved and resolved lists.
      * Application can add more messages to the monitoring queue at any time.
      * 
      * Message monitor accumulates resolved results.
-     * Application should fetch this results with `fetchNextMonitorResults` function.
+     * Application should fetch this results with `fetchNextMonitorResults`
+     * function.
      * 
-     * When both unresolved and resolved lists becomes empty, monitor stops any background activity
-     * and frees all allocated internal memory.
+     * When both unresolved and resolved lists becomes empty, monitor stops any
+     * background activity and frees all allocated internal memory.
      * 
-     * If monitoring queue with specified name already exists then messages will be added
-     * to the unresolved list.
+     * If monitoring queue with specified name already exists then messages will be
+     * added to the unresolved list.
      * 
-     * If monitoring queue with specified name does not exist then monitoring queue will be created
-     * with specified unresolved messages.
+     * If monitoring queue with specified name does not exist then monitoring queue
+     * will be created with specified unresolved messages.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -7592,8 +7761,9 @@ export class ProcessingModule {
      * Sends message to the network
      * 
      * @remarks
-     * Sends message to the network and returns the last generated shard block of the destination account
-     * before the message was sent. It will be required later for message processing.
+     * Sends message to the network and returns the last generated shard block of
+     * the destination account before the message was sent. It will be required
+     * later for message processing.
      * 
      * @param {ParamsOfSendMessage} params
      * @returns ResultOfSendMessage
@@ -7606,8 +7776,9 @@ export class ProcessingModule {
      * Sends message to the network
      * 
      * @remarks
-     * Sends message to the network and returns the last generated shard block of the destination account
-     * before the message was sent. It will be required later for message processing.
+     * Sends message to the network and returns the last generated shard block of
+     * the destination account before the message was sent. It will be required
+     * later for message processing.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -7625,8 +7796,8 @@ export class ProcessingModule {
      * 
      * @remarks
      * `send_events` enables intermediate events, such as `WillFetchNextBlock`,
-     * `FetchNextBlockFailed` that may be useful for logging of new shard blocks creation
-     * during message processing.
+     * `FetchNextBlockFailed` that may be useful for logging of new shard blocks
+     * creation during message processing.
      * 
      * Note, that presence of the `abi` parameter is critical for ABI
      * compliant contracts. Message processing uses drastically
@@ -7635,16 +7806,15 @@ export class ProcessingModule {
      * 
      * When the ABI header `expire` is present, the processing uses
      * `message expiration` strategy:
-     * - The maximum block gen time is set to
-     *   `message_expiration_timeout + transaction_wait_timeout`.
-     * - When maximum block gen time is reached, the processing will
-     *   be finished with `MessageExpired` error.
+     * - The maximum block gen time is set to `message_expiration_timeout +
+     *   transaction_wait_timeout`.
+     * - When maximum block gen time is reached, the processing will be finished
+     *   with `MessageExpired` error.
      * 
      * When the ABI header `expire` isn't present or `abi` parameter
      * isn't specified, the processing uses `transaction waiting`
      * strategy:
-     * - The maximum block gen time is set to
-     *   `now() + transaction_wait_timeout`.
+     * - The maximum block gen time is set to `now() + transaction_wait_timeout`.
      * 
      * - If maximum block gen time is reached and no result transaction is found,
      * the processing will exit with an error.
@@ -7661,8 +7831,8 @@ export class ProcessingModule {
      * 
      * @remarks
      * `send_events` enables intermediate events, such as `WillFetchNextBlock`,
-     * `FetchNextBlockFailed` that may be useful for logging of new shard blocks creation
-     * during message processing.
+     * `FetchNextBlockFailed` that may be useful for logging of new shard blocks
+     * creation during message processing.
      * 
      * Note, that presence of the `abi` parameter is critical for ABI
      * compliant contracts. Message processing uses drastically
@@ -7671,16 +7841,15 @@ export class ProcessingModule {
      * 
      * When the ABI header `expire` is present, the processing uses
      * `message expiration` strategy:
-     * - The maximum block gen time is set to
-     *   `message_expiration_timeout + transaction_wait_timeout`.
-     * - When maximum block gen time is reached, the processing will
-     *   be finished with `MessageExpired` error.
+     * - The maximum block gen time is set to `message_expiration_timeout +
+     *   transaction_wait_timeout`.
+     * - When maximum block gen time is reached, the processing will be finished
+     *   with `MessageExpired` error.
      * 
      * When the ABI header `expire` isn't present or `abi` parameter
      * isn't specified, the processing uses `transaction waiting`
      * strategy:
-     * - The maximum block gen time is set to
-     *   `now() + transaction_wait_timeout`.
+     * - The maximum block gen time is set to `now() + transaction_wait_timeout`.
      * 
      * - If maximum block gen time is reached and no result transaction is found,
      * the processing will exit with an error.
@@ -7705,17 +7874,20 @@ export class ProcessingModule {
      * Decodes the output messages' bodies.
      * 
      * If contract's ABI includes "expire" header, then
-     * SDK implements retries in case of unsuccessful message delivery within the expiration
-     * timeout: SDK recreates the message, sends it and processes it again.
+     * SDK implements retries in case of unsuccessful message delivery within the
+     * expiration timeout: SDK recreates the message, sends it and processes it
+     * again.
      * 
-     * The intermediate events, such as `WillFetchFirstBlock`, `WillSend`, `DidSend`,
-     * `WillFetchNextBlock`, etc - are switched on/off by `send_events` flag
-     * and logged into the supplied callback function.
+     * The intermediate events, such as `WillFetchFirstBlock`, `WillSend`,
+     * `DidSend`, `WillFetchNextBlock`, etc - are switched on/off by `send_events`
+     * flag and logged into the supplied callback function.
      * 
-     * The retry configuration parameters are defined in the client's `NetworkConfig` and `AbiConfig`.
+     * The retry configuration parameters are defined in the client's
+     * `NetworkConfig` and `AbiConfig`.
      * 
      * If contract's ABI does not include "expire" header
-     * then, if no transaction is found within the network timeout (see config parameter ), exits with error.
+     * then, if no transaction is found within the network timeout (see config
+     * parameter ), exits with error.
      * 
      * @param {ParamsOfProcessMessage} params
      * @returns ResultOfProcessMessage
@@ -7733,17 +7905,20 @@ export class ProcessingModule {
      * Decodes the output messages' bodies.
      * 
      * If contract's ABI includes "expire" header, then
-     * SDK implements retries in case of unsuccessful message delivery within the expiration
-     * timeout: SDK recreates the message, sends it and processes it again.
+     * SDK implements retries in case of unsuccessful message delivery within the
+     * expiration timeout: SDK recreates the message, sends it and processes it
+     * again.
      * 
-     * The intermediate events, such as `WillFetchFirstBlock`, `WillSend`, `DidSend`,
-     * `WillFetchNextBlock`, etc - are switched on/off by `send_events` flag
-     * and logged into the supplied callback function.
+     * The intermediate events, such as `WillFetchFirstBlock`, `WillSend`,
+     * `DidSend`, `WillFetchNextBlock`, etc - are switched on/off by `send_events`
+     * flag and logged into the supplied callback function.
      * 
-     * The retry configuration parameters are defined in the client's `NetworkConfig` and `AbiConfig`.
+     * The retry configuration parameters are defined in the client's
+     * `NetworkConfig` and `AbiConfig`.
      * 
      * If contract's ABI does not include "expire" header
-     * then, if no transaction is found within the network timeout (see config parameter ), exits with error.
+     * then, if no transaction is found within the network timeout (see config
+     * parameter ), exits with error.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -7964,12 +8139,13 @@ export class UtilsModule {
      * @remarks
      * Address types are the following
      * 
-     * `0:919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - standard TON address most
-     * commonly used in all cases. Also called as hex address
-     * `919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - account ID. A part of full
-     * address. Identifies account inside particular workchain
-     * `EQCRnbjnQNUL80nfLuoD+jDDhdhGuZH/VULmcJjugz/H9wam` - base64 address. Also called "user-friendly".
-     * Was used at the beginning of TON. Now it is supported for compatibility
+     * `0:919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` -
+     * standard TON address most commonly used in all cases. Also called as hex
+     * address `919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` -
+     * account ID. A part of full address. Identifies account inside particular
+     * workchain `EQCRnbjnQNUL80nfLuoD+jDDhdhGuZH/VULmcJjugz/H9wam` - base64
+     * address. Also called "user-friendly". Was used at the beginning of TON. Now
+     * it is supported for compatibility
      * 
      * @param {ParamsOfGetAddressType} params
      * @returns ResultOfGetAddressType
@@ -7984,12 +8160,13 @@ export class UtilsModule {
      * @remarks
      * Address types are the following
      * 
-     * `0:919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - standard TON address most
-     * commonly used in all cases. Also called as hex address
-     * `919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - account ID. A part of full
-     * address. Identifies account inside particular workchain
-     * `EQCRnbjnQNUL80nfLuoD+jDDhdhGuZH/VULmcJjugz/H9wam` - base64 address. Also called "user-friendly".
-     * Was used at the beginning of TON. Now it is supported for compatibility
+     * `0:919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` -
+     * standard TON address most commonly used in all cases. Also called as hex
+     * address `919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` -
+     * account ID. A part of full address. Identifies account inside particular
+     * workchain `EQCRnbjnQNUL80nfLuoD+jDDhdhGuZH/VULmcJjugz/H9wam` - base64
+     * address. Also called "user-friendly". Was used at the beginning of TON. Now
+     * it is supported for compatibility
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -8234,7 +8411,8 @@ export type TransactionFees = {
      * Deprecated.
      * 
      * @remarks
-     * Contains the same data as total_fwd_fees field. Deprecated because of its confusing name, that is not the same with GraphQL API Transaction type's field.
+     * Contains the same data as total_fwd_fees field. Deprecated because of its confusing name, that is not the same with GraphQL API
+     * Transaction type's field.
      */
     out_msgs_fwd_fee: bigint,
 
@@ -8417,7 +8595,8 @@ export type ResultOfRunTvm = {
      * Updated account state BOC.
      * 
      * @remarks
-     * Encoded as `base64`. Attention! Only `account_state.storage.state.data` part of the BOC is updated.
+     * Encoded as `base64`. Attention! Only `account_state.storage.state.data` part of the BOC is
+     * updated.
      */
     account: string
 }
@@ -8448,10 +8627,10 @@ export type ParamsOfRunGet = {
      * Convert lists based on nested tuples in the **result** into plain arrays.
      * 
      * @remarks
-     * Default is `false`. Input parameters may use any of lists representations
-     * If you receive this error on Web: "Runtime error. Unreachable code should not be executed...",
-     * set this flag to true.
-     * This may happen, for example, when elector contract contains too many participants
+     * Default is `false`. Input parameters may use any of lists representations If you receive this error on Web: "Runtime error.
+     * Unreachable code should not be executed...", set this flag to true.
+     * This may happen, for example, when elector contract contains too many
+     * participants
      */
     tuple_list_as_array?: boolean
 }
@@ -8478,34 +8657,40 @@ export class TvmModule {
      * Performs all the phases of contract execution on Transaction Executor -
      * the same component that is used on Validator Nodes.
      * 
-     * Can be used for contract debugging, to find out the reason why a message was not delivered successfully.
-     * Validators throw away the failed external inbound messages (if they failed before `ACCEPT`) in the real network.
+     * Can be used for contract debugging, to find out the reason why a message was
+     * not delivered successfully. Validators throw away the failed external
+     * inbound messages (if they failed before `ACCEPT`) in the real network.
      * This is why these messages are impossible to debug in the real network.
-     * With the help of run_executor you can do that. In fact, `process_message` function
-     * performs local check with `run_executor` if there was no transaction as a result of processing
-     * and returns the error, if there is one.
+     * With the help of run_executor you can do that. In fact, `process_message`
+     * function performs local check with `run_executor` if there was no
+     * transaction as a result of processing and returns the error, if there is
+     * one.
      * 
-     * Another use case to use `run_executor` is to estimate fees for message execution.
-     * Set  `AccountForExecutor::Account.unlimited_balance`
+     * Another use case to use `run_executor` is to estimate fees for message
+     * execution. Set  `AccountForExecutor::Account.unlimited_balance`
      * to `true` so that emulation will not depend on the actual balance.
-     * This may be needed to calculate deploy fees for an account that does not exist yet.
-     * JSON with fees is in `fees` field of the result.
+     * This may be needed to calculate deploy fees for an account that does not
+     * exist yet. JSON with fees is in `fees` field of the result.
      * 
      * One more use case - you can produce the sequence of operations,
      * thus emulating the sequential contract calls locally.
      * And so on.
      * 
      * Transaction executor requires account BOC (bag of cells) as a parameter.
-     * To get the account BOC - use `net.query` method to download it from GraphQL API
-     * (field `boc` of `account`) or generate it with `abi.encode_account` method.
+     * To get the account BOC - use `net.query` method to download it from GraphQL
+     * API (field `boc` of `account`) or generate it with `abi.encode_account`
+     * method.
      * 
-     * Also it requires message BOC. To get the message BOC - use `abi.encode_message` or `abi.encode_internal_message`.
+     * Also it requires message BOC. To get the message BOC - use
+     * `abi.encode_message` or `abi.encode_internal_message`.
      * 
-     * If you need this emulation to be as precise as possible (for instance - emulate transaction
-     * with particular lt in particular block or use particular blockchain config,
-     * downloaded from a particular key block - then specify `execution_options` parameter.
+     * If you need this emulation to be as precise as possible (for instance -
+     * emulate transaction with particular lt in particular block or use particular
+     * blockchain config, downloaded from a particular key block - then specify
+     * `execution_options` parameter.
      * 
-     * If you need to see the aborted transaction as a result, not as an error, set `skip_transaction_check` to `true`.
+     * If you need to see the aborted transaction as a result, not as an error, set
+     * `skip_transaction_check` to `true`.
      * 
      * @param {ParamsOfRunExecutor} params
      * @returns ResultOfRunExecutor
@@ -8521,34 +8706,40 @@ export class TvmModule {
      * Performs all the phases of contract execution on Transaction Executor -
      * the same component that is used on Validator Nodes.
      * 
-     * Can be used for contract debugging, to find out the reason why a message was not delivered successfully.
-     * Validators throw away the failed external inbound messages (if they failed before `ACCEPT`) in the real network.
+     * Can be used for contract debugging, to find out the reason why a message was
+     * not delivered successfully. Validators throw away the failed external
+     * inbound messages (if they failed before `ACCEPT`) in the real network.
      * This is why these messages are impossible to debug in the real network.
-     * With the help of run_executor you can do that. In fact, `process_message` function
-     * performs local check with `run_executor` if there was no transaction as a result of processing
-     * and returns the error, if there is one.
+     * With the help of run_executor you can do that. In fact, `process_message`
+     * function performs local check with `run_executor` if there was no
+     * transaction as a result of processing and returns the error, if there is
+     * one.
      * 
-     * Another use case to use `run_executor` is to estimate fees for message execution.
-     * Set  `AccountForExecutor::Account.unlimited_balance`
+     * Another use case to use `run_executor` is to estimate fees for message
+     * execution. Set  `AccountForExecutor::Account.unlimited_balance`
      * to `true` so that emulation will not depend on the actual balance.
-     * This may be needed to calculate deploy fees for an account that does not exist yet.
-     * JSON with fees is in `fees` field of the result.
+     * This may be needed to calculate deploy fees for an account that does not
+     * exist yet. JSON with fees is in `fees` field of the result.
      * 
      * One more use case - you can produce the sequence of operations,
      * thus emulating the sequential contract calls locally.
      * And so on.
      * 
      * Transaction executor requires account BOC (bag of cells) as a parameter.
-     * To get the account BOC - use `net.query` method to download it from GraphQL API
-     * (field `boc` of `account`) or generate it with `abi.encode_account` method.
+     * To get the account BOC - use `net.query` method to download it from GraphQL
+     * API (field `boc` of `account`) or generate it with `abi.encode_account`
+     * method.
      * 
-     * Also it requires message BOC. To get the message BOC - use `abi.encode_message` or `abi.encode_internal_message`.
+     * Also it requires message BOC. To get the message BOC - use
+     * `abi.encode_message` or `abi.encode_internal_message`.
      * 
-     * If you need this emulation to be as precise as possible (for instance - emulate transaction
-     * with particular lt in particular block or use particular blockchain config,
-     * downloaded from a particular key block - then specify `execution_options` parameter.
+     * If you need this emulation to be as precise as possible (for instance -
+     * emulate transaction with particular lt in particular block or use particular
+     * blockchain config, downloaded from a particular key block - then specify
+     * `execution_options` parameter.
      * 
-     * If you need to see the aborted transaction as a result, not as an error, set `skip_transaction_check` to `true`.
+     * If you need to see the aborted transaction as a result, not as an error, set
+     * `skip_transaction_check` to `true`.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -8568,12 +8759,15 @@ export class TvmModule {
      * Performs only a part of compute phase of transaction execution
      * that is used to run get-methods of ABI-compatible contracts.
      * 
-     * If you try to run get-methods with `run_executor` you will get an error, because it checks ACCEPT and exits
-     * if there is none, which is actually true for get-methods.
+     * If you try to run get-methods with `run_executor` you will get an error,
+     * because it checks ACCEPT and exits if there is none, which is actually true
+     * for get-methods.
      * 
-     *  To get the account BOC (bag of cells) - use `net.query` method to download it from GraphQL API
-     * (field `boc` of `account`) or generate it with `abi.encode_account method`.
-     * To get the message BOC - use `abi.encode_message` or prepare it any other way, for instance, with FIFT script.
+     *  To get the account BOC (bag of cells) - use `net.query` method to download
+     * it from GraphQL API (field `boc` of `account`) or generate it with
+     * `abi.encode_account method`. To get the message BOC - use
+     * `abi.encode_message` or prepare it any other way, for instance, with FIFT
+     * script.
      * 
      * Attention! Updated account state is produces as well, but only
      * `account_state.storage.state.data`  part of the BOC is updated.
@@ -8592,12 +8786,15 @@ export class TvmModule {
      * Performs only a part of compute phase of transaction execution
      * that is used to run get-methods of ABI-compatible contracts.
      * 
-     * If you try to run get-methods with `run_executor` you will get an error, because it checks ACCEPT and exits
-     * if there is none, which is actually true for get-methods.
+     * If you try to run get-methods with `run_executor` you will get an error,
+     * because it checks ACCEPT and exits if there is none, which is actually true
+     * for get-methods.
      * 
-     *  To get the account BOC (bag of cells) - use `net.query` method to download it from GraphQL API
-     * (field `boc` of `account`) or generate it with `abi.encode_account method`.
-     * To get the message BOC - use `abi.encode_message` or prepare it any other way, for instance, with FIFT script.
+     *  To get the account BOC (bag of cells) - use `net.query` method to download
+     * it from GraphQL API (field `boc` of `account`) or generate it with
+     * `abi.encode_account method`. To get the message BOC - use
+     * `abi.encode_message` or prepare it any other way, for instance, with FIFT
+     * script.
      * 
      * Attention! Updated account state is produces as well, but only
      * `account_state.storage.state.data`  part of the BOC is updated.
@@ -8843,8 +9040,9 @@ export type MessageNode = {
      * Decoded body.
      * 
      * @remarks
-     * Library tries to decode message body using provided `params.abi_registry`.
-     * This field will be missing if none of the provided abi can be used to decode.
+     * Library tries to decode message body using provided
+     * `params.abi_registry`. This field will be missing if none of the
+     * provided abi can be used to decode.
      */
     decoded_body?: DecodedMessageBody
 }
@@ -8952,8 +9150,9 @@ export type ResultOfAggregateCollection = {
      * Values for requested fields.
      * 
      * @remarks
-     * Returns an array of strings. Each string refers to the corresponding `fields` item.
-     * Numeric value is returned as a decimal string representations.
+     * Returns an array of strings. Each string refers to the corresponding
+     * `fields` item. Numeric value is returned as a decimal string
+     * representations.
      */
     values: any
 }
@@ -9113,8 +9312,8 @@ export type ParamsOfQueryTransactionTree = {
      * If some of the following messages and transactions are missing yet
      * The maximum waiting time is regulated by this option.
      * 
-     * Default value is 60000 (1 min). If `timeout` is set to 0 then function will wait infinitely
-     * until the whole transaction tree is executed
+     * Default value is 60000 (1 min). If `timeout` is set to 0 then function
+     * will wait infinitely until the whole transaction tree is executed
      */
     timeout?: number,
 
@@ -9122,10 +9321,12 @@ export type ParamsOfQueryTransactionTree = {
      * Maximum transaction count to wait.
      * 
      * @remarks
-     * If transaction tree contains more transaction then this parameter then only first `transaction_max_count` transaction are awaited and returned.
+     * If transaction tree contains more transaction then this parameter then only first
+     * `transaction_max_count` transaction are awaited and returned.
      * 
-     * Default value is 50. If `transaction_max_count` is set to 0 then no limitation on
-     * transaction count is used and all transaction are returned.
+     * Default value is 50. If `transaction_max_count` is set to 0 then no
+     * limitation on transaction count is used and all transaction are
+     * returned.
      */
     transaction_max_count?: number
 }
@@ -9173,9 +9374,9 @@ export type ParamsOfCreateBlockIterator = {
      * Shard prefix filter.
      * 
      * @remarks
-     * If the application specifies this parameter and it is not the empty array
-     * then the iteration will include items related to accounts that belongs to
-     * the specified shard prefixes.
+     * If the application specifies this parameter and it is not the empty
+     * array then the iteration will include items related to accounts that
+     * belongs to the specified shard prefixes.
      * Shard prefix must be represented as a string "workchain:prefix".
      * Where `workchain` is a signed integer and the `prefix` if a hexadecimal
      * representation if the 64-bit unsigned integer with tagged shard prefix.
@@ -9250,15 +9451,16 @@ export type ParamsOfCreateTransactionIterator = {
      * 
      * @remarks
      * If the application specifies this parameter and it is not an empty array
-     * then the iteration will include items related to accounts that belongs to
-     * the specified shard prefixes.
+     * then the iteration will include items related to accounts that belongs
+     * to the specified shard prefixes.
      * Shard prefix must be represented as a string "workchain:prefix".
      * Where `workchain` is a signed integer and the `prefix` if a hexadecimal
      * representation if the 64-bit unsigned integer with tagged shard prefix.
      * For example: "0:3800000000000000".
      * Account address conforms to the shard filter if
-     * it belongs to the filter workchain and the first bits of address match to
-     * the shard prefix. Only transactions with suitable account addresses are iterated.
+     * it belongs to the filter workchain and the first bits of address match
+     * to the shard prefix. Only transactions with suitable account
+     * addresses are iterated.
      */
     shard_filter?: string[],
 
@@ -9272,9 +9474,10 @@ export type ParamsOfCreateTransactionIterator = {
      * If this parameter is missing or an empty list then the library iterates
      * transactions for all accounts that pass the shard filter.
      * 
-     * Note that the library doesn't detect conflicts between the account filter and the shard filter
-     * if both are specified.
-     * So it is an application responsibility to specify the correct filter combination.
+     * Note that the library doesn't detect conflicts between the account
+     * filter and the shard filter if both are specified.
+     * So it is an application responsibility to specify the correct filter
+     * combination.
      */
     accounts_filter?: string[],
 
@@ -9295,7 +9498,8 @@ export type ParamsOfCreateTransactionIterator = {
      * 
      * @remarks
      * If this parameter is `true` then each transaction contains field
-     * `transfers` with list of transfer. See more about this structure in function description.
+     * `transfers` with list of transfer. See more about this structure in
+     * function description.
      */
     include_transfers?: boolean
 }
@@ -9320,9 +9524,10 @@ export type ParamsOfResumeTransactionIterator = {
      * If this parameter is missing or an empty list then the library iterates
      * transactions for all accounts that passes the shard filter.
      * 
-     * Note that the library doesn't detect conflicts between the account filter and the shard filter
-     * if both are specified.
-     * So it is the application's responsibility to specify the correct filter combination.
+     * Note that the library doesn't detect conflicts between the account
+     * filter and the shard filter if both are specified.
+     * So it is the application's responsibility to specify the correct filter
+     * combination.
      */
     accounts_filter?: string[]
 }
@@ -9354,10 +9559,10 @@ export type ResultOfIteratorNext = {
      * Next available items.
      * 
      * @remarks
-     * Note that `iterator_next` can return an empty items and `has_more` equals to `true`.
-     * In this case the application have to continue iteration.
-     * Such situation can take place when there is no data yet but
-     * the requested `end_time` is not reached.
+     * Note that `iterator_next` can return an empty items and `has_more`
+     * equals to `true`. In this case the application have to continue
+     * iteration. Such situation can take place when there is no data yet
+     * but the requested `end_time` is not reached.
      */
     items: any[],
 
@@ -9690,11 +9895,11 @@ export class NetModule {
     }
 
     /**
-     * Creates a subscription
+     * Creates a subscription (Deprecated)
      * 
      * @remarks
      * The subscription is a persistent communication channel between
-     * client and Everscale Network.
+     * client and Acki Nacki Network.
      * 
      * ### Important Notes on Subscriptions
      * 
@@ -9736,11 +9941,11 @@ export class NetModule {
     }
 
     /**
-     * Creates a subscription
+     * Creates a subscription (Deprecated)
      * 
      * @remarks
      * The subscription is a persistent communication channel between
-     * client and Everscale Network.
+     * client and Acki Nacki Network.
      * 
      * ### Important Notes on Subscriptions
      * 
@@ -9917,8 +10122,9 @@ export class NetModule {
      * Allows to query and paginate through the list of accounts that the specified account has interacted with, sorted by the time of the last internal message between accounts
      * 
      * @remarks
-     * *Attention* this query retrieves data from 'Counterparties' service which is not supported in
-     * the opensource version of DApp Server (and will not be supported) as well as in Evernode SE (will be supported in SE in future),
+     * *Attention* this query retrieves data from 'Counterparties' service which is
+     * not supported in the opensource version of DApp Server (and will not be
+     * supported) as well as in Evernode SE (will be supported in SE in future),
      * but is always accessible via [EVER OS Clouds](../ton-os-api/networks.md)
      * 
      * @param {ParamsOfQueryCounterparties} params
@@ -9932,8 +10138,9 @@ export class NetModule {
      * Allows to query and paginate through the list of accounts that the specified account has interacted with, sorted by the time of the last internal message between accounts
      * 
      * @remarks
-     * *Attention* this query retrieves data from 'Counterparties' service which is not supported in
-     * the opensource version of DApp Server (and will not be supported) as well as in Evernode SE (will be supported in SE in future),
+     * *Attention* this query retrieves data from 'Counterparties' service which is
+     * not supported in the opensource version of DApp Server (and will not be
+     * supported) as well as in Evernode SE (will be supported in SE in future),
      * but is always accessible via [EVER OS Clouds](../ton-os-api/networks.md)
      * 
      * NOTE: Available only for `lib-node` binding.
@@ -9951,11 +10158,11 @@ export class NetModule {
      * Returns a tree of transactions triggered by a specific message.
      * 
      * @remarks
-     * Performs recursive retrieval of a transactions tree produced by a specific message:
-     * in_msg -> dst_transaction -> out_messages -> dst_transaction -> ...
-     * If the chain of transactions execution is in progress while the function is running,
-     * it will wait for the next transactions to appear until the full tree or more than 50 transactions
-     * are received.
+     * Performs recursive retrieval of a transactions tree produced by a specific
+     * message: in_msg -> dst_transaction -> out_messages -> dst_transaction -> ...
+     * If the chain of transactions execution is in progress while the function is
+     * running, it will wait for the next transactions to appear until the full
+     * tree or more than 50 transactions are received.
      * 
      * All the retrieved messages and transactions are included
      * into `result.messages` and `result.transactions` respectively.
@@ -9963,25 +10170,35 @@ export class NetModule {
      * Function reads transactions layer by layer, by pages of 20 transactions.
      * 
      * The retrieval process goes like this:
-     * Let's assume we have an infinite chain of transactions and each transaction generates 5 messages.
-     * 1. Retrieve 1st message (input parameter) and corresponding transaction - put it into result.
+     * Let's assume we have an infinite chain of transactions and each transaction
+     * generates 5 messages.
+     * 1. Retrieve 1st message (input parameter) and corresponding transaction -
+     *    put it into result.
      * It is the first level of the tree of transactions - its root.
      * Retrieve 5 out message ids from the transaction for next steps.
-     * 2. Retrieve 5 messages and corresponding transactions on the 2nd layer. Put them into result.
+     * 2. Retrieve 5 messages and corresponding transactions on the 2nd layer. Put
+     *    them into result.
      * Retrieve 5*5 out message ids from these transactions for next steps
-     * 3. Retrieve 20 (size of the page) messages and transactions (3rd layer) and 20*5=100 message ids (4th layer).
-     * 4. Retrieve the last 5 messages and 5 transactions on the 3rd layer + 15 messages and transactions (of 100) from the 4th layer
+     * 3. Retrieve 20 (size of the page) messages and transactions (3rd layer) and
+     *    20*5=100 message ids (4th layer).
+     * 4. Retrieve the last 5 messages and 5 transactions on the 3rd layer + 15
+     *    messages and transactions (of 100) from the 4th layer
      * + 25 message ids of the 4th layer + 75 message ids of the 5th layer.
-     * 5. Retrieve 20 more messages and 20 more transactions of the 4th layer + 100 more message ids of the 5th layer.
-     * 6. Now we have 1+5+20+20+20 = 66 transactions, which is more than 50. Function exits with the tree of
-     * 1m->1t->5m->5t->25m->25t->35m->35t. If we see any message ids in the last transactions out_msgs, which don't have
-     * corresponding messages in the function result, it means that the full tree was not received and we need to continue iteration.
+     * 5. Retrieve 20 more messages and 20 more transactions of the 4th layer + 100
+     *    more message ids of the 5th layer.
+     * 6. Now we have 1+5+20+20+20 = 66 transactions, which is more than 50.
+     *    Function exits with the tree of
+     * 1m->1t->5m->5t->25m->25t->35m->35t. If we see any message ids in the last
+     * transactions out_msgs, which don't have corresponding messages in the
+     * function result, it means that the full tree was not received and we need to
+     * continue iteration.
      * 
-     * To summarize, it is guaranteed that each message in `result.messages` has the corresponding transaction
-     * in the `result.transactions`.
+     * To summarize, it is guaranteed that each message in `result.messages` has
+     * the corresponding transaction in the `result.transactions`.
      * But there is no guarantee that all messages from transactions `out_msgs` are
      * presented in `result.messages`.
-     * So the application has to continue retrieval for missing messages if it requires.
+     * So the application has to continue retrieval for missing messages if it
+     * requires.
      * 
      * @param {ParamsOfQueryTransactionTree} params
      * @returns ResultOfQueryTransactionTree
@@ -9994,11 +10211,11 @@ export class NetModule {
      * Returns a tree of transactions triggered by a specific message.
      * 
      * @remarks
-     * Performs recursive retrieval of a transactions tree produced by a specific message:
-     * in_msg -> dst_transaction -> out_messages -> dst_transaction -> ...
-     * If the chain of transactions execution is in progress while the function is running,
-     * it will wait for the next transactions to appear until the full tree or more than 50 transactions
-     * are received.
+     * Performs recursive retrieval of a transactions tree produced by a specific
+     * message: in_msg -> dst_transaction -> out_messages -> dst_transaction -> ...
+     * If the chain of transactions execution is in progress while the function is
+     * running, it will wait for the next transactions to appear until the full
+     * tree or more than 50 transactions are received.
      * 
      * All the retrieved messages and transactions are included
      * into `result.messages` and `result.transactions` respectively.
@@ -10006,25 +10223,35 @@ export class NetModule {
      * Function reads transactions layer by layer, by pages of 20 transactions.
      * 
      * The retrieval process goes like this:
-     * Let's assume we have an infinite chain of transactions and each transaction generates 5 messages.
-     * 1. Retrieve 1st message (input parameter) and corresponding transaction - put it into result.
+     * Let's assume we have an infinite chain of transactions and each transaction
+     * generates 5 messages.
+     * 1. Retrieve 1st message (input parameter) and corresponding transaction -
+     *    put it into result.
      * It is the first level of the tree of transactions - its root.
      * Retrieve 5 out message ids from the transaction for next steps.
-     * 2. Retrieve 5 messages and corresponding transactions on the 2nd layer. Put them into result.
+     * 2. Retrieve 5 messages and corresponding transactions on the 2nd layer. Put
+     *    them into result.
      * Retrieve 5*5 out message ids from these transactions for next steps
-     * 3. Retrieve 20 (size of the page) messages and transactions (3rd layer) and 20*5=100 message ids (4th layer).
-     * 4. Retrieve the last 5 messages and 5 transactions on the 3rd layer + 15 messages and transactions (of 100) from the 4th layer
+     * 3. Retrieve 20 (size of the page) messages and transactions (3rd layer) and
+     *    20*5=100 message ids (4th layer).
+     * 4. Retrieve the last 5 messages and 5 transactions on the 3rd layer + 15
+     *    messages and transactions (of 100) from the 4th layer
      * + 25 message ids of the 4th layer + 75 message ids of the 5th layer.
-     * 5. Retrieve 20 more messages and 20 more transactions of the 4th layer + 100 more message ids of the 5th layer.
-     * 6. Now we have 1+5+20+20+20 = 66 transactions, which is more than 50. Function exits with the tree of
-     * 1m->1t->5m->5t->25m->25t->35m->35t. If we see any message ids in the last transactions out_msgs, which don't have
-     * corresponding messages in the function result, it means that the full tree was not received and we need to continue iteration.
+     * 5. Retrieve 20 more messages and 20 more transactions of the 4th layer + 100
+     *    more message ids of the 5th layer.
+     * 6. Now we have 1+5+20+20+20 = 66 transactions, which is more than 50.
+     *    Function exits with the tree of
+     * 1m->1t->5m->5t->25m->25t->35m->35t. If we see any message ids in the last
+     * transactions out_msgs, which don't have corresponding messages in the
+     * function result, it means that the full tree was not received and we need to
+     * continue iteration.
      * 
-     * To summarize, it is guaranteed that each message in `result.messages` has the corresponding transaction
-     * in the `result.transactions`.
+     * To summarize, it is guaranteed that each message in `result.messages` has
+     * the corresponding transaction in the `result.transactions`.
      * But there is no guarantee that all messages from transactions `out_msgs` are
      * presented in `result.messages`.
-     * So the application has to continue retrieval for missing messages if it requires.
+     * So the application has to continue retrieval for missing messages if it
+     * requires.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -10046,18 +10273,19 @@ export class NetModule {
      * 
      * Iterated range can be reduced with some filters:
      * - `start_time` – the bottom time range. Only blocks with `gen_utime`
-     * more or equal to this value is iterated. If this parameter is omitted then there is
-     * no bottom time edge, so all blocks since zero state is iterated.
+     * more or equal to this value is iterated. If this parameter is omitted then
+     * there is no bottom time edge, so all blocks since zero state is iterated.
      * - `end_time` – the upper time range. Only blocks with `gen_utime`
      * less then this value is iterated. If this parameter is omitted then there is
      * no upper time edge, so iterator never finishes.
-     * - `shard_filter` – workchains and shard prefixes that reduce the set of interesting
-     * blocks. Block conforms to the shard filter if it belongs to the filter workchain
-     * and the first bits of block's `shard` fields matches to the shard prefix.
-     * Only blocks with suitable shard are iterated.
+     * - `shard_filter` – workchains and shard prefixes that reduce the set of
+     *   interesting
+     * blocks. Block conforms to the shard filter if it belongs to the filter
+     * workchain and the first bits of block's `shard` fields matches to the shard
+     * prefix. Only blocks with suitable shard are iterated.
      * 
-     * Items iterated is a JSON objects with block data. The minimal set of returned
-     * fields is:
+     * Items iterated is a JSON objects with block data. The minimal set of
+     * returned fields is:
      * ```text
      * id
      * gen_utime
@@ -10074,7 +10302,8 @@ export class NetModule {
      * ```
      * Application can request additional fields in the `result` parameter.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * @param {ParamsOfCreateBlockIterator} params
      * @returns RegisteredIterator
@@ -10092,18 +10321,19 @@ export class NetModule {
      * 
      * Iterated range can be reduced with some filters:
      * - `start_time` – the bottom time range. Only blocks with `gen_utime`
-     * more or equal to this value is iterated. If this parameter is omitted then there is
-     * no bottom time edge, so all blocks since zero state is iterated.
+     * more or equal to this value is iterated. If this parameter is omitted then
+     * there is no bottom time edge, so all blocks since zero state is iterated.
      * - `end_time` – the upper time range. Only blocks with `gen_utime`
      * less then this value is iterated. If this parameter is omitted then there is
      * no upper time edge, so iterator never finishes.
-     * - `shard_filter` – workchains and shard prefixes that reduce the set of interesting
-     * blocks. Block conforms to the shard filter if it belongs to the filter workchain
-     * and the first bits of block's `shard` fields matches to the shard prefix.
-     * Only blocks with suitable shard are iterated.
+     * - `shard_filter` – workchains and shard prefixes that reduce the set of
+     *   interesting
+     * blocks. Block conforms to the shard filter if it belongs to the filter
+     * workchain and the first bits of block's `shard` fields matches to the shard
+     * prefix. Only blocks with suitable shard are iterated.
      * 
-     * Items iterated is a JSON objects with block data. The minimal set of returned
-     * fields is:
+     * Items iterated is a JSON objects with block data. The minimal set of
+     * returned fields is:
      * ```text
      * id
      * gen_utime
@@ -10120,7 +10350,8 @@ export class NetModule {
      * ```
      * Application can request additional fields in the `result` parameter.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -10137,9 +10368,11 @@ export class NetModule {
      * Resumes block iterator.
      * 
      * @remarks
-     * The iterator stays exactly at the same position where the `resume_state` was caught.
+     * The iterator stays exactly at the same position where the `resume_state` was
+     * caught.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * @param {ParamsOfResumeBlockIterator} params
      * @returns RegisteredIterator
@@ -10152,9 +10385,11 @@ export class NetModule {
      * Resumes block iterator.
      * 
      * @remarks
-     * The iterator stays exactly at the same position where the `resume_state` was caught.
+     * The iterator stays exactly at the same position where the `resume_state` was
+     * caught.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -10176,21 +10411,25 @@ export class NetModule {
      * 
      * Iterated range can be reduced with some filters:
      * - `start_time` – the bottom time range. Only transactions with `now`
-     * more or equal to this value are iterated. If this parameter is omitted then there is
-     * no bottom time edge, so all the transactions since zero state are iterated.
+     * more or equal to this value are iterated. If this parameter is omitted then
+     * there is no bottom time edge, so all the transactions since zero state are
+     * iterated.
      * - `end_time` – the upper time range. Only transactions with `now`
-     * less then this value are iterated. If this parameter is omitted then there is
-     * no upper time edge, so iterator never finishes.
-     * - `shard_filter` – workchains and shard prefixes that reduce the set of interesting
+     * less then this value are iterated. If this parameter is omitted then there
+     * is no upper time edge, so iterator never finishes.
+     * - `shard_filter` – workchains and shard prefixes that reduce the set of
+     *   interesting
      * accounts. Account address conforms to the shard filter if
      * it belongs to the filter workchain and the first bits of address match to
-     * the shard prefix. Only transactions with suitable account addresses are iterated.
-     * - `accounts_filter` – set of account addresses whose transactions must be iterated.
-     * Note that accounts filter can conflict with shard filter so application must combine
-     * these filters carefully.
+     * the shard prefix. Only transactions with suitable account addresses are
+     * iterated.
+     * - `accounts_filter` – set of account addresses whose transactions must be
+     *   iterated.
+     * Note that accounts filter can conflict with shard filter so application must
+     * combine these filters carefully.
      * 
-     * Iterated item is a JSON objects with transaction data. The minimal set of returned
-     * fields is:
+     * Iterated item is a JSON objects with transaction data. The minimal set of
+     * returned fields is:
      * ```text
      * id
      * account_addr
@@ -10212,20 +10451,26 @@ export class NetModule {
      * ```
      * Application can request an additional fields in the `result` parameter.
      * 
-     * Another parameter that affects on the returned fields is the `include_transfers`.
-     * When this parameter is `true` the iterator computes and adds `transfer` field containing
-     * list of the useful `TransactionTransfer` objects.
-     * Each transfer is calculated from the particular message related to the transaction
-     * and has the following structure:
+     * Another parameter that affects on the returned fields is the
+     * `include_transfers`. When this parameter is `true` the iterator computes and
+     * adds `transfer` field containing list of the useful `TransactionTransfer`
+     * objects. Each transfer is calculated from the particular message related to
+     * the transaction and has the following structure:
      * - message – source message identifier.
-     * - isBounced – indicates that the transaction is bounced, which means the value will be returned back to the sender.
-     * - isDeposit – indicates that this transfer is the deposit (true) or withdraw (false).
-     * - counterparty – account address of the transfer source or destination depending on `isDeposit`.
-     * - value – amount of nano tokens transferred. The value is represented as a decimal string
-     * because the actual value can be more precise than the JSON number can represent. Application
-     * must use this string carefully – conversion to number can follow to loose of precision.
+     * - isBounced – indicates that the transaction is bounced, which means the
+     *   value will be returned back to the sender.
+     * - isDeposit – indicates that this transfer is the deposit (true) or withdraw
+     *   (false).
+     * - counterparty – account address of the transfer source or destination
+     *   depending on `isDeposit`.
+     * - value – amount of nano tokens transferred. The value is represented as a
+     *   decimal string
+     * because the actual value can be more precise than the JSON number can
+     * represent. Application must use this string carefully – conversion to number
+     * can follow to loose of precision.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * @param {ParamsOfCreateTransactionIterator} params
      * @returns RegisteredIterator
@@ -10243,21 +10488,25 @@ export class NetModule {
      * 
      * Iterated range can be reduced with some filters:
      * - `start_time` – the bottom time range. Only transactions with `now`
-     * more or equal to this value are iterated. If this parameter is omitted then there is
-     * no bottom time edge, so all the transactions since zero state are iterated.
+     * more or equal to this value are iterated. If this parameter is omitted then
+     * there is no bottom time edge, so all the transactions since zero state are
+     * iterated.
      * - `end_time` – the upper time range. Only transactions with `now`
-     * less then this value are iterated. If this parameter is omitted then there is
-     * no upper time edge, so iterator never finishes.
-     * - `shard_filter` – workchains and shard prefixes that reduce the set of interesting
+     * less then this value are iterated. If this parameter is omitted then there
+     * is no upper time edge, so iterator never finishes.
+     * - `shard_filter` – workchains and shard prefixes that reduce the set of
+     *   interesting
      * accounts. Account address conforms to the shard filter if
      * it belongs to the filter workchain and the first bits of address match to
-     * the shard prefix. Only transactions with suitable account addresses are iterated.
-     * - `accounts_filter` – set of account addresses whose transactions must be iterated.
-     * Note that accounts filter can conflict with shard filter so application must combine
-     * these filters carefully.
+     * the shard prefix. Only transactions with suitable account addresses are
+     * iterated.
+     * - `accounts_filter` – set of account addresses whose transactions must be
+     *   iterated.
+     * Note that accounts filter can conflict with shard filter so application must
+     * combine these filters carefully.
      * 
-     * Iterated item is a JSON objects with transaction data. The minimal set of returned
-     * fields is:
+     * Iterated item is a JSON objects with transaction data. The minimal set of
+     * returned fields is:
      * ```text
      * id
      * account_addr
@@ -10279,20 +10528,26 @@ export class NetModule {
      * ```
      * Application can request an additional fields in the `result` parameter.
      * 
-     * Another parameter that affects on the returned fields is the `include_transfers`.
-     * When this parameter is `true` the iterator computes and adds `transfer` field containing
-     * list of the useful `TransactionTransfer` objects.
-     * Each transfer is calculated from the particular message related to the transaction
-     * and has the following structure:
+     * Another parameter that affects on the returned fields is the
+     * `include_transfers`. When this parameter is `true` the iterator computes and
+     * adds `transfer` field containing list of the useful `TransactionTransfer`
+     * objects. Each transfer is calculated from the particular message related to
+     * the transaction and has the following structure:
      * - message – source message identifier.
-     * - isBounced – indicates that the transaction is bounced, which means the value will be returned back to the sender.
-     * - isDeposit – indicates that this transfer is the deposit (true) or withdraw (false).
-     * - counterparty – account address of the transfer source or destination depending on `isDeposit`.
-     * - value – amount of nano tokens transferred. The value is represented as a decimal string
-     * because the actual value can be more precise than the JSON number can represent. Application
-     * must use this string carefully – conversion to number can follow to loose of precision.
+     * - isBounced – indicates that the transaction is bounced, which means the
+     *   value will be returned back to the sender.
+     * - isDeposit – indicates that this transfer is the deposit (true) or withdraw
+     *   (false).
+     * - counterparty – account address of the transfer source or destination
+     *   depending on `isDeposit`.
+     * - value – amount of nano tokens transferred. The value is represented as a
+     *   decimal string
+     * because the actual value can be more precise than the JSON number can
+     * represent. Application must use this string carefully – conversion to number
+     * can follow to loose of precision.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -10309,12 +10564,14 @@ export class NetModule {
      * Resumes transaction iterator.
      * 
      * @remarks
-     * The iterator stays exactly at the same position where the `resume_state` was caught.
-     * Note that `resume_state` doesn't store the account filter. If the application requires
-     * to use the same account filter as it was when the iterator was created then the application
-     * must pass the account filter again in `accounts_filter` parameter.
+     * The iterator stays exactly at the same position where the `resume_state` was
+     * caught. Note that `resume_state` doesn't store the account filter. If the
+     * application requires to use the same account filter as it was when the
+     * iterator was created then the application must pass the account filter again
+     * in `accounts_filter` parameter.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * @param {ParamsOfResumeTransactionIterator} params
      * @returns RegisteredIterator
@@ -10327,12 +10584,14 @@ export class NetModule {
      * Resumes transaction iterator.
      * 
      * @remarks
-     * The iterator stays exactly at the same position where the `resume_state` was caught.
-     * Note that `resume_state` doesn't store the account filter. If the application requires
-     * to use the same account filter as it was when the iterator was created then the application
-     * must pass the account filter again in `accounts_filter` parameter.
+     * The iterator stays exactly at the same position where the `resume_state` was
+     * caught. Note that `resume_state` doesn't store the account filter. If the
+     * application requires to use the same account filter as it was when the
+     * iterator was created then the application must pass the account filter again
+     * in `accounts_filter` parameter.
      * 
-     * Application should call the `remove_iterator` when iterator is no longer required.
+     * Application should call the `remove_iterator` when iterator is no longer
+     * required.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11044,7 +11303,10 @@ export function resultOfAppDebotBrowserApprove(approved: boolean): ResultOfAppDe
 }
 
 /**
- * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Parameters to start DeBot. DeBot must be already initialized with init() function.
+ * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Parameters to start DeBot.
+ * 
+ * @remarks
+ * DeBot must be already initialized with init() function.
  */
 export type ParamsOfStart = {
 
@@ -11235,8 +11497,9 @@ export class DebotModule {
      * since the debot tries to display all actions from the context 0 to the user.
      * 
      * When the debot starts SDK registers `BrowserCallbacks` AppObject.
-     * Therefore when `debote.remove` is called the debot is being deleted and the callback is called
-     * with `finish`=`true` which indicates that it will never be used again.
+     * Therefore when `debote.remove` is called the debot is being deleted and the
+     * callback is called with `finish`=`true` which indicates that it will never
+     * be used again.
      * 
      * @param {ParamsOfStart} params
      * @returns 
@@ -11257,8 +11520,9 @@ export class DebotModule {
      * since the debot tries to display all actions from the context 0 to the user.
      * 
      * When the debot starts SDK registers `BrowserCallbacks` AppObject.
-     * Therefore when `debote.remove` is called the debot is being deleted and the callback is called
-     * with `finish`=`true` which indicates that it will never be used again.
+     * Therefore when `debote.remove` is called the debot is being deleted and the
+     * callback is called with `finish`=`true` which indicates that it will never
+     * be used again.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11309,7 +11573,8 @@ export class DebotModule {
      * Calls Debot Browser Callbacks if needed.
      * 
      * # Remarks
-     * Chain of actions can be executed if input action generates a list of subactions.
+     * Chain of actions can be executed if input action generates a list of
+     * subactions.
      * 
      * @param {ParamsOfExecute} params
      * @returns 
@@ -11326,7 +11591,8 @@ export class DebotModule {
      * Calls Debot Browser Callbacks if needed.
      * 
      * # Remarks
-     * Chain of actions can be executed if input action generates a list of subactions.
+     * Chain of actions can be executed if input action generates a list of
+     * subactions.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11343,7 +11609,8 @@ export class DebotModule {
      * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Sends message to Debot.
      * 
      * @remarks
-     * Used by Debot Browser to send response on Dinterface call or from other Debots.
+     * Used by Debot Browser to send response on Dinterface call or from other
+     * Debots.
      * 
      * @param {ParamsOfSend} params
      * @returns 
@@ -11356,7 +11623,8 @@ export class DebotModule {
      * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Sends message to Debot.
      * 
      * @remarks
-     * Used by Debot Browser to send response on Dinterface call or from other Debots.
+     * Used by Debot Browser to send response on Dinterface call or from other
+     * Debots.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11373,7 +11641,8 @@ export class DebotModule {
      * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Destroys debot handle.
      * 
      * @remarks
-     * Removes handle from Client Context and drops debot engine referenced by that handle.
+     * Removes handle from Client Context and drops debot engine referenced by that
+     * handle.
      * 
      * @param {ParamsOfRemove} params
      * @returns 
@@ -11386,7 +11655,8 @@ export class DebotModule {
      * [UNSTABLE](UNSTABLE.md) [DEPRECATED](DEPRECATED.md) Destroys debot handle.
      * 
      * @remarks
-     * Removes handle from Client Context and drops debot engine referenced by that handle.
+     * Removes handle from Client Context and drops debot engine referenced by that
+     * handle.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11421,7 +11691,11 @@ export type ParamsOfProofBlockData = {
 export type ParamsOfProofTransactionData = {
 
     /**
-     * Single transaction's data as queried from DApp server, without modifications. The required fields are `id` and/or top-level `boc`, others are optional. In order to reduce network requests count, it is recommended to provide `block_id` and `boc` of transaction.
+     * Single transaction's data as queried from DApp server, without modifications.
+     * 
+     * @remarks
+     * The required fields are `id` and/or top-level `boc`, others are optional. In order to reduce network requests count, it
+     * is recommended to provide `block_id` and `boc` of transaction.
      */
     transaction: any
 }
@@ -11429,7 +11703,12 @@ export type ParamsOfProofTransactionData = {
 export type ParamsOfProofMessageData = {
 
     /**
-     * Single message's data as queried from DApp server, without modifications. The required fields are `id` and/or top-level `boc`, others are optional. In order to reduce network requests count, it is recommended to provide at least `boc` of message and non-null `src_transaction.id` or `dst_transaction.id`.
+     * Single message's data as queried from DApp server, without modifications.
+     * 
+     * @remarks
+     * The required fields are `id` and/or top-level `boc`, others are optional. In order to reduce network requests count, it
+     * is recommended to provide at least `boc` of message and non-null
+     * `src_transaction.id` or `dst_transaction.id`.
      */
     message: any
 }
@@ -11450,62 +11729,74 @@ export class ProofsModule {
      * @remarks
      * This function checks block proofs and compares given data with the proven.
      * If the given data differs from the proven, the exception will be thrown.
-     * The input param is a single block's JSON object, which was queried from DApp server using
-     * functions such as `net.query`, `net.query_collection` or `net.wait_for_collection`.
-     * If block's BOC is not provided in the JSON, it will be queried from DApp server
-     * (in this case it is required to provide at least `id` of block).
+     * The input param is a single block's JSON object, which was queried from DApp
+     * server using functions such as `net.query`, `net.query_collection` or
+     * `net.wait_for_collection`. If block's BOC is not provided in the JSON, it
+     * will be queried from DApp server (in this case it is required to provide at
+     * least `id` of block).
      * 
-     * Please note, that joins (like `signatures` in `Block`) are separated entities and not supported,
-     * so function will throw an exception in a case if JSON being checked has such entities in it.
+     * Please note, that joins (like `signatures` in `Block`) are separated
+     * entities and not supported, so function will throw an exception in a case if
+     * JSON being checked has such entities in it.
      * 
-     * If `cache_in_local_storage` in config is set to `true` (default), downloaded proofs and
-     * master-chain BOCs are saved into the persistent local storage (e.g. file system for native
-     * environments or browser's IndexedDB for the web); otherwise all the data is cached only in
-     * memory in current client's context and will be lost after destruction of the client.
+     * If `cache_in_local_storage` in config is set to `true` (default), downloaded
+     * proofs and master-chain BOCs are saved into the persistent local storage
+     * (e.g. file system for native environments or browser's IndexedDB for the
+     * web); otherwise all the data is cached only in memory in current client's
+     * context and will be lost after destruction of the client.
      * 
      * **Why Proofs are needed**
      * 
-     * Proofs are needed to ensure that the data downloaded from a DApp server is real blockchain
-     * data. Checking proofs can protect from the malicious DApp server which can potentially provide
-     * fake data, or also from "Man in the Middle" attacks class.
+     * Proofs are needed to ensure that the data downloaded from a DApp server is
+     * real blockchain data. Checking proofs can protect from the malicious DApp
+     * server which can potentially provide fake data, or also from "Man in the
+     * Middle" attacks class.
      * 
      * **What Proofs are**
      * 
-     * Simply, proof is a list of signatures of validators', which have signed this particular master-
-     * block.
+     * Simply, proof is a list of signatures of validators', which have signed this
+     * particular master- block.
      * 
-     * The very first validator set's public keys are included in the zero-state. Whe know a root hash
-     * of the zero-state, because it is stored in the network configuration file, it is our authority
-     * root. For proving zero-state it is enough to calculate and compare its root hash.
+     * The very first validator set's public keys are included in the zero-state.
+     * Whe know a root hash of the zero-state, because it is stored in the network
+     * configuration file, it is our authority root. For proving zero-state it is
+     * enough to calculate and compare its root hash.
      * 
-     * In each new validator cycle the validator set is changed. The new one is stored in a key-block,
-     * which is signed by the validator set, which we already trust, the next validator set will be
-     * stored to the new key-block and signed by the current validator set, and so on.
+     * In each new validator cycle the validator set is changed. The new one is
+     * stored in a key-block, which is signed by the validator set, which we
+     * already trust, the next validator set will be stored to the new key-block
+     * and signed by the current validator set, and so on.
      * 
-     * In order to prove any block in the master-chain we need to check, that it has been signed by
-     * a trusted validator set. So we need to check all key-blocks' proofs, started from the zero-state
-     * and until the block, which we want to prove. But it can take a lot of time and traffic to
-     * download and prove all key-blocks on a client. For solving this, special trusted blocks are used
-     * in Ever-SDK.
+     * In order to prove any block in the master-chain we need to check, that it
+     * has been signed by a trusted validator set. So we need to check all
+     * key-blocks' proofs, started from the zero-state and until the block, which
+     * we want to prove. But it can take a lot of time and traffic to download and
+     * prove all key-blocks on a client. For solving this, special trusted blocks
+     * are used in Ever-SDK.
      * 
-     * The trusted block is the authority root, as well, as the zero-state. Each trusted block is the
-     * `id` (e.g. `root_hash`) of the already proven key-block. There can be plenty of trusted
-     * blocks, so there can be a lot of authority roots. The hashes of trusted blocks for MainNet
-     * and DevNet are hardcoded in SDK in a separated binary file (trusted_key_blocks.bin) and is
+     * The trusted block is the authority root, as well, as the zero-state. Each
+     * trusted block is the `id` (e.g. `root_hash`) of the already proven
+     * key-block. There can be plenty of trusted blocks, so there can be a lot of
+     * authority roots. The hashes of trusted blocks for MainNet and DevNet are
+     * hardcoded in SDK in a separated binary file (trusted_key_blocks.bin) and is
      * being updated for each release by using `update_trusted_blocks` utility.
      * 
-     * See [update_trusted_blocks](../../../tools/update_trusted_blocks) directory for more info.
+     * See [update_trusted_blocks](../../../tools/update_trusted_blocks) directory
+     * for more info.
      * 
-     * In future SDK releases, one will also be able to provide their hashes of trusted blocks for
-     * other networks, besides for MainNet and DevNet.
-     * By using trusted key-blocks, in order to prove any block, we can prove chain of key-blocks to
-     * the closest previous trusted key-block, not only to the zero-state.
+     * In future SDK releases, one will also be able to provide their hashes of
+     * trusted blocks for other networks, besides for MainNet and DevNet.
+     * By using trusted key-blocks, in order to prove any block, we can prove chain
+     * of key-blocks to the closest previous trusted key-block, not only to the
+     * zero-state.
      * 
-     * But shard-blocks don't have proofs on DApp server. In this case, in order to prove any shard-
-     * block data, we search for a corresponding master-block, which contains the root hash of this
-     * shard-block, or some shard block which is linked to that block in shard-chain. After proving
-     * this master-block, we traverse through each link and calculate and compare hashes with links,
-     * one-by-one. After that we can ensure that this shard-block has also been proven.
+     * But shard-blocks don't have proofs on DApp server. In this case, in order to
+     * prove any shard- block data, we search for a corresponding master-block,
+     * which contains the root hash of this shard-block, or some shard block which
+     * is linked to that block in shard-chain. After proving this master-block, we
+     * traverse through each link and calculate and compare hashes with links,
+     * one-by-one. After that we can ensure that this shard-block has also been
+     * proven.
      * 
      * @param {ParamsOfProofBlockData} params
      * @returns 
@@ -11520,62 +11811,74 @@ export class ProofsModule {
      * @remarks
      * This function checks block proofs and compares given data with the proven.
      * If the given data differs from the proven, the exception will be thrown.
-     * The input param is a single block's JSON object, which was queried from DApp server using
-     * functions such as `net.query`, `net.query_collection` or `net.wait_for_collection`.
-     * If block's BOC is not provided in the JSON, it will be queried from DApp server
-     * (in this case it is required to provide at least `id` of block).
+     * The input param is a single block's JSON object, which was queried from DApp
+     * server using functions such as `net.query`, `net.query_collection` or
+     * `net.wait_for_collection`. If block's BOC is not provided in the JSON, it
+     * will be queried from DApp server (in this case it is required to provide at
+     * least `id` of block).
      * 
-     * Please note, that joins (like `signatures` in `Block`) are separated entities and not supported,
-     * so function will throw an exception in a case if JSON being checked has such entities in it.
+     * Please note, that joins (like `signatures` in `Block`) are separated
+     * entities and not supported, so function will throw an exception in a case if
+     * JSON being checked has such entities in it.
      * 
-     * If `cache_in_local_storage` in config is set to `true` (default), downloaded proofs and
-     * master-chain BOCs are saved into the persistent local storage (e.g. file system for native
-     * environments or browser's IndexedDB for the web); otherwise all the data is cached only in
-     * memory in current client's context and will be lost after destruction of the client.
+     * If `cache_in_local_storage` in config is set to `true` (default), downloaded
+     * proofs and master-chain BOCs are saved into the persistent local storage
+     * (e.g. file system for native environments or browser's IndexedDB for the
+     * web); otherwise all the data is cached only in memory in current client's
+     * context and will be lost after destruction of the client.
      * 
      * **Why Proofs are needed**
      * 
-     * Proofs are needed to ensure that the data downloaded from a DApp server is real blockchain
-     * data. Checking proofs can protect from the malicious DApp server which can potentially provide
-     * fake data, or also from "Man in the Middle" attacks class.
+     * Proofs are needed to ensure that the data downloaded from a DApp server is
+     * real blockchain data. Checking proofs can protect from the malicious DApp
+     * server which can potentially provide fake data, or also from "Man in the
+     * Middle" attacks class.
      * 
      * **What Proofs are**
      * 
-     * Simply, proof is a list of signatures of validators', which have signed this particular master-
-     * block.
+     * Simply, proof is a list of signatures of validators', which have signed this
+     * particular master- block.
      * 
-     * The very first validator set's public keys are included in the zero-state. Whe know a root hash
-     * of the zero-state, because it is stored in the network configuration file, it is our authority
-     * root. For proving zero-state it is enough to calculate and compare its root hash.
+     * The very first validator set's public keys are included in the zero-state.
+     * Whe know a root hash of the zero-state, because it is stored in the network
+     * configuration file, it is our authority root. For proving zero-state it is
+     * enough to calculate and compare its root hash.
      * 
-     * In each new validator cycle the validator set is changed. The new one is stored in a key-block,
-     * which is signed by the validator set, which we already trust, the next validator set will be
-     * stored to the new key-block and signed by the current validator set, and so on.
+     * In each new validator cycle the validator set is changed. The new one is
+     * stored in a key-block, which is signed by the validator set, which we
+     * already trust, the next validator set will be stored to the new key-block
+     * and signed by the current validator set, and so on.
      * 
-     * In order to prove any block in the master-chain we need to check, that it has been signed by
-     * a trusted validator set. So we need to check all key-blocks' proofs, started from the zero-state
-     * and until the block, which we want to prove. But it can take a lot of time and traffic to
-     * download and prove all key-blocks on a client. For solving this, special trusted blocks are used
-     * in Ever-SDK.
+     * In order to prove any block in the master-chain we need to check, that it
+     * has been signed by a trusted validator set. So we need to check all
+     * key-blocks' proofs, started from the zero-state and until the block, which
+     * we want to prove. But it can take a lot of time and traffic to download and
+     * prove all key-blocks on a client. For solving this, special trusted blocks
+     * are used in Ever-SDK.
      * 
-     * The trusted block is the authority root, as well, as the zero-state. Each trusted block is the
-     * `id` (e.g. `root_hash`) of the already proven key-block. There can be plenty of trusted
-     * blocks, so there can be a lot of authority roots. The hashes of trusted blocks for MainNet
-     * and DevNet are hardcoded in SDK in a separated binary file (trusted_key_blocks.bin) and is
+     * The trusted block is the authority root, as well, as the zero-state. Each
+     * trusted block is the `id` (e.g. `root_hash`) of the already proven
+     * key-block. There can be plenty of trusted blocks, so there can be a lot of
+     * authority roots. The hashes of trusted blocks for MainNet and DevNet are
+     * hardcoded in SDK in a separated binary file (trusted_key_blocks.bin) and is
      * being updated for each release by using `update_trusted_blocks` utility.
      * 
-     * See [update_trusted_blocks](../../../tools/update_trusted_blocks) directory for more info.
+     * See [update_trusted_blocks](../../../tools/update_trusted_blocks) directory
+     * for more info.
      * 
-     * In future SDK releases, one will also be able to provide their hashes of trusted blocks for
-     * other networks, besides for MainNet and DevNet.
-     * By using trusted key-blocks, in order to prove any block, we can prove chain of key-blocks to
-     * the closest previous trusted key-block, not only to the zero-state.
+     * In future SDK releases, one will also be able to provide their hashes of
+     * trusted blocks for other networks, besides for MainNet and DevNet.
+     * By using trusted key-blocks, in order to prove any block, we can prove chain
+     * of key-blocks to the closest previous trusted key-block, not only to the
+     * zero-state.
      * 
-     * But shard-blocks don't have proofs on DApp server. In this case, in order to prove any shard-
-     * block data, we search for a corresponding master-block, which contains the root hash of this
-     * shard-block, or some shard block which is linked to that block in shard-chain. After proving
-     * this master-block, we traverse through each link and calculate and compare hashes with links,
-     * one-by-one. After that we can ensure that this shard-block has also been proven.
+     * But shard-blocks don't have proofs on DApp server. In this case, in order to
+     * prove any shard- block data, we search for a corresponding master-block,
+     * which contains the root hash of this shard-block, or some shard block which
+     * is linked to that block in shard-chain. After proving this master-block, we
+     * traverse through each link and calculate and compare hashes with links,
+     * one-by-one. After that we can ensure that this shard-block has also been
+     * proven.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11592,21 +11895,23 @@ export class ProofsModule {
      * Proves that a given transaction's data, which is queried from TONOS API, can be trusted.
      * 
      * @remarks
-     * This function requests the corresponding block, checks block proofs, ensures that given
-     * transaction exists in the proven block and compares given data with the proven.
-     * If the given data differs from the proven, the exception will be thrown.
-     * The input parameter is a single transaction's JSON object (see params description),
-     * which was queried from TONOS API using functions such as `net.query`, `net.query_collection`
-     * or `net.wait_for_collection`.
+     * This function requests the corresponding block, checks block proofs, ensures
+     * that given transaction exists in the proven block and compares given data
+     * with the proven. If the given data differs from the proven, the exception
+     * will be thrown. The input parameter is a single transaction's JSON object
+     * (see params description), which was queried from TONOS API using functions
+     * such as `net.query`, `net.query_collection` or `net.wait_for_collection`.
      * 
-     * If transaction's BOC and/or `block_id` are not provided in the JSON, they will be queried from
-     * TONOS API.
+     * If transaction's BOC and/or `block_id` are not provided in the JSON, they
+     * will be queried from TONOS API.
      * 
-     * Please note, that joins (like `account`, `in_message`, `out_messages`, etc. in `Transaction`
-     * entity) are separated entities and not supported, so function will throw an exception in a case
-     * if JSON being checked has such entities in it.
+     * Please note, that joins (like `account`, `in_message`, `out_messages`, etc.
+     * in `Transaction` entity) are separated entities and not supported, so
+     * function will throw an exception in a case if JSON being checked has such
+     * entities in it.
      * 
-     * For more information about proofs checking, see description of `proof_block_data` function.
+     * For more information about proofs checking, see description of
+     * `proof_block_data` function.
      * 
      * @param {ParamsOfProofTransactionData} params
      * @returns 
@@ -11619,21 +11924,23 @@ export class ProofsModule {
      * Proves that a given transaction's data, which is queried from TONOS API, can be trusted.
      * 
      * @remarks
-     * This function requests the corresponding block, checks block proofs, ensures that given
-     * transaction exists in the proven block and compares given data with the proven.
-     * If the given data differs from the proven, the exception will be thrown.
-     * The input parameter is a single transaction's JSON object (see params description),
-     * which was queried from TONOS API using functions such as `net.query`, `net.query_collection`
-     * or `net.wait_for_collection`.
+     * This function requests the corresponding block, checks block proofs, ensures
+     * that given transaction exists in the proven block and compares given data
+     * with the proven. If the given data differs from the proven, the exception
+     * will be thrown. The input parameter is a single transaction's JSON object
+     * (see params description), which was queried from TONOS API using functions
+     * such as `net.query`, `net.query_collection` or `net.wait_for_collection`.
      * 
-     * If transaction's BOC and/or `block_id` are not provided in the JSON, they will be queried from
-     * TONOS API.
+     * If transaction's BOC and/or `block_id` are not provided in the JSON, they
+     * will be queried from TONOS API.
      * 
-     * Please note, that joins (like `account`, `in_message`, `out_messages`, etc. in `Transaction`
-     * entity) are separated entities and not supported, so function will throw an exception in a case
-     * if JSON being checked has such entities in it.
+     * Please note, that joins (like `account`, `in_message`, `out_messages`, etc.
+     * in `Transaction` entity) are separated entities and not supported, so
+     * function will throw an exception in a case if JSON being checked has such
+     * entities in it.
      * 
-     * For more information about proofs checking, see description of `proof_block_data` function.
+     * For more information about proofs checking, see description of
+     * `proof_block_data` function.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
@@ -11650,21 +11957,24 @@ export class ProofsModule {
      * Proves that a given message's data, which is queried from TONOS API, can be trusted.
      * 
      * @remarks
-     * This function first proves the corresponding transaction, ensures that the proven transaction
-     * refers to the given message and compares given data with the proven.
-     * If the given data differs from the proven, the exception will be thrown.
-     * The input parameter is a single message's JSON object (see params description),
-     * which was queried from TONOS API using functions such as `net.query`, `net.query_collection`
-     * or `net.wait_for_collection`.
+     * This function first proves the corresponding transaction, ensures that the
+     * proven transaction refers to the given message and compares given data with
+     * the proven. If the given data differs from the proven, the exception will be
+     * thrown. The input parameter is a single message's JSON object (see params
+     * description), which was queried from TONOS API using functions such as
+     * `net.query`, `net.query_collection` or `net.wait_for_collection`.
      * 
-     * If message's BOC and/or non-null `src_transaction.id` or `dst_transaction.id` are not provided
-     * in the JSON, they will be queried from TONOS API.
+     * If message's BOC and/or non-null `src_transaction.id` or
+     * `dst_transaction.id` are not provided in the JSON, they will be queried from
+     * TONOS API.
      * 
-     * Please note, that joins (like `block`, `dst_account`, `dst_transaction`, `src_account`,
-     * `src_transaction`, etc. in `Message` entity) are separated entities and not supported,
-     * so function will throw an exception in a case if JSON being checked has such entities in it.
+     * Please note, that joins (like `block`, `dst_account`, `dst_transaction`,
+     * `src_account`, `src_transaction`, etc. in `Message` entity) are separated
+     * entities and not supported, so function will throw an exception in a case if
+     * JSON being checked has such entities in it.
      * 
-     * For more information about proofs checking, see description of `proof_block_data` function.
+     * For more information about proofs checking, see description of
+     * `proof_block_data` function.
      * 
      * @param {ParamsOfProofMessageData} params
      * @returns 
@@ -11677,21 +11987,24 @@ export class ProofsModule {
      * Proves that a given message's data, which is queried from TONOS API, can be trusted.
      * 
      * @remarks
-     * This function first proves the corresponding transaction, ensures that the proven transaction
-     * refers to the given message and compares given data with the proven.
-     * If the given data differs from the proven, the exception will be thrown.
-     * The input parameter is a single message's JSON object (see params description),
-     * which was queried from TONOS API using functions such as `net.query`, `net.query_collection`
-     * or `net.wait_for_collection`.
+     * This function first proves the corresponding transaction, ensures that the
+     * proven transaction refers to the given message and compares given data with
+     * the proven. If the given data differs from the proven, the exception will be
+     * thrown. The input parameter is a single message's JSON object (see params
+     * description), which was queried from TONOS API using functions such as
+     * `net.query`, `net.query_collection` or `net.wait_for_collection`.
      * 
-     * If message's BOC and/or non-null `src_transaction.id` or `dst_transaction.id` are not provided
-     * in the JSON, they will be queried from TONOS API.
+     * If message's BOC and/or non-null `src_transaction.id` or
+     * `dst_transaction.id` are not provided in the JSON, they will be queried from
+     * TONOS API.
      * 
-     * Please note, that joins (like `block`, `dst_account`, `dst_transaction`, `src_account`,
-     * `src_transaction`, etc. in `Message` entity) are separated entities and not supported,
-     * so function will throw an exception in a case if JSON being checked has such entities in it.
+     * Please note, that joins (like `block`, `dst_account`, `dst_transaction`,
+     * `src_account`, `src_transaction`, etc. in `Message` entity) are separated
+     * entities and not supported, so function will throw an exception in a case if
+     * JSON being checked has such entities in it.
      * 
-     * For more information about proofs checking, see description of `proof_block_data` function.
+     * For more information about proofs checking, see description of
+     * `proof_block_data` function.
      * 
      * NOTE: Available only for `lib-node` binding.
      * 
