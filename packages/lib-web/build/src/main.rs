@@ -19,7 +19,7 @@ fn fix_wrapper_script(wrapper: String) -> String {
     let mut wrapper = wrapper;
     for (exp, rep) in &[
         ("\nexport function ", "\nfunction "),
-        ("\nexport default init;\n", ""),
+        ("\nexport default __wbg_init;\n", ""),
         ("export \\{ initSync \\}", ""),
         (
             "\n\\s*input\\s*=\\s*new\\s+URL\\('[a-z_]+\\.wasm',\\s*import\\.meta\\.url\\);\n",
@@ -58,8 +58,11 @@ fn main() {
     let builder = Build::new();
     let lib_dir = builder.package_dir.join("lib");
     std::env::set_current_dir(&lib_dir).unwrap();
-    exec("cargo", &["install", "wasm-pack", "--version", "0.13.0"]);
-    assert!(exec("wasm-pack", &["build", "--release", "--target", "web"]).success());
+    let target = "web";
+    // let target = "bundler";
+    // let target = "no-modules";
+    exec("cargo", &["install", "wasm-pack"]);
+    assert!(exec("wasm-pack", &["build", "--release", "--target", target]).success());
     let pkg = lib_dir.join("pkg");
     builder.add_package_file("tvmsdk.wasm", pkg.join("tvmsdk_bg.wasm"));
     let fixed_wrapper_script = fix_wrapper_script(builder.read_lib_file("pkg/tvmsdk.js"));

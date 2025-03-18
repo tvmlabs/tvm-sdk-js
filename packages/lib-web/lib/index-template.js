@@ -160,10 +160,16 @@ function withSeparateWorker() {
     });
 }
 
+let init = () => { throw "init is not initialized" }
+
 function withoutSeparateWorker() {
 //****************************************************************** WRAPPER BEGIN
 //---WRAPPER
 //****************************************************************** WRAPPER END
+
+    (() => {
+        init = __wbg_init;
+    })();
     function replaceUndefinedWithNulls(value) {
         if (value === undefined) {
             return null;

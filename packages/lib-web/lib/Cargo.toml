@@ -1,7 +1,7 @@
 [package]
 name = 'tvm_sdk_wasm_module'
 version = '2.0.0'
-edition = '2018'
+edition = '2021'
 description = 'TON Client WASM binding'
 license = 'Apache-2.0'
 
@@ -28,16 +28,19 @@ lazy_static = '1.4.0'
 # just to fix building of rand for WASM:
 getrandom = { default-features = false, features = [ 'js' ], version = '0.2.2' }
 
+# upstream issue: https://github.com/gyscos/zstd-rs/issues/269
+zstd-sys = { version = "=2.0.9", optional = true, default-features = false }
+tokio = { version = "1", default-features = false, features = ["rt"] }
 tvm_client = { default-features = false, features = [ 'wasm' ], git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.0.2.an'}
 
 [dependencies.web-sys]
 version = '0.3.57'
 features = [ 'Blob' ]
 
-# The recrypt Ed25519 library that we use (https://github.com/dalek-cryptography/ed25519-dalek) depends on this clear_on_drop
-# crate (https://github.com/cesarb/clear_on_drop). That crate, by default, implements code via C to clear memory. That doesn't
-# work in WASM. However, they have a feature to turn off requiring C which we're enabling here. This allows our WASM bindings to enable
-# this feature without having to change the default for our recrypt-rust crate.
-[dependencies.clear_on_drop]
-version = '0.2'
-features = [ 'no_cc' ]
+# # The recrypt Ed25519 library that we use (https://github.com/dalek-cryptography/ed25519-dalek) depends on this clear_on_drop
+# # crate (https://github.com/cesarb/clear_on_drop). That crate, by default, implements code via C to clear memory. That doesn't
+# # work in WASM. However, they have a feature to turn off requiring C which we're enabling here. This allows our WASM bindings to enable
+# # this feature without having to change the default for our recrypt-rust crate.
+# [dependencies.clear_on_drop]
+# version = '0.2'
+# features = [ 'no_cc' ]
