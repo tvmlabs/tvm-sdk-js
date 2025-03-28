@@ -7467,6 +7467,11 @@ export type ResultOfSendMessage = {
     tx_hash?: string,
 
     /**
+     * Returned values
+     */
+    return_value?: any,
+
+    /**
      * The flag is set either if there is no action phase or if the action phase was unsuccessful.
      */
     aborted?: boolean,
