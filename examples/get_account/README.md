@@ -10,6 +10,15 @@ Install dependencies:
 npm install
 ```
 
+Build `tvmsdk.node` binary and copy it into `node_modules/@tvmsdk/lib-node/` directory:
+
+```
+cd ../../packages/lib-node/build
+cargo run
+cd ../../../examples/get_account
+cp ../../packages/lib-node/tvmsdk.node node_modules/@tvmsdk/lib-node/
+```
+
 Run the example with the address of the BlockManager as an argument:
 
 ```bash
