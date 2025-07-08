@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - core (Acki-Nacki)
+### New
+- Account module with `get_account` function tht returns BOC
+  
 ## [2.0.2] – core (Acki-Nacki)
 
 ### Fixed
