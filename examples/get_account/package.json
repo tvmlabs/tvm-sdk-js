@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@tvmsdk/core": "file:../packages/core",
-    "@tvmsdk/lib-node": "file:../packages/lib-node",
+    "@tvmsdk/core": "file:../../packages/core",
+    "@tvmsdk/lib-node": "file:../../packages/lib-node",
     "assert": "^2.1.0"
   },
   "author": "",
