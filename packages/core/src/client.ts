@@ -11,9 +11,9 @@
  * limitations under the License.
  *
  */
-
 import {
     AbiModule,
+    AccountModule,
     BocModule,
     ClientConfig,
     ClientModule,
@@ -59,6 +59,7 @@ export class TvmClient {
     readonly client: ClientModule;
     readonly crypto: CryptoModule;
     readonly abi: AbiModule;
+    readonly account: AccountModule;
     readonly boc: BocModule;
     readonly processing: ProcessingModule;
     readonly utils: UtilsModule;
@@ -75,6 +76,7 @@ export class TvmClient {
         this.client = new ClientModule(this);
         this.crypto = new CryptoModule(this);
         this.abi = new AbiModule(this);
+        this.account = new AccountModule(this);
         this.boc = new BocModule(this);
         this.processing = new ProcessingModule(this);
         this.utils = new UtilsModule(this);
