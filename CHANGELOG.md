@@ -1,9 +1,9 @@
 All notable changes to this project will be documented in this file.
 ## [2.1.2] -  – lib-node (Acki-Nacki)
 
-### WHATS NEW?
--  ?
-
+### Fixed
+- mvreward
+- Set big minstake
 
 ## [2.1.1] - core (Acki-Nacki)
 ### New
