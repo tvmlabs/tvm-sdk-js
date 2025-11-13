@@ -1,6 +1,6 @@
 [package]
 name = 'tvm_sdk_node_addon'
-version = '2.0.2'
+version = '2.0.3'
 authors = ['TVM Labs']
 license = 'Apache-2.0'
 
@@ -10,7 +10,7 @@ crate-type = ['staticlib']
 
 [dependencies]
 libc = '0.2'
-tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.18.3.an', default-features = false, features = [
+tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.24.5', default-features = false, features = [
     'std',
     'rustls-tls-webpki-roots',
 ] }
