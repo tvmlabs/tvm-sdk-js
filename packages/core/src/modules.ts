@@ -620,7 +620,11 @@ export type ParamsOfGetAccount = {
 
 export type ResultOfGetAccount = {
 
-    boc: string
+    boc: string,
+
+    dapp_id?: string,
+
+    state_timestamp?: bigint
 }
 
 /**

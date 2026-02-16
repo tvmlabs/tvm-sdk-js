@@ -1,5 +1,11 @@
 All notable changes to this project will be documented in this file.
 
+## [2.1.2] - core (Acki-Nacki)
+### New
+Two new properties have been added to the ResultOfGetAccount:
+    - dapp_id?: string,
+    - state_timestamp?: bigint
+
 ## [2.1.1] - core (Acki-Nacki)
 ### New
 - Account module with `get_account` function tht returns BOC
