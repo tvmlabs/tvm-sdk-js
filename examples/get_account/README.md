@@ -4,19 +4,17 @@ This is a simple example demonstrating how to execute `account.get_account` and 
 
 ## Usage
 
-Install dependencies:
-
-```bash
-npm install
-```
-
-Build `tvmsdk.node` binary and copy it into `node_modules/@tvmsdk/lib-node/` directory:
+Build `tvmsdk.node` binary
 
 ```
 cd ../../packages/lib-node/build
 cargo run
-cd ../../../examples/get_account
-cp ../../packages/lib-node/tvmsdk.node node_modules/@tvmsdk/lib-node/
+```
+
+Install dependencies:
+
+```bash
+npm install
 ```
 
 Run the example with the address of the BlockManager as an argument:
@@ -24,7 +22,11 @@ Run the example with the address of the BlockManager as an argument:
 ```bash
 node index.js <scheme://host>
 ```
+For example, on the main network, this address will be forwarded to the BlockManager instance:
 
+```
+  node index.js https://mainnet.ackinacki.org
+```
 **Note:** The `<scheme://host>` argument must point to a running BlockManager instance.
 
 ### Example (using local network)
@@ -52,7 +54,7 @@ Executing `net.query`.
 Response: {
   info: {
     balance: '0x8ac7230489e80000',
-    address: '0:1111111111111111111111111111111111111111111111111111111111111111'
+    address: '0:7777777777777777777777777777777777777777777777777777777777777777'
   }
 }
 ```

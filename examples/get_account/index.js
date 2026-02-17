@@ -21,7 +21,7 @@ TvmClient.useBinaryLibrary(libNode);
         console.log("Executing `account.get_account`.");
 
         let params = {
-            address: "0:1111111111111111111111111111111111111111111111111111111111111111"
+            address: "0:7777777777777777777777777777777777777777777777777777777777777777"
         };
         let response = await client.account.get_account(params);
         console.log(`Response:`, response);
@@ -32,7 +32,7 @@ TvmClient.useBinaryLibrary(libNode);
             query: `{
                         blockchain {
                             account(
-                                address: "0:1111111111111111111111111111111111111111111111111111111111111111"
+                                address: "0:7777777777777777777777777777777777777777777777777777777777777777"
                             ) {
                                 info {
                                     balance
@@ -45,7 +45,7 @@ TvmClient.useBinaryLibrary(libNode);
         response = await client.net.query(params);
         console.log(`Response:`, response.result.data.blockchain.account);
         let { address } = response.result.data.blockchain.account.info;
-        assert(address, "0:1111111111111111111111111111111111111111111111111111111111111111")
+        assert(address, "0:7777777777777777777777777777777777777777777777777777777777777777")
 
         client.close()
 
