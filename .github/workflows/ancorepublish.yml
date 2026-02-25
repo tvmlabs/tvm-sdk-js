@@ -15,25 +15,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '16.x'
 
       - name: Force clean npm config (no legacy token)
         run: |
-          echo "" > /tmp/clean-npmrc
-          echo "registry=https://registry.npmjs.org/" >> /tmp/clean-npmrc
-          echo "always-auth=false" >> /tmp/clean-npmrc
+          cat > /tmp/clean-npmrc <<'EOF'
+          registry=https://registry.npmjs.org/
+          always-auth=false
+          EOF
           echo "NPM_CONFIG_USERCONFIG=/tmp/clean-npmrc" >> $GITHUB_ENV
-          npm config delete //registry.npmjs.org/:_authToken --location=user || true
-          npm config delete _auth --location=user || true
+          rm -f ~/.npmrc || true
 
       - name: Debug npm auth (safe)
         run: |
-          npm config get userconfig
-          npm whoami || true
+          echo "userconfig=$(npm config get userconfig)"
+          env | grep -E 'NPM_TOKEN|NODE_AUTH_TOKEN|NPM_CONFIG_USERCONFIG' || true
           npm config list -l | grep -i auth || true
+          npm whoami || true
 
       - name: Core
         working-directory: ./packages/core
-        run: npm publish --access public --provenance    
+        env:
+          NODE_AUTH_TOKEN: ""
+          NPM_TOKEN: ""
+        run: npm publish --access public --provenance
