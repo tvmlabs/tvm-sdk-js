@@ -20,6 +20,12 @@ jobs:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
 
+      - name: Debug npm auth (safe)
+        run: |
+          npm whoami || true
+          npm config get userconfig
+          npm config list -l | grep -i auth || true
+          
       - name: Core
         run: npm publish --access public
         working-directory: ./packages/core
