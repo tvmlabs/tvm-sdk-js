@@ -1,42 +1,37 @@
-name: acki nacki core publish
+name: Publish core on release
 
 on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
-  publish-npm:
+  publish:
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'an.core')
-
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
 
-      - name: Force clean npm config (no legacy token)
+      - name: Ensure no npm legacy auth
         run: |
-          cat > /tmp/clean-npmrc <<'EOF'
-          registry=https://registry.npmjs.org/
-          always-auth=false
-          EOF
-          echo "NPM_CONFIG_USERCONFIG=/tmp/clean-npmrc" >> $GITHUB_ENV
-          rm -f ~/.npmrc || true
+          echo '' > ~/.npmrc
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm config delete _auth || true
 
-      - name: Debug npm auth (safe)
+      - name: Show versions
         run: |
-          echo "userconfig=$(npm config get userconfig)"
-          env | grep -E 'NPM_TOKEN|NODE_AUTH_TOKEN|NPM_CONFIG_USERCONFIG' || true
-          npm config list -l | grep -i auth || true
-          npm whoami || true
+          node -v
+          npm -v
 
-      - name: Core
+      - name: Publish core
         working-directory: ./packages/core
         env:
           NODE_AUTH_TOKEN: ""
