@@ -10,7 +10,7 @@ jobs:
     if: endsWith(github.ref, 'an.core')
 
     permissions:
-      contents: write
+      contents: read
       id-token: write
 
     steps:
@@ -27,6 +27,6 @@ jobs:
           npm config list -l | grep -i auth || true
           
       - name: Core
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         working-directory: ./packages/core
 
