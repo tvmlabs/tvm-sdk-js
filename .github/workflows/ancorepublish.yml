@@ -18,12 +18,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '16.x'
-          registry-url: https://registry.npmjs.org/
 
-      - name: Clean npm auth sources
+      - name: Force clean npm config (no legacy token)
         run: |
-          rm -f ~/.npmrc
-          env | grep -E 'NPM_TOKEN|NODE_AUTH_TOKEN' || true
+          echo "" > /tmp/clean-npmrc
+          echo "registry=https://registry.npmjs.org/" >> /tmp/clean-npmrc
+          echo "always-auth=false" >> /tmp/clean-npmrc
+          echo "NPM_CONFIG_USERCONFIG=/tmp/clean-npmrc" >> $GITHUB_ENV
+          npm config delete //registry.npmjs.org/:_authToken --location=user || true
+          npm config delete _auth --location=user || true
 
       - name: Debug npm auth (safe)
         run: |
