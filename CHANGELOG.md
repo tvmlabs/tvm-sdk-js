@@ -1,6 +1,6 @@
 All notable changes to this project will be documented in this file.
 
-## [2.1.2] - core (Acki-Nacki)
+## [2.2.0] - core (Acki-Nacki) – 2026-02-25
 ### New
 Two new properties have been added to the ResultOfGetAccount:
     - dapp_id?: string,
