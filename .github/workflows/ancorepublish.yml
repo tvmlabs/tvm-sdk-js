@@ -18,6 +18,4 @@ jobs:
       - name: Core
         run: npm publish --access public
         working-directory: ./packages/core
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
