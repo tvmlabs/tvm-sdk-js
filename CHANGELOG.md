@@ -1,5 +1,25 @@
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - core, lib-node (Acki-Nacki) – 2026-10-09
+### Breaking
+- Built on tvm-sdk 3.0.6, which speaks only the current node protocol: accounts
+  are addressed by `account_id` together with `dapp_id`. Nodes older than 1.0.0
+  are not supported.
+- `account.get_account` takes `account_id` and `dapp_id` instead of `address`.
+  `ResultOfGetAccount` always returns `dapp_id` and also returns `account_id`.
+- `processing.send_message` and `processing.process_message` take the
+  destination `dapp_id`, which the node requires.
+
+### New
+- `ResultOfSendMessage` returns the destination `account_id` and `dapp_id`.
+- `ParamsOfWaitForTransaction` accepts the `tx_hash` returned by `send_message`;
+  `shard_block_id` is optional and no longer used.
+- `ProcessingErrorCode.DappIdRequired` (518).
+
+### Fixed
+- lib-node: the addon builds on stable Rust and against Node.js 22 headers.
+- The documented default HD derivation path is `m/44'/1331'/0'/0/0`.
+
 ## [2.2.0] - core (Acki-Nacki) – 2026-02-25
 ### New
 Two new properties have been added to the ResultOfGetAccount:

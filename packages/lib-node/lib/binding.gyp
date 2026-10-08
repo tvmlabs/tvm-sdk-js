@@ -13,6 +13,14 @@
     {
       'target_name': 'tvmsdk',
       'sources': ['binding.cc'],
+      # binding.cc defines NAPI_EXPERIMENTAL; with newer Node.js headers that
+      # switches finalizers to node_api_basic_env (earlier named nogc_env),
+      # which the `unload` finalizer does not take. Opting out under both names
+      # keeps the classic signature; headers without the change ignore them.
+      'defines': [
+        'NODE_API_EXPERIMENTAL_BASIC_ENV_OPT_OUT',
+        'NODE_API_EXPERIMENTAL_NOGC_ENV_OPT_OUT',
+      ],
       'conditions': [
         ['OS == "win"', {
           'libraries': [

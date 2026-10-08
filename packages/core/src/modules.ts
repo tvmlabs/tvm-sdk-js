@@ -275,7 +275,7 @@ export type CryptoConfig = {
     mnemonic_word_count?: number,
 
     /**
-     * Derivation path that will be used by default in crypto functions. If not specified `m/44'/396'/0'/0/0` will be used.
+     * Derivation path that will be used by default in crypto functions. If not specified `m/44'/1331'/0'/0/0` will be used.
      */
     hdkey_derivation_path?: string
 }
@@ -615,16 +615,29 @@ export enum AccountErrorCode {
 
 export type ParamsOfGetAccount = {
 
-    address: string
+    /**
+     * Account ID as a 64-character hex string (no 0x, no workchain).
+     */
+    account_id: string,
+
+    /**
+     * Dapp ID as a 64-character hex string (no 0x).
+     * 
+     * @remarks
+     * Required.
+     */
+    dapp_id: string
 }
 
 export type ResultOfGetAccount = {
 
     boc: string,
 
-    dapp_id?: string,
+    dapp_id: string,
 
-    state_timestamp?: bigint
+    state_timestamp?: bigint,
+
+    account_id: string
 }
 
 /**
@@ -708,7 +721,7 @@ export type EncryptionBoxHandle = number
 export type EncryptionBoxInfo = {
 
     /**
-     * Derivation path, for instance "m/44'/396'/0'/0/0"
+     * Derivation path, for instance "m/44'/1331'/0'/0/0"
      */
     hdpath?: string,
 
@@ -1674,7 +1687,7 @@ export type ParamsOfMnemonicDeriveSignKeys = {
     phrase: string,
 
     /**
-     * Derivation path, for instance "m/44'/396'/0'/0/0"
+     * Derivation path, for instance "m/44'/1331'/0'/0/0"
      */
     path?: string,
 
@@ -1749,7 +1762,7 @@ export type ParamsOfHDKeyDeriveFromXPrvPath = {
     xprv: string,
 
     /**
-     * Derivation path, for instance "m/44'/396'/0'/0/0"
+     * Derivation path, for instance "m/44'/1331'/0'/0/0"
      */
     path: string
 }
@@ -6761,7 +6774,8 @@ export enum ProcessingErrorCode {
     MessageRejected = 514,
     InvalidRempStatus = 515,
     NextRempStatusTimeout = 516,
-    InvalidThread = 517
+    InvalidThread = 517,
+    DappIdRequired = 518
 }
 
 /**
@@ -7534,7 +7548,15 @@ export type ParamsOfSendMessage = {
     /**
      * Flag for requesting events sending. Default is `false`.
      */
-    send_events?: boolean
+    send_events?: boolean,
+
+    /**
+     * Destination dapp_id (64-character hex, no 0x).
+     * 
+     * @remarks
+     * Required.
+     */
+    dapp_id?: string
 }
 
 export type ResultOfSendMessage = {
@@ -7582,7 +7604,24 @@ export type ResultOfSendMessage = {
     /**
      * The timestamp of generating this response.
      */
-    current_time?: string
+    current_time?: string,
+
+    /**
+     * Destination account_id (64-hex, no workchain).
+     * 
+     * @remarks
+     * Always populated: from the server response, or derived from the message destination if the
+     * server omits it.
+     */
+    account_id?: string,
+
+    /**
+     * Destination dapp_id (64-hex).
+     * 
+     * @remarks
+     * Always populated: from the server response, or mirrored from the request if the server omits it.
+     */
+    dapp_id?: string
 }
 
 export type ParamsOfWaitForTransaction = {
@@ -7610,9 +7649,9 @@ export type ParamsOfWaitForTransaction = {
      * The last generated block id of the destination account shard before the message was sent.
      * 
      * @remarks
-     * You must provide the same value as the `send_message` has returned.
+     * Deprecated: no longer used. Block walking has been removed.
      */
-    shard_block_id: string,
+    shard_block_id?: string,
 
     /**
      * Flag that enables/disables intermediate events. Default is `false`.
@@ -7628,7 +7667,12 @@ export type ParamsOfWaitForTransaction = {
      * If the message was not delivered (expired), SDK will log the endpoint
      * URLs, used for its sending.
      */
-    sending_endpoints?: string[]
+    sending_endpoints?: string[],
+
+    /**
+     * Transaction hash returned by `send_message`. Used to poll for the transaction directly by hash.
+     */
+    tx_hash?: string | null
 }
 
 export type ParamsOfProcessMessage = {
@@ -7641,7 +7685,15 @@ export type ParamsOfProcessMessage = {
     /**
      * Flag for requesting events sending. Default is `false`.
      */
-    send_events?: boolean
+    send_events?: boolean,
+
+    /**
+     * Destination dapp_id (64-character hex, no 0x).
+     * 
+     * @remarks
+     * Required.
+     */
+    dapp_id?: string
 }
 
 /**

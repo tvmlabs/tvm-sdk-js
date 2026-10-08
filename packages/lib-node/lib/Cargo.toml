@@ -1,6 +1,6 @@
 [package]
 name = 'tvm_sdk_node_addon'
-version = '2.0.2'
+version = '3.0.0'
 authors = ['TVM Labs']
 license = 'Apache-2.0'
 
@@ -10,10 +10,27 @@ crate-type = ['staticlib']
 
 [dependencies]
 libc = '0.2'
-tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.24.9.an', default-features = false, features = [
+tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v3.0.6.an', default-features = false, features = [
     'std',
     'rustls-tls-webpki-roots',
 ] }
 
 [profile.release]
 lto = true
+
+# Copies of the [patch] sections from the root Cargo.toml of tvm-sdk at the tag
+# above. Cargo applies patches only from the top-level manifest, so a crate that
+# depends on tvm_client has to repeat them: without these, the build pulls the
+# upstream halo2 / axiom-eth crates, which need nightly Rust. Keep them in sync
+# whenever the tvm_client tag changes.
+[patch.crates-io]
+halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+halo2-axiom = { git = 'https://github.com/gosh-sh/halo2-axiom', branch = 'main' }
+
+[patch.'https://github.com/axiom-crypto/halo2-lib.git']
+halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+halo2-ecc = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+zkevm-hashes = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+
+[patch.'https://github.com/axiom-crypto/axiom-eth']
+axiom-eth = { git = 'https://github.com/gosh-sh/axiom-eth', rev = '1d61be00a63ec73b3f709d74eb9e6b09b754b911' }
