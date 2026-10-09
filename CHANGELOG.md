@@ -7,13 +7,13 @@ All notable changes to this project will be documented in this file.
   are not supported.
 - `account.get_account` takes `account_id` and `dapp_id` instead of `address`.
   `ResultOfGetAccount` always returns `dapp_id` and also returns `account_id`.
-- `processing.send_message` and `processing.process_message` take the
-  destination `dapp_id`, which the node requires.
+- `processing.send_message` and `processing.process_message` require the
+  destination `dapp_id`.
+- `processing.wait_for_transaction` requires the `tx_hash` returned by
+  `send_message`; `shard_block_id` is optional and no longer used.
 
 ### New
 - `ResultOfSendMessage` returns the destination `account_id` and `dapp_id`.
-- `ParamsOfWaitForTransaction` accepts the `tx_hash` returned by `send_message`;
-  `shard_block_id` is optional and no longer used.
 - `ProcessingErrorCode.DappIdRequired` (518).
 
 ### Fixed

@@ -7556,7 +7556,7 @@ export type ParamsOfSendMessage = {
      * @remarks
      * Required.
      */
-    dapp_id?: string
+    dapp_id: string
 }
 
 export type ResultOfSendMessage = {
@@ -7672,7 +7672,7 @@ export type ParamsOfWaitForTransaction = {
     /**
      * Transaction hash returned by `send_message`. Used to poll for the transaction directly by hash.
      */
-    tx_hash?: string | null
+    tx_hash: string
 }
 
 export type ParamsOfProcessMessage = {
@@ -7693,7 +7693,7 @@ export type ParamsOfProcessMessage = {
      * @remarks
      * Required.
      */
-    dapp_id?: string
+    dapp_id: string
 }
 
 /**
