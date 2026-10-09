@@ -13,6 +13,8 @@ libc = '0.2'
 tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v3.0.6.an', default-features = false, features = [
     'std',
     'rustls-tls-webpki-roots',
+    # API metadata: client.get_api_reference and hints for invalid parameters
+    'api_info',
 ] }
 
 [profile.release]
