@@ -7671,8 +7671,11 @@ export type ParamsOfWaitForTransaction = {
 
     /**
      * Transaction hash returned by `send_message`. Used to poll for the transaction directly by hash.
+     * 
+     * @remarks
+     * Required: without it the call fails with `ProcessingErrorCode.InvalidData`.
      */
-    tx_hash: string
+    tx_hash?: string | null
 }
 
 export type ParamsOfProcessMessage = {

@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file.
 - `processing.send_message` and `processing.process_message` require the
   destination `dapp_id`.
 - `processing.wait_for_transaction` requires the `tx_hash` returned by
-  `send_message`; `shard_block_id` is optional and no longer used.
+  `send_message` and fails with `InvalidData` (512) without it. The field stays
+  optional in the type, like `ResultOfSendMessage.tx_hash`. `shard_block_id` is
+  optional and no longer used.
 
 ### New
 - `ResultOfSendMessage` returns the destination `account_id` and `dapp_id`.
