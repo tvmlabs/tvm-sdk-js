@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 - Built on tvm-sdk 3.0.6, which speaks only the current node protocol: accounts
   are addressed by `account_id` together with `dapp_id`. Nodes older than 1.0.0
   are not supported.
+- lib-web is still built on tvm-sdk 2.0.2 and does not work with core 3.0.0:
+  it has no `account` module, drops `dapp_id` and requires `shard_block_id`.
+  Web users should stay on core 2.x.
+- The default HD derivation path changed from `m/44'/396'/0'/0/0` to
+  `m/44'/1331'/0'/0/0`. `crypto.mnemonic_derive_sign_keys` without `path` and
+  crypto boxes without `hdpath` derive different keys from the same seed
+  phrase. To keep the old keys, pass `"m/44'/396'/0'/0/0"` as `path`/`hdpath`
+  or set `crypto.hdkey_derivation_path` in the client config.
 - `account.get_account` takes `account_id` and `dapp_id` instead of `address`.
   `ResultOfGetAccount` always returns `dapp_id` and also returns `account_id`.
 - `processing.send_message` and `processing.process_message` require the
@@ -18,7 +26,6 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - lib-node: the addon builds on stable Rust and against Node.js 22 headers.
-- The documented default HD derivation path is `m/44'/1331'/0'/0/0`.
 
 ## [2.2.0] - core (Acki-Nacki) – 2026-02-25
 ### New
