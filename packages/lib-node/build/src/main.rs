@@ -15,8 +15,15 @@
 use ton_client_build::{exec, Build};
 
 fn main() {
+    // Build from the committed lib/Cargo.lock: several git dependencies track
+    // branches. This runs before Build::new(), whose `cargo metadata` call would
+    // otherwise rewrite a lockfile that no longer matches lib/Cargo.toml.
+    assert!(exec(
+        "cargo",
+        &["build", "--release", "--locked", "--manifest-path", "../lib/Cargo.toml"]
+    )
+    .success());
     let builder = Build::new();
-    assert!(exec("cargo", &["build", "--release"]).success());
 
     #[cfg(target_os = "windows")]
     let (lib, gyp, gyp_args) = ("tvmsdk.lib", "cmd", ["/c", "node-gyp", "rebuild"]);

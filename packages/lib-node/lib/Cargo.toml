@@ -25,6 +25,12 @@ lto = true
 # depends on tvm_client has to repeat them: without these, the build pulls the
 # upstream halo2 / axiom-eth crates, which need nightly Rust. Keep them in sync
 # whenever the tvm_client tag changes.
+#
+# The branch-tracking git dependencies are pinned by the committed Cargo.lock;
+# build/ builds with --locked. Do not switch these patches to `rev`: tvm_vm
+# takes halo2-base from the same `branch` URL, and a different source URL splits
+# halo2-base into two crates. After changing the tag or the patches, run
+# `cargo update -p tvm_client` here and commit Cargo.lock.
 [patch.crates-io]
 halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
 halo2-axiom = { git = 'https://github.com/gosh-sh/halo2-axiom', branch = 'main' }
