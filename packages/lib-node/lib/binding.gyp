@@ -24,7 +24,7 @@
       'conditions': [
         ['OS == "win"', {
           'libraries': [
-            '../eversdk.lib',
+            '../tvmsdk.lib',
             'advapi32.lib',
             'ws2_32.lib',
             'userenv.lib',
