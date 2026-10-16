@@ -7613,7 +7613,7 @@ export type ResultOfSendMessage = {
      * Always populated: from the server response, or derived from the message destination if the
      * server omits it.
      */
-    account_id?: string,
+    account_id: string,
 
     /**
      * Destination dapp_id (64-hex).
@@ -7621,7 +7621,7 @@ export type ResultOfSendMessage = {
      * @remarks
      * Always populated: from the server response, or mirrored from the request if the server omits it.
      */
-    dapp_id?: string
+    dapp_id: string
 }
 
 export type ParamsOfWaitForTransaction = {
@@ -7648,8 +7648,7 @@ export type ParamsOfWaitForTransaction = {
     /**
      * The last generated block id of the destination account shard before the message was sent.
      * 
-     * @remarks
-     * Deprecated: no longer used. Block walking has been removed.
+     * @deprecated No longer used. Block walking has been removed.
      */
     shard_block_id?: string,
 
@@ -7662,10 +7661,8 @@ export type ParamsOfWaitForTransaction = {
      * The list of endpoints to which the message was sent.
      * 
      * @remarks
-     * Use this field to get more informative errors.
-     * Provide the same value as the `send_message` has returned.
-     * If the message was not delivered (expired), SDK will log the endpoint
-     * URLs, used for its sending.
+     * Optional: the SDK only uses it to update delivery statistics of these endpoints.
+     * `send_message` does not return it.
      */
     sending_endpoints?: string[],
 
