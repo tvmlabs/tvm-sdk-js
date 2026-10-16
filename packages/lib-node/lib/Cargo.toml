@@ -27,10 +27,13 @@ lto = true
 # whenever the tvm_client tag changes.
 #
 # The branch-tracking git dependencies are pinned by the committed Cargo.lock;
-# build/ builds with --locked. Do not switch these patches to `rev`: tvm_vm
-# takes halo2-base from the same `branch` URL, and a different source URL splits
-# halo2-base into two crates. After changing the tag or the patches, run
-# `cargo update -p tvm_client` here and commit Cargo.lock.
+# build/ builds with --locked. Do not switch the halo2-base, halo2-ecc,
+# zkevm-hashes or halo2-axiom patches from `branch` to `rev`: tvm_vm takes
+# halo2-base with the same `branch` reference, and a different git reference
+# splits halo2-base into two crates. After changing the tag, run
+# `cargo update -p tvm_client` here: it moves only the tvm-sdk crates. Add
+# `-p halo2-base -p halo2-axiom` to move the forks as well, then check their
+# commits against tvm-sdk's Cargo.lock at that tag. Commit Cargo.lock.
 [patch.crates-io]
 halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
 halo2-axiom = { git = 'https://github.com/gosh-sh/halo2-axiom', branch = 'main' }
