@@ -32,6 +32,7 @@ Jenkinsfile
 /packages/lib-react-native/android/build/intermediates
 /packages/lib-react-native/android/build/outputs
 **/Cargo.lock
+!/packages/lib-node/lib/Cargo.lock
 **/publish/**
 **/target/**
 **/*.tgz

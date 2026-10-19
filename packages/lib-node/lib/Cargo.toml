@@ -1,6 +1,6 @@
 [package]
 name = 'tvm_sdk_node_addon'
-version = '2.0.2'
+version = '3.0.0'
 authors = ['TVM Labs']
 license = 'Apache-2.0'
 
@@ -10,10 +10,44 @@ crate-type = ['staticlib']
 
 [dependencies]
 libc = '0.2'
-tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v2.24.9.an', default-features = false, features = [
+tvm_client = { git = 'https://github.com/tvmlabs/tvm-sdk.git', tag = 'v3.0.6.an', default-features = false, features = [
     'std',
     'rustls-tls-webpki-roots',
+    # API metadata: client.get_api_reference and hints for invalid parameters
+    'api_info',
 ] }
 
 [profile.release]
 lto = true
+
+# Copies of the [patch] sections from the root Cargo.toml of tvm-sdk at the tag
+# above. Cargo applies patches only from the top-level manifest, so a crate that
+# depends on tvm_client has to repeat them: without these, the build pulls the
+# upstream halo2 / axiom-eth crates, which need nightly Rust. Keep them in sync
+# whenever the tvm_client tag changes.
+#
+# The committed Cargo.lock pins every git dependency that tracks a branch:
+# these patches, plus gosh-zk-snark-halo2-utils and poseidon-primitives pulled
+# through tvm_vm. build/ builds with --locked.
+#
+# Keep the patches on `branch`: tvm_vm and gosh-zk-snark-halo2-utils take
+# halo2-base, and the halo2-base fork takes halo2-axiom, with the same `branch`
+# reference. A `rev` is a different git reference: halo2-base splits into two
+# crates, and a halo2-axiom `rev` patch goes unused.
+#
+# After changing the tag, run `cargo update -p tvm_client`, then move every
+# other git source to the commit in tvm-sdk's Cargo.lock at that tag with
+# `cargo update -p <crate> --precise <commit>`. The output of
+#   grep '^source = "git+' Cargo.lock | sort -u
+# must match tvm-sdk's apart from the tvm-sdk line. Commit Cargo.lock.
+[patch.crates-io]
+halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+halo2-axiom = { git = 'https://github.com/gosh-sh/halo2-axiom', branch = 'main' }
+
+[patch.'https://github.com/axiom-crypto/halo2-lib.git']
+halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+halo2-ecc = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+zkevm-hashes = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
+
+[patch.'https://github.com/axiom-crypto/axiom-eth']
+axiom-eth = { git = 'https://github.com/gosh-sh/axiom-eth', rev = '1d61be00a63ec73b3f709d74eb9e6b09b754b911' }

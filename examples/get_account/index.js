@@ -3,6 +3,10 @@ const { libNode } = require("@tvmsdk/lib-node");
 const assert = require('assert');
 TvmClient.useBinaryLibrary(libNode);
 
+// Accounts are addressed by account_id together with the dapp_id they live in.
+const ACCOUNT_ID = "7777777777777777777777777777777777777777777777777777777777777777";
+const DAPP_ID = "0000000000000000000000000000000000000000000000000000000000000000";
+
 
 ; (async () => {
     const endpoint = process.argv[2];
@@ -21,7 +25,8 @@ TvmClient.useBinaryLibrary(libNode);
         console.log("Executing `account.get_account`.");
 
         let params = {
-            address: "0:7777777777777777777777777777777777777777777777777777777777777777"
+            account_id: ACCOUNT_ID,
+            dapp_id: DAPP_ID
         };
         let response = await client.account.get_account(params);
         console.log(`Response:`, response);
@@ -32,11 +37,13 @@ TvmClient.useBinaryLibrary(libNode);
             query: `{
                         blockchain {
                             account(
-                                address: "0:7777777777777777777777777777777777777777777777777777777777777777"
+                                account_id: "${ACCOUNT_ID}"
+                                dapp_id: "${DAPP_ID}"
                             ) {
                                 info {
                                     balance
                                     address
+                                    dapp_id
                                 }
                             }
                         }
@@ -45,11 +52,13 @@ TvmClient.useBinaryLibrary(libNode);
         response = await client.net.query(params);
         console.log(`Response:`, response.result.data.blockchain.account);
         let { address } = response.result.data.blockchain.account.info;
-        assert(address, "0:7777777777777777777777777777777777777777777777777777777777777777")
-
-        client.close()
+        assert.strictEqual(address, ACCOUNT_ID)
 
     } catch (error) {
         console.error('Error:', error);
+        process.exitCode = 1;
+    } finally {
+        // The open client keeps the process alive.
+        client.close()
     }
 })()
