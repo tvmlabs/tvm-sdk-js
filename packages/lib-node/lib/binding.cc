@@ -1,5 +1,3 @@
-#define NAPI_EXPERIMENTAL
-
 #include <assert.h>
 #include <memory.h>
 #include <node_api.h>
