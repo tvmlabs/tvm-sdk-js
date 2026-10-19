@@ -34,9 +34,10 @@ All notable changes to this project will be documented in this file.
   destination `dapp_id` and fail with `ProcessingErrorCode.DappIdRequired`
   (518) without it.
 - `processing.wait_for_transaction` requires the `tx_hash` returned by
-  `send_message` and fails with `ProcessingErrorCode.InvalidData` (512) without
-  it. The `tx_hash` key is required in the type; its value may be `undefined`,
-  so `ResultOfSendMessage.tx_hash` can be passed as is. `shard_block_id` is
+  `send_message`. If it is missing, `null` or `undefined`, the call fails with
+  `ProcessingErrorCode.InvalidData` (512). The `tx_hash` key is required in the
+  type; it accepts `null` and `undefined` only so that
+  `ResultOfSendMessage.tx_hash` can be passed without `!`. `shard_block_id` is
   optional and ignored.
 
 ### New

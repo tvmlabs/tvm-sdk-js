@@ -7,9 +7,10 @@
  * makes these fields optional again, and then this file stops compiling:
  * - dapp_id in ParamsOfSendMessage and ParamsOfProcessMessage: tvm_client
  *   rejects the call without it (ProcessingErrorCode.DappIdRequired).
- * - tx_hash in ParamsOfWaitForTransaction: the call fails without it
- *   (ProcessingErrorCode.InvalidData). The key is required but the value may
- *   be undefined, so ResultOfSendMessage.tx_hash can be passed as is.
+ * - tx_hash in ParamsOfWaitForTransaction: the call fails if it is missing,
+ *   null or undefined (ProcessingErrorCode.InvalidData). The type allows null
+ *   and undefined only so that ResultOfSendMessage.tx_hash can be passed
+ *   without `!`.
  * - account_id and dapp_id in ResultOfSendMessage: send_message always fills
  *   them.
  *
