@@ -54,9 +54,11 @@ const DAPP_ID = "000000000000000000000000000000000000000000000000000000000000000
         let { address } = response.result.data.blockchain.account.info;
         assert.strictEqual(address, ACCOUNT_ID)
 
-        client.close()
-
     } catch (error) {
         console.error('Error:', error);
+        process.exitCode = 1;
+    } finally {
+        // The open client keeps the process alive.
+        client.close()
     }
 })()
