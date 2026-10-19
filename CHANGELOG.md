@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 - Built on tvm-sdk 3.0.6, which speaks only the current node protocol: accounts
   are addressed by `account_id` together with `dapp_id`. Nodes older than 1.0.0
   are not supported.
+- REST requests (`account.get_account`, `processing.send_message`,
+  `processing.process_message`) go to the port of the first endpoint.
+  tvm-sdk 2.x sent them to port 8600 when an `http://` endpoint had no port.
+  If your node serves REST only on 8600, pass `http://host:8600`; GraphQL
+  requests use the same address.
 - lib-web is still built on tvm-sdk 2.0.2 and does not work with core 3.0.0:
-  it has no `account` module, drops `dapp_id` and requires `shard_block_id`.
-  Web users should stay on core 2.x.
+  it silently ignores `dapp_id`, has no `tx_hash` in `wait_for_transaction`,
+  requires `shard_block_id` and derives keys with the old
+  `m/44'/396'/0'/0/0` default. Web users should stay on core 2.x.
 - The default HD derivation path changed from `m/44'/396'/0'/0/0` to
   `m/44'/1331'/0'/0/0`. `crypto.mnemonic_derive_sign_keys` without `path`, and
   `crypto.get_signing_box_from_crypto_box` and
@@ -16,11 +22,13 @@ All notable changes to this project will be documented in this file.
   `"m/44'/396'/0'/0/0"` as `path`/`hdpath` or set
   `crypto.hdkey_derivation_path` in the client config.
 - `account.get_account` takes `account_id` and `dapp_id` instead of `address`.
-  Both are 64 hex characters: `account_id` has no `0:` workchain prefix, and
-  `0:<hex>` is rejected. `ResultOfGetAccount` always returns `dapp_id` and
-  also returns `account_id`.
+  Both are 64 hex characters: `account_id` has no `0:` workchain prefix. A
+  `0:<hex>` value, or an empty or malformed id, fails with
+  `ProcessingErrorCode.InvalidData` (512). `ResultOfGetAccount` always returns
+  `dapp_id` and also returns `account_id`.
 - `processing.send_message` and `processing.process_message` require the
-  destination `dapp_id`.
+  destination `dapp_id` and fail with `ProcessingErrorCode.DappIdRequired`
+  (518) without it.
 - `processing.wait_for_transaction` requires the `tx_hash` returned by
   `send_message` and fails with `InvalidData` (512) without it. The field stays
   optional in the type, like `ResultOfSendMessage.tx_hash`. `shard_block_id` is
@@ -29,10 +37,13 @@ All notable changes to this project will be documented in this file.
 ### New
 - `ResultOfSendMessage` always returns the destination `account_id` (no `0:`
   prefix) and `dapp_id`.
-- `ProcessingErrorCode.DappIdRequired` (518).
+- `ProcessingErrorCode.DappIdRequired` (518), returned only by
+  `processing.send_message` and `processing.process_message`.
 
 ### Fixed
-- lib-node: the addon builds on stable Rust and against Node.js 22 headers.
+- lib-node: the addon builds against Node.js 22 headers.
+- lib-node: the Windows build links `tvmsdk.lib` instead of the old
+  `eversdk.lib`.
 
 ## [2.2.0] - core (Acki-Nacki) – 2026-02-25
 ### New
