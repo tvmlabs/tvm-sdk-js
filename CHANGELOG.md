@@ -6,10 +6,14 @@ All notable changes to this project will be documented in this file.
   are addressed by `account_id` together with `dapp_id`. Nodes older than 1.0.0
   are not supported.
 - REST requests (`account.get_account`, `processing.send_message`,
-  `processing.process_message`) go to the port of the first endpoint.
-  tvm-sdk 2.x sent them to port 8600 when an `http://` endpoint had no port.
-  If your node serves REST only on 8600, pass `http://host:8600`; GraphQL
-  requests use the same address.
+  `processing.process_message`) no longer go to port 8600. tvm-sdk 2.x
+  replaced port 80 with 8600 for `http://` endpoints and endpoints without a
+  scheme, including an explicit `:80` and the default `localhost`. REST now
+  goes to the first endpoint as given; `https://` always uses 443. After a
+  send, `send_message` switches to the first address in the node's
+  `producers` list, and an address without a port now means 80 there too. If
+  your node serves REST only on 8600, list it first and keep the GraphQL
+  address: `endpoints: ["http://host:8600", "http://host"]`.
 - lib-web is still built on tvm-sdk 2.0.2 and does not work with core 3.0.0:
   it silently ignores `dapp_id`, has no `tx_hash` in `wait_for_transaction`,
   requires `shard_block_id` and derives keys with the old
