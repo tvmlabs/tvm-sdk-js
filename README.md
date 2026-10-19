@@ -196,6 +196,8 @@ You can find reference guide to `TonClient` here: [TON-SDK API Documentation](ht
 
 You can build binaries from sources.
 
+lib-node needs Rust 1.89 or newer: its `lib/Cargo.lock` pins crates that require it.
+
 If you install a bridge package from the `npmjs` you can build it with the following commands (e.g. for nodejs):
 ```shell script
 cd node_modules/@eversdk/lib-node/build

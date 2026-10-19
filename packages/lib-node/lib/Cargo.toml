@@ -26,14 +26,20 @@ lto = true
 # upstream halo2 / axiom-eth crates, which need nightly Rust. Keep them in sync
 # whenever the tvm_client tag changes.
 #
-# The branch-tracking git dependencies are pinned by the committed Cargo.lock;
-# build/ builds with --locked. Do not switch the halo2-base, halo2-ecc,
-# zkevm-hashes or halo2-axiom patches from `branch` to `rev`: tvm_vm takes
-# halo2-base with the same `branch` reference, and a different git reference
-# splits halo2-base into two crates. After changing the tag, run
-# `cargo update -p tvm_client` here: it moves only the tvm-sdk crates. Add
-# `-p halo2-base -p halo2-axiom` to move the forks as well, then check their
-# commits against tvm-sdk's Cargo.lock at that tag. Commit Cargo.lock.
+# The committed Cargo.lock pins every git dependency that tracks a branch:
+# these patches, plus gosh-zk-snark-halo2-utils and poseidon-primitives pulled
+# through tvm_vm. build/ builds with --locked.
+#
+# Keep the patches on `branch`: tvm_vm and gosh-zk-snark-halo2-utils take
+# halo2-base, and the halo2-base fork takes halo2-axiom, with the same `branch`
+# reference. A `rev` is a different git reference: halo2-base splits into two
+# crates, and a halo2-axiom `rev` patch goes unused.
+#
+# After changing the tag, run `cargo update -p tvm_client`, then move every
+# other git source to the commit in tvm-sdk's Cargo.lock at that tag with
+# `cargo update -p <crate> --precise <commit>`. The output of
+#   grep '^source = "git+' Cargo.lock | sort -u
+# must match tvm-sdk's apart from the tvm-sdk line. Commit Cargo.lock.
 [patch.crates-io]
 halo2-base = { git = 'https://github.com/gosh-sh/halo2-lib-zkevm-sha256-and-bls12-381', branch = 'bump-halo2-lib-v0.4.1' }
 halo2-axiom = { git = 'https://github.com/gosh-sh/halo2-axiom', branch = 'main' }
